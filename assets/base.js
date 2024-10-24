@@ -164,63 +164,77 @@ document.addEventListener("DOMContentLoaded", function () {
         navToggle.addEventListener("click", toggleNav);
       }
 
-      if (navLinks) {
-        navLinks.forEach((link) => {
-          link.addEventListener("click", () => {
-            // Add your logic for nav link click here
-          });
-        });
-      }
-
       // Append page and section numbers to nav list items
       const navListItems = document.querySelectorAll(".nav__list-item");
 
-      navListItems.forEach((item) => {
+      navListItems.forEach((item, index) => {
         const link = item.querySelector(".nav__list-link");
+        item.classList.add(
+          "border-b",
+          "border-gray-300",
+          "pt-2",
+          "pb-2",
+          "flex",
+          "items-center"
+        );
+        link.classList.add(
+          "flex-grow",
+          "flex",
+          "items-center",
+          "w-full",
+          "h-full",
+          "space-x-2"
+        );
+
+        // Add border top to the first element
+        if (index === 0) {
+          item.classList.add("border-t");
+        }
+
         const href = link.getAttribute("href");
         const pageSectionMatch = href.match(/(\d+)_(\d+)/);
 
         if (pageSectionMatch) {
           const [_, pageNumber, sectionNumber] = pageSectionMatch.map(Number);
-          link.innerText = `Page ${pageNumber + 1}.${sectionNumber + 1}: ${link.innerText}`;
+          link.innerHTML =
+            "<div class='whitespace-normal'><span class='inline' data-id='page'></span><span class='inline'> " +
+            `${pageNumber + 1}.${sectionNumber + 1}: ${link.innerText}` + "</span></div>";
+        }
+
+        if (href === window.location.pathname.split('/').pop()) {
+          item.classList.add("min-h-[3rem]");
+          link.classList.add(
+            "border-l-4",
+            "border-blue-500",
+            "bg-blue-100",
+            "p-2"
+          );
         }
       });
 
       // Set the initial page number
-      const pageSectionMetaTag = document.querySelector('meta[name="page-section-id"]');
+      const pageSectionMetaTag = document.querySelector(
+        'meta[name="page-section-id"]'
+      );
       const pageSectionContent = pageSectionMetaTag.getAttribute("content");
-
       if (pageSectionContent) {
-        const parts = pageSectionContent.split('_').map(Number);
+        const parts = pageSectionContent.split("_").map(Number);
         let humanReadablePage;
       
         if (parts.length === 2) {
           if (parts[1] === 0) {
-            humanReadablePage = `Page ${parts[0] + 1}`;
+            humanReadablePage = "<span data-id='page'></span> " + `${parts[0] + 1}`;
           } else {
-            humanReadablePage = `Page ${parts[0] + 1}.${parts[1] + 1}`;
+            humanReadablePage = "<span data-id='page'></span> " + `${parts[0] + 1}.${parts[1] + 1}`;
           }
         } else {
-          humanReadablePage = `Page ${parts[0] + 1}`;
+          humanReadablePage = "<span data-id='page'></span> " + ` ${parts[0] + 1}`;
         }
-      
-        document.getElementById("page-section-id").innerText = humanReadablePage;
-      
-        // Highlight the current page in the navigation menu
-        navListItems.forEach((item) => {
-          const link = item.querySelector(".nav__list-link");
-          const href = link.getAttribute("href");
-          if (href.includes(pageSectionContent)) {
-            item.classList.add("border-l-4", "border-blue-500", "bg-blue-100", "p-2");
-            link.classList.add("text-black");
-          } else {
-            item.classList.remove("border-l-4", "border-blue-500", "bg-blue-100", "p-2");
-            link.classList.remove("text-black");
-            link.classList.add("text-black");
-          }
-        });
+
+        document.getElementById("page-section-id").innerHTML =
+          humanReadablePage;
       }
-      
+    
       // Fetch translations and set up click handlers for elements with data-id
       await fetchTranslations();
       document.querySelectorAll("[data-id]").forEach((element) => {
@@ -440,14 +454,16 @@ function applyTranslations() {
       }
     }
 
-    const element = document.querySelector(`[data-id="${key}"]`);
-    if (element) {
-      if (element.tagName === "IMG") {
-        element.setAttribute("alt", translations[translationKey]); // Set the alt text for images
-      } else {
-        element.textContent = translations[translationKey]; // Set the text content for other elements
+    const elements = document.querySelectorAll(`[data-id="${key}"]`);
+    elements.forEach((element) => {
+      if (element) {
+        if (element.tagName === "IMG") {
+          element.setAttribute("alt", translations[translationKey]); // Set the alt text for images
+        } else {
+          element.textContent = translations[translationKey]; // Set the text content for other elements
+        }
       }
-    }
+    });
   }
 
   if (isPlaying) {
@@ -457,6 +473,13 @@ function applyTranslations() {
   }
   // Gather the audio elements again based on the current mode (easy-read or normal)
   gatherAudioElements();
+}
+
+function translateText(textToTranslate, variables = {}) {
+  var newText = translations[textToTranslate];
+  if (!newText) return textToTranslate; // Return the original text if no translation is found
+
+  return newText.replace(/\${(.*?)}/g, (match, p1) => variables[p1] || "");
 }
 
 // Audio functionality
@@ -881,6 +904,7 @@ function toggleNav() {
     "aria-hidden",
     navPopup.classList.contains("-translate-x-full") ? "true" : "false"
   );
+  navPopup.classList.toggle("left-2");
 }
 
 // Next and previous pages
