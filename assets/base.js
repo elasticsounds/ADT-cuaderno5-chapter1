@@ -193,12 +193,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const href = link.getAttribute("href");
         const pageSectionMatch = href.match(/(\d+)_(\d+)/);
+        const textId = link.getAttribute("data-text-id");
 
         if (pageSectionMatch) {
           const [_, pageNumber, sectionNumber] = pageSectionMatch.map(Number);
           link.innerHTML =
             "<div class='whitespace-normal'><span class='inline' data-id='page'></span><span class='inline'> " +
-            `${pageNumber + 1}.${sectionNumber + 1}: ${link.innerText}` + "</span></div>";
+            `${pageNumber + 1}.${sectionNumber + 1}: ` + `</span><span class='inline' data-id='${textId}'>` + "</span></div>";
+        } else {
+          link.innerHTML =
+            `<div class='whitespace-normal'></span><span class='inline' data-id='${textId}'></span></div>`;
         }
 
         if (href === window.location.pathname.split('/').pop()) {
