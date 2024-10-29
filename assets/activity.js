@@ -709,6 +709,9 @@ function updateSubmitButtonAndToast(
     if (buttonText === translateText("next-activity")) {
       submitButton.addEventListener("click", nextPage); // Add the new click handler
       submitButton.setAttribute("aria-label", translateText("next-activity"));
+
+      const activityId = location.pathname.substring(location.pathname.lastIndexOf("/") + 1).split(".")[0];
+      localStorage.setItem(`${activityId}_success`, "true")
     }
 
     // Hide the Toast after 3 seconds
