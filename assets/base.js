@@ -205,6 +205,12 @@ document.addEventListener("DOMContentLoaded", function () {
         if (index === 0) {
           item.classList.add("border-t");
         }
+        let itemIcon = "";
+        let itemSubtitle = "";
+        if (item.classList.contains("activity")) {
+          itemIcon = '<i class="fas fa-pen-to-square"></i>';
+          itemSubtitle = translateText("activity-to-do");
+        }
 
         const href = link.getAttribute("href");
         const pageSectionMatch = href.match(/(\d+)_(\d+)/);
@@ -213,9 +219,9 @@ document.addEventListener("DOMContentLoaded", function () {
         if (pageSectionMatch) {
           const [_, pageNumber, sectionNumber] = pageSectionMatch.map(Number);
           link.innerHTML =
-            "<div class='whitespace-normal'><span class='inline' data-id='page'></span><span class='inline'> " +
+            "<div class='whitespace-normal'>" + itemIcon + "<span class='inline' data-id='page'></span><span class='inline'> " +
             `${pageNumber + 1}.${sectionNumber + 1}: ${link.innerText}` +
-            "</span></div>";
+            "</span><span class='text-sm text-gray-500'>" + itemSubtitle + "</span></div>";
         }
 
         if (href === window.location.pathname.split("/").pop()) {
@@ -523,6 +529,15 @@ function applyTranslations() {
           element.textContent = translations[translationKey]; // Set the text content for other elements
         }
       }
+    });
+    const placeholderElements = document.querySelectorAll(`[data-placeholder-id="${key}"]`);
+    placeholderElements.forEach((element) => {
+      if (element) {
+        if (element.tagName === "INPUT" || element.tagName === "TEXTAREA") {
+          element.setAttribute("placeholder", translations[translationKey]); // Set the placeholder text for input elements
+        }
+      }
+      
     });
   }
 
