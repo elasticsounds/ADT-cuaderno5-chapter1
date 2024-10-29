@@ -30,8 +30,8 @@
 <p class="font-semibold" data-id="text-19-3">1.</p>
 <span data-id="text-19-4">¿Cómo surgió la vida en nuestro planeta?</span>
 <div class="flex space-x-2">
-<label><input aria-label="Pregunta 1 Sí" data-aria-id="aria-19-0-0" name="question1" tabindex="0" type="radio" value="yes"/> Sí</label>
-<label class="ml-4"><input aria-label="Pregunta 1 No" data-aria-id="aria-19-0-1" name="question1" tabindex="0" type="radio" value="no"/> No</label>
+<label><input aria-label="Pregunta 1 Sí" data-aria-id="aria-19-0-0" name="question1" tabindex="0" type="radio" value="yes" data-activity-item="item-1"/> Sí</label>
+<label class="ml-4"><input aria-label="Pregunta 1 No" data-aria-id="aria-19-0-1" name="question1" tabindex="0" type="radio" value="no" data-activity-item="item-1"/> No</label>
 </div>
 </div>
 <!-- Question 2 -->
@@ -39,8 +39,8 @@
 <p class="font-semibold" data-id="text-19-5">2.</p>
 <span data-id="text-19-6">¿De qué manera el hombre modifica el medio ambiente?</span>
 <div class="flex space-x-2">
-<label><input aria-label="Pregunta 2 Sí" data-aria-id="aria-19-0-2" name="question2" tabindex="0" type="radio" value="yes"/> Sí</label>
-<label class="ml-4"><input aria-label="Pregunta 2 No" data-aria-id="aria-19-0-3" name="question2" tabindex="0" type="radio" value="no"/> No</label>
+<label><input aria-label="Pregunta 2 Sí" data-aria-id="aria-19-0-2" name="question2" tabindex="0" type="radio" value="yes" data-activity-item="item-2"/> Sí</label>
+<label class="ml-4"><input aria-label="Pregunta 2 No" data-aria-id="aria-19-0-3" name="question2" tabindex="0" type="radio" value="no" data-activity-item="item-2"/> No</label>
 </div>
 </div>
 <!-- Question 3 -->
@@ -48,8 +48,8 @@
 <p class="font-semibold" data-id="text-19-7">3.</p>
 <span data-id="text-19-8">¿Cuál es la definición de desarrollo sostenible?</span>
 <div class="flex space-x-2">
-<label><input aria-label="Pregunta 3 Sí" data-aria-id="aria-19-0-4" name="question3" tabindex="0" type="radio" value="yes"/> Sí</label>
-<label class="ml-4"><input aria-label="Pregunta 3 No" data-aria-id="aria-19-0-5" name="question3" tabindex="0" type="radio" value="no"/> No</label>
+<label><input aria-label="Pregunta 3 Sí" data-aria-id="aria-19-0-4" name="question3" tabindex="0" type="radio" value="yes" data-activity-item="item-3"/> Sí</label>
+<label class="ml-4"><input aria-label="Pregunta 3 No" data-aria-id="aria-19-0-5" name="question3" tabindex="0" type="radio" value="no" data-activity-item="item-3"/> No</label>
 </div>
 </div>
 <!-- Question 4 -->
@@ -57,8 +57,8 @@
 <p class="font-semibold" data-id="text-19-9">4.</p>
 <span data-id="text-19-10">¿En qué zonas del planeta existen selvas?</span>
 <div class="flex space-x-2">
-<label><input aria-label="Pregunta 4 Sí" data-aria-id="aria-19-0-6" name="question4" tabindex="0" type="radio" value="yes"/> Sí</label>
-<label class="ml-4"><input aria-label="Pregunta 4 No" data-aria-id="aria-19-0-7" name="question4" tabindex="0" type="radio" value="no"/> No</label>
+<label><input aria-label="Pregunta 4 Sí" data-aria-id="aria-19-0-6" name="question4" tabindex="0" type="radio" value="yes" data-activity-item="item-4"/> Sí</label>
+<label class="ml-4"><input aria-label="Pregunta 4 No" data-aria-id="aria-19-0-7" name="question4" tabindex="0" type="radio" value="no" data-activity-item="item-4"/> No</label>
 </div>
 </div>
 <!-- Question 5 -->
@@ -66,13 +66,26 @@
 <p class="font-semibold" data-id="text-19-11">5.</p>
 <span data-id="text-19-12">¿Qué tipos de biomas se encuentran en Uruguay?</span>
 <div class="flex space-x-2">
-<label><input aria-label="Pregunta 5 Sí" data-aria-id="aria-19-0-8" name="question5" tabindex="0" type="radio" value="yes"/> Sí</label>
-<label class="ml-4"><input aria-label="Pregunta 5 No" data-aria-id="aria-19-0-9" name="question5" tabindex="0" type="radio" value="no"/> No</label>
+<label><input aria-label="Pregunta 5 Sí" data-aria-id="aria-19-0-8" name="question5" tabindex="0" type="radio" value="yes" data-activity-item="item-5"/> Sí</label>
+<label class="ml-4"><input aria-label="Pregunta 5 No" data-aria-id="aria-19-0-9" name="question5" tabindex="0" type="radio" value="no" data-activity-item="item-5"/> No</label>
 </div>
 </div>
 </section>
 </main>
 
 <script src="assets/base.js"></script>
+<script>
+    // Correct answers for validation
+    const correctAnswers = {
+        "item-1": false, // No
+        "item-2": true,  // Yes
+        "item-3": true,  // Yes
+        "item-4": true,  // Yes
+        "item-5": true   // Yes
+    };
+
+
+</script>
+
 </body>
 </html>

@@ -111,16 +111,60 @@ function prepareActivity() {
 function prepareMultipleChoiceActivity(section) {
   const activityOptions = section.querySelectorAll(".activity-option");
 
+  // Remove any previous event listeners
   activityOptions.forEach((option) => {
-    option.addEventListener("click", () => {
-      selectInteractiveElement(option);
-    });
+    const newOption = option.cloneNode(true);
+    option.parentNode.replaceChild(newOption, option);
+  });
+
+  // Add new event listeners
+  section.querySelectorAll(".activity-option").forEach((option) => {
+    option.addEventListener("click", () => selectInteractiveElement(option));
+    
+    // Add hover effect classes
+    option.classList.add(
+      'cursor-pointer',
+      'transition-all',
+      'duration-200',
+      'hover:shadow-md'
+    );
+
+    // Ensure option label has proper styling
+    const label = option.querySelector("span");
+    if (label) {
+      label.classList.add(
+        'px-4',
+        'py-2',
+        'rounded-full',
+        'font-medium',
+        'transition-colors',
+        'duration-200'
+      );
+    }
   });
 }
 
 // TRUE FALSE ACTIVITY
 let selectedButton = null;
 
+function prepareTrueFalseActivity(section) {
+  // Select all radio inputs within the section
+  const buttons = section.querySelectorAll("input[type='radio']");
+  
+  // Add event listeners to each radio button
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      // Set the clicked button as the selectedButton
+      selectedButton = button;
+      
+      // Optional: Visually indicate the selection by toggling classes
+      //buttons.forEach(btn => btn.parentElement.classList.remove("selected"));
+      //button.parentElement.classList.add("selected");
+    });
+  });
+}
+
+/*
 function prepareTrueFalseActivity(section) {
   //Select all elements with the button class. These are radio button input elements for accessbility purposes.
   const buttons = section.querySelectorAll(".button");
@@ -130,6 +174,7 @@ function prepareTrueFalseActivity(section) {
     };
   });
 }
+*/
 
 function checkTrueFalse() {
   // Uncomment to add a no selection error message when the user hits submit.
@@ -141,6 +186,12 @@ function checkTrueFalse() {
   //   noSelectionMessage.classList.remove("hidden");
   //   return;
   // }
+
+    // Show error if no selection is made
+    if (!selectedButton) {
+      return;
+    } 
+    
 
   const dataActivityItem = selectedButton.getAttribute("data-activity-item");
   const isCorrect = correctAnswers[dataActivityItem];
@@ -175,52 +226,95 @@ function checkTrueFalse() {
   );
 }
 
+// function selectInteractiveElement(option) {
+//   // Deselect all radio buttons in the same group
+
+//   // Find the parent group of the clicked button
+//   const radioGroup = option.closest('[role="group"]');
+
+//   radioGroup.querySelectorAll(".activity-option").forEach((opt) => {
+//     // Reset any button or div state within the option if they exist
+//     const interactiveElement = opt.querySelector(
+//       "[role='radio'], input[type='radio'], button, div"
+//     );
+//     if (interactiveElement) {
+//       interactiveElement.setAttribute("aria-checked", "false");
+//     }
+
+//     // Remove any feedback
+//     const feedback = opt.querySelector(".feedback");
+//     if (feedback) {
+//       feedback.remove();
+//     }
+
+//     // Select the span element inside the label and update its class
+//     const associatedLabel = opt.querySelector("span");
+//     if (associatedLabel) {
+//       associatedLabel.classList.remove("bg-blue-500", "text-white");
+//       associatedLabel.classList.add("bg-gray-200", "hover:bg-gray-300");
+//     }
+//   });
+
+//   // Select the clicked option's associated label
+//   const associatedLabel = option.querySelector("span");
+//   if (associatedLabel) {
+//     associatedLabel.classList.remove("bg-gray-200", "hover:bg-gray-300");
+//     associatedLabel.classList.add("bg-blue-500", "text-white");
+//   }
+
+//   // Handle selection state for the option
+//   const selectedInteractiveElement = option.querySelector(
+//     "[role='radio'], input[type='radio'], button, div"
+//   );
+//   if (selectedInteractiveElement) {
+//     selectedInteractiveElement.setAttribute("aria-checked", "true");
+//   }
+
+//   // Set the selected option
+//   selectedOption = option;
+// }
+
+// Also update the selectInteractiveElement function to log selection
+
 function selectInteractiveElement(option) {
-  // Deselect all radio buttons in the same group
-
-  // Find the parent group of the clicked button
+  console.log("=== Selecting option ===");
+  console.log("Option selected:", option);
+  console.log("Option data-activity-item:", option.getAttribute("data-activity-item"));
+  
+  // Find the parent group of the clicked option
   const radioGroup = option.closest('[role="group"]');
+  if (!radioGroup) {
+    console.log("No radio group found");
+    return;
+  }
 
+  // Deselect all options in the group
   radioGroup.querySelectorAll(".activity-option").forEach((opt) => {
-    // Reset any button or div state within the option if they exist
-    const interactiveElement = opt.querySelector(
-      "[role='radio'], input[type='radio'], button, div"
-    );
-    if (interactiveElement) {
-      interactiveElement.setAttribute("aria-checked", "false");
+    console.log("Resetting option:", opt);
+    // Reset appearance
+    opt.classList.remove('ring-2', 'ring-blue-500');
+    const label = opt.querySelector("span");
+    if (label) {
+      label.classList.remove('bg-blue-500', 'text-white');
+      label.classList.add('bg-gray-200', 'text-gray-800');
     }
-
-    // Remove any feedback
+    
+    // Remove any previous feedback
     const feedback = opt.querySelector(".feedback");
-    if (feedback) {
-      feedback.remove();
-    }
-
-    // Select the span element inside the label and update its class
-    const associatedLabel = opt.querySelector("span");
-    if (associatedLabel) {
-      associatedLabel.classList.remove("bg-blue-500", "text-white");
-      associatedLabel.classList.add("bg-gray-200", "hover:bg-gray-300");
-    }
+    if (feedback) feedback.remove();
   });
 
-  // Select the clicked option's associated label
-  const associatedLabel = option.querySelector("span");
-  if (associatedLabel) {
-    associatedLabel.classList.remove("bg-gray-200", "hover:bg-gray-300");
-    associatedLabel.classList.add("bg-blue-500", "text-white");
+  // Select the clicked option
+  option.classList.add('ring-2', 'ring-blue-500');
+  const label = option.querySelector("span");
+  if (label) {
+    label.classList.remove('bg-gray-200', 'text-gray-800');
+    label.classList.add('bg-blue-500', 'text-white');
   }
 
-  // Handle selection state for the option
-  const selectedInteractiveElement = option.querySelector(
-    "[role='radio'], input[type='radio'], button, div"
-  );
-  if (selectedInteractiveElement) {
-    selectedInteractiveElement.setAttribute("aria-checked", "true");
-  }
-
-  // Set the selected option
+  // Set selection state
   selectedOption = option;
+  console.log("Selection complete. Current selectedOption:", selectedOption);
 }
 
 function validateInputs(activityType) {
@@ -371,63 +465,89 @@ function provideFeedback(element, isCorrect, _correctAnswer, activityType) {
 }
 
 function checkMultipleChoice() {
-  const noSelectionMessage = document.getElementById(
-    "no-selection-error-message"
-  );
-
-  // Check if any option is selected by querying for activity-option with aria-checked="true"
-  const selectedOption = document.querySelector(
-    '.activity-option [aria-checked="true"]'
-  );
-
+  console.log("=== Starting validation ===");
+  
+  // Check if an option is selected
   if (!selectedOption) {
-    noSelectionMessage.classList.remove("hidden");
+    console.log("No option selected");
+    const noSelectionMessage = document.getElementById("no-selection-error-message");
+    if (noSelectionMessage) {
+      noSelectionMessage.classList.remove("hidden");
+    }
     return;
   }
-
-  //const dataActivityItem = selectedOption.closest('.activity-option').getAttribute("data-activity-item");
-
-  // Find the first child element that is a radio button, button, or div within the selected option
-  const selectedInteractiveElement = selectedOption.closest(
-    '[role="radio"], input[type="radio"], button, div'
-  );
-  let dataActivityItem = null;
-
-  if (selectedInteractiveElement) {
-    dataActivityItem =
-      selectedInteractiveElement.getAttribute("data-activity-item");
-  }
-
+  
+  console.log("Selected option:", selectedOption);
+  console.log("Selected option dataset:", selectedOption.dataset);
+  
+  // Get the data-activity-item value
+  const dataActivityItem = selectedOption.getAttribute("data-activity-item");
+  console.log("data-activity-item value:", dataActivityItem);
+  
+  // Log the correctAnswers object
+  console.log("correctAnswers object:", correctAnswers);
+  
+  // Check if the answer is correct
   const isCorrect = correctAnswers[dataActivityItem];
-  console.log("is correct value ", isCorrect); // Debugging purposes
+  console.log("Is correct?", isCorrect);
 
-  // Remove previous feedback if the correct answer is selected
-  const allFeedbacks = document.querySelectorAll(".feedback");
-  allFeedbacks.forEach((feedback) => feedback.remove());
+  // Remove any existing feedback first
+  document.querySelectorAll(".feedback").forEach(el => {
+    console.log("Removing existing feedback:", el);
+    el.remove();
+  });
 
-  provideFeedback(
-    selectedOption,
-    isCorrect,
-    correctAnswers[dataActivityItem],
-    ActivityTypes.MULTIPLE_CHOICE
+  // Create feedback container
+  const feedbackContainer = document.createElement("div");
+  feedbackContainer.className = `feedback flex items-center justify-center mt-4 ${
+    isCorrect ? 'text-green-600' : 'text-red-600'
+  }`;
+
+  // Create feedback icon
+  const icon = document.createElement("span");
+  icon.className = `
+    flex items-center justify-center
+    w-8 h-8 rounded-full
+    ${isCorrect ? 'bg-green-100' : 'bg-red-100'}
+  `;
+  icon.textContent = isCorrect ? '✓' : '✗';
+
+  // Create feedback message
+  const message = document.createElement("span");
+  message.className = "ml-2 font-medium";
+  message.textContent = isCorrect ? "¡Correcto!" : "Incorrect, try again";
+
+  // Assemble and append feedback
+  feedbackContainer.appendChild(icon);
+  feedbackContainer.appendChild(message);
+  selectedOption.appendChild(feedbackContainer);
+
+  // Update option styling based on correctness
+  selectedOption.classList.add(
+    isCorrect ? 'bg-green-50' : 'bg-red-50',
+    'transition-colors',
+    'duration-200'
   );
 
-  const associatedLabel = selectedOption
-    .closest(".activity-option")
-    .querySelector("span");
-
-  if (isCorrect) {
-    associatedLabel.classList.add("bg-green-600");
-  } else {
-    associatedLabel.classList.add("bg-red-200", "text-black");
-  }
-
+  console.log("Updating submit button and toast with isCorrect:", isCorrect);
+  
+  // Update submit button and toast
   updateSubmitButtonAndToast(
     isCorrect,
     translateText("next-activity"),
     ActivityTypes.MULTIPLE_CHOICE
   );
+
+  // Play appropriate sound
+  if (isCorrect) {
+    playActivitySound('success');
+  } else {
+    playActivitySound('error');
+  }
+  
+  console.log("=== Validation complete ===");
 }
+
 
 /**
  * Counts unfilled inputs and moves focus to the first unfilled one.
@@ -781,39 +901,25 @@ function selectWordSort(wordCard) {
   highlightBoxes(true);
 }
 
+// Modified placeWord function to handle different card types
 function placeWord(category) {
   if (!currentWord) {
     console.log("No word selected.");
     return;
   }
 
-  console.log("word placed");
-
-  // Play drop sound when word is placed
   playActivitySound('drop');
 
-  // Correct query to target the div with the exact data-activity-category value
   const categoryDiv = document.querySelector(
     `div[data-activity-category="${category}"]`
   );
-  const listElement = categoryDiv
-    ? categoryDiv.querySelector(".word-list")
-    : null;
+  const listElement = categoryDiv?.querySelector(".word-list");
 
   if (!listElement) {
-
-    // CREATE A NEW LIST ELEMENT IF IT DOESN'T EXIST
-    // listElement = document.createElement('div');
-    // listElement.classList.add('word-list', 'flex', 'flex-wrap');
-    // categoryDiv.appendChild(listElement);
-    
-    console.error(
-      `Category "${category}" not found or no word list available.`
-    );
+    console.error(`Category "${category}" not found or no word list available.`);
     return;
   }
 
-  // Find the word card and get the wordKey
   const wordCard = document.querySelector(
     `.word-card[data-activity-item="${currentWord}"]`
   );
@@ -822,12 +928,76 @@ function placeWord(category) {
     return;
   }
 
-  //const wordKey = wordCard.getAttribute("data-activity-item");
-
-  // Clone the word card to include the image
   const clonedWordCard = wordCard.cloneNode(true);
+  
+  // Handle different card types
+  if (clonedWordCard.querySelector('img')) {
+    // Cards with images: Create structured layout
+    const contentContainer = document.createElement('div');
+    contentContainer.classList.add(
+      'content-container',
+      'flex',
+      'flex-col',
+      'items-center',
+      'w-full',
+      'space-y-2'
+    );
 
-  // Make sure the cloned card and its images aren't draggable
+    const textWrapper = document.createElement('div');
+    textWrapper.classList.add(
+      'text-wrapper',
+      'flex',
+      'items-center',
+      'justify-center'
+    );
+
+    // Move content into appropriate containers
+    const image = clonedWordCard.querySelector('img');
+    const text = clonedWordCard.querySelector('.word-text, span:not(.validation-mark)');
+
+    if (image) {
+      contentContainer.appendChild(image);
+    }
+    if (text) {
+      textWrapper.appendChild(text);
+    }
+    contentContainer.appendChild(textWrapper);
+
+    // Clear and add new structure
+    while (clonedWordCard.firstChild) {
+      clonedWordCard.removeChild(clonedWordCard.firstChild);
+    }
+    clonedWordCard.appendChild(contentContainer);
+  } else {
+    // Text-only or text+icon cards: Simpler inline layout
+    const textWrapper = document.createElement('div');
+    textWrapper.classList.add(
+      'text-wrapper',
+      'flex',
+      'items-center',
+      'justify-center',
+      'w-full'
+    );
+
+    // Move all content to wrapper
+    while (clonedWordCard.firstChild) {
+      textWrapper.appendChild(clonedWordCard.firstChild);
+    }
+    clonedWordCard.appendChild(textWrapper);
+  }
+
+  // Common setup for all card types
+  clonedWordCard.classList.remove("border-blue-700", "border-2", "box-border");
+  clonedWordCard.classList.add(
+    'placed-word',
+    'max-w-40',
+    'm-2',
+    'p-2',
+    'cursor-pointer',
+    'hover:bg-gray-100'
+  );
+
+  // Disable dragging
   clonedWordCard.setAttribute('draggable', 'false');
   const clonedImage = clonedWordCard.querySelector('img');
   if (clonedImage) {
@@ -835,40 +1005,16 @@ function placeWord(category) {
     clonedImage.style.pointerEvents = 'none';
   }
 
-  // Add the appropriate classes for placed words
-  clonedWordCard.classList.remove("border-blue-700", "border-2", "box-border");
-  clonedWordCard.classList.add(
-    "placed-word", 
-    "max-w-40", 
-    "m-2", 
-    "p-2",
-    "cursor-pointer", // Make it clear it's clickable
-    "hover:bg-gray-100" // Add hover effect
-    // "transition",
-    // "duration-200"
-  );
-
-  // // Add a direct click handler that removes immediately
-  // clonedWordCard.addEventListener("click", function(e) {
-  //   // Only handle removal if we're not in placement mode
-  //   if (!currentWord) {
-  //     e.stopPropagation();
-  //     removeAndRestoreWord(this);
-  //   }
-  // });
-
-  // Simple click handler for removal
+  // Add click handler for removal
   clonedWordCard.addEventListener("click", function() {
     removeWord(this);
   });
 
-  // Ensure the container uses flexbox
+  // Add to category list
   listElement.classList.add("flex", "flex-wrap");
-
-  // Append the cloned card to the category's word list
   listElement.appendChild(clonedWordCard);
 
-  // Apply styles to the word card
+  // Update original word card styling
   wordCard.classList.add(
     "bg-gray-300",
     "cursor-not-allowed",
@@ -877,7 +1023,7 @@ function placeWord(category) {
     "hover:scale-100"
   );
   wordCard.style.border = "none";
-  wordCard.classList.remove("selected", "shadow-lg");  
+  wordCard.classList.remove("selected", "shadow-lg");
   wordCard.removeEventListener("click", () => selectWordSort(wordCard));
 
   currentWord = "";
@@ -986,34 +1132,23 @@ function checkSorting() {
 
   console.log("Starting validation check...");
 
-  // Get all category containers
   const categories = document.querySelectorAll('.category');
-  console.log("Found categories:", categories.length);
   
   categories.forEach(category => {
     const categoryType = category.getAttribute('data-activity-category');
-    console.log("\nChecking category:", categoryType);
-    
-    // Get all placed words in this category
     const placedWords = category.querySelectorAll('.placed-word');
-    console.log(`Found ${placedWords.length} placed words in category ${categoryType}`);
     
     placedWords.forEach(placedWord => {
       const wordKey = placedWord.getAttribute('data-activity-item');
       const correctCategory = correctAnswers[wordKey];
       
-      console.log(`Checking word: "${placedWord.textContent.trim()}"`);
-      console.log(`- Word key: ${wordKey}`);
-      console.log(`- Current category: ${categoryType}`);
-      console.log(`- Correct category: ${correctCategory}`);
-      
-      // Remove any existing marks
+      // Remove any existing validation marks
       const existingMark = placedWord.querySelector('.validation-mark');
       if (existingMark) {
         existingMark.remove();
       }
 
-      // Create validation mark element
+      // Create validation mark
       const mark = document.createElement('span');
       mark.classList.add(
         'validation-mark',
@@ -1022,7 +1157,7 @@ function checkSorting() {
         'items-center',
         'text-lg'
       );
-      
+
       if (categoryType === correctCategory) {
         console.log("✓ CORRECT placement");
         placedWord.classList.remove('bg-red-100', 'border-red-300');
@@ -1039,51 +1174,94 @@ function checkSorting() {
         incorrectCount++;
       }
 
-      // Create a wrapper for the text if it doesn't exist
-      let textWrapper = placedWord.querySelector('.text-wrapper');
-      if (!textWrapper) {
-        textWrapper = document.createElement('div');
-        textWrapper.classList.add('text-wrapper', 'flex', 'items-center', 'justify-between', 'w-full');
-        
-        // Move the original text into the wrapper
-        textWrapper.innerHTML = placedWord.innerHTML;
-        placedWord.innerHTML = '';
-        placedWord.appendChild(textWrapper);
-      }
-      
-      // Add the mark after the text
-      textWrapper.appendChild(mark);
+      // Handle different card layouts based on content
+      if (placedWord.querySelector('img')) {
+        // Cards with images: Create structured layout
+        let contentContainer = placedWord.querySelector('.content-container');
+        if (!contentContainer) {
+          contentContainer = document.createElement('div');
+          contentContainer.classList.add(
+            'content-container',
+            'flex',
+            'flex-col',
+            'items-center',
+            'w-full',
+            'space-y-2'
+          );
+          
+          // Move existing content into container
+          while (placedWord.firstChild) {
+            contentContainer.appendChild(placedWord.firstChild);
+          }
+          placedWord.appendChild(contentContainer);
+        }
 
-      // Add padding to the placed word
+        // Create/update text wrapper
+        let textWrapper = placedWord.querySelector('.text-wrapper');
+        if (!textWrapper) {
+          textWrapper = document.createElement('div');
+          textWrapper.classList.add(
+            'text-wrapper',
+            'flex',
+            'items-center',
+            'justify-center'
+          );
+          
+          // Move the text element into the wrapper
+          const textElement = contentContainer.querySelector('.word-text, span:not(.validation-mark)');
+          if (textElement) {
+            textWrapper.appendChild(textElement);
+          }
+          contentContainer.appendChild(textWrapper);
+        }
+        
+        // Add the mark to the text wrapper
+        textWrapper.appendChild(mark);
+
+      } else {
+        // For text-only or text+icon cards: Simpler inline layout
+        let textWrapper = placedWord.querySelector('.text-wrapper');
+        if (!textWrapper) {
+          textWrapper = document.createElement('div');
+          textWrapper.classList.add(
+            'text-wrapper',
+            'flex',
+            'items-center',
+            'justify-center',
+            'w-full'
+          );
+          
+          // Move all existing content to the wrapper
+          while (placedWord.firstChild) {
+            textWrapper.appendChild(placedWord.firstChild);
+          }
+          placedWord.appendChild(textWrapper);
+        }
+        
+        // Add the mark after the content
+        textWrapper.appendChild(mark);
+      }
+
+      // Ensure proper spacing and layout
       placedWord.classList.add('p-2', 'rounded');
     });
   });
 
-  // Count total placed words
+  // Rest of the validation logic remains the same...
   const totalPlacedWords = document.querySelectorAll('.placed-word').length;
   const totalWords = Object.keys(correctAnswers).length;
-
-  console.log("\nValidation Summary:");
-  console.log(`Total words in correctAnswers: ${totalWords}`);
-  console.log(`Total placed words found: ${totalPlacedWords}`);
-  console.log(`Correct placements: ${correctCount}`);
-  console.log(`Incorrect placements: ${incorrectCount}`);
-
   const allWordsPlaced = totalPlacedWords === totalWords;
   const allCorrect = correctCount === totalWords;
 
   if (!allWordsPlaced) {
     const message = `Please place all words in categories before submitting. (${totalPlacedWords}/${totalWords} words placed)`;
-    console.log("Feedback:", message);
     feedbackElement.textContent = message;
     feedbackElement.classList.remove("text-green-500");
     feedbackElement.classList.add("text-red-500");
-    // Play error sound for incomplete submission
     activityAudio.error.play().catch(err => console.log('Audio play failed:', err));
     return;
   }
 
-  // Play appropriate sound based on results
   if (allCorrect) {
     activityAudio.success.play().catch(err => console.log('Audio play failed:', err));
   } else {
@@ -1091,13 +1269,10 @@ function checkSorting() {
   }
 
   const feedbackMessage = `You have ${correctCount} correct answers and ${incorrectCount} incorrect answers.${allCorrect ? ' Great job!' : ' Try again!'}`;
-  console.log("Feedback:", feedbackMessage);
   feedbackElement.textContent = feedbackMessage;
-
   feedbackElement.classList.remove("text-red-500", "text-green-500");
   feedbackElement.classList.add(allCorrect ? "text-green-500" : "text-red-500");
 
-  // Update the submit button and toast
   updateSubmitButtonAndToast(
     allCorrect,
     allCorrect ? translateText("next-activity") : translateText("retry"),
