@@ -94,6 +94,24 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
 
+      // Initialize left nav bar state from cookie
+      const navState = getCookie("navState") || "closed";
+      const navPopup = document.getElementById("navPopup");
+      const navToggle = document.querySelector(".nav__toggle");
+      const navList = document.querySelector(".nav__list");
+
+      if (navState === "open") {
+        navPopup.classList.remove("-translate-x-full");
+        navPopup.classList.add("left-2");
+        navPopup.setAttribute("aria-hidden", "false");
+        if (navList) {
+          navList.removeAttribute("hidden");
+        }
+        if (navToggle) {
+          navToggle.setAttribute("aria-expanded", "true");
+        }
+      }
+
       // Add event listeners to various UI elements
       prepareActivity();
       // right side bar
@@ -149,16 +167,13 @@ document.addEventListener("DOMContentLoaded", function () {
       document
         .getElementById("forward-button")
         .addEventListener("click", nextPage);
-      // document
-      //   .getElementById("submit-button")
-      //   .addEventListener("click", validateInputs);
-
+     
       // left nav bar
       document.getElementById("nav-popup").addEventListener("click", toggleNav);
       document.getElementById("nav-close").addEventListener("click", toggleNav);
-      const navToggle = document.querySelector(".nav__toggle");
+      //const navToggle = document.querySelector(".nav__toggle");
       const navLinks = document.querySelectorAll(".nav__list-link");
-      const navPopup = document.getElementById("navPopup");
+      //const navPopup = document.getElementById("navPopup");
 
       if (navToggle) {
         navToggle.addEventListener("click", toggleNav);
@@ -193,16 +208,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const href = link.getAttribute("href");
         const pageSectionMatch = href.match(/(\d+)_(\d+)/);
-        const textId = link.getAttribute("data-text-id");
+        //const textId = link.getAttribute("data-text-id");
 
         if (pageSectionMatch) {
           const [_, pageNumber, sectionNumber] = pageSectionMatch.map(Number);
           link.innerHTML =
             "<div class='whitespace-normal'><span class='inline' data-id='page'></span><span class='inline'> " +
-            `${pageNumber + 1}.${sectionNumber + 1}: ` + `</span><span class='inline' data-id='${textId}'>` + "</span></div>";
-        } else {
-          link.innerHTML =
-            `<div class='whitespace-normal'></span><span class='inline' data-id='${textId}'></span></div>`;
+            `${pageNumber + 1}.${sectionNumber + 1}: ${link.innerText}` +
+            "</span></div>";
         }
 
         if (href === window.location.pathname.split("/").pop()) {
@@ -994,16 +1007,20 @@ function toggleNav() {
     return; // Exit if elements are not found
   }
 
-  if (!navList.hasAttribute("hidden")) {
+  const isNavOpen = !navList.hasAttribute("hidden");
+
+  if (isNavOpen) {
     navToggle.setAttribute("aria-expanded", "false");
     navList.setAttribute("hidden", "true");
+    setCookie("navState", "closed", 7, basePath);
   } else {
     navToggle.setAttribute("aria-expanded", "true");
     navList.removeAttribute("hidden");
-
+    setCookie("navState", "open", 7, basePath);
     // Set focus on first link
     navLinks[0].focus();
   }
+  
   navPopup.classList.toggle("-translate-x-full");
   navPopup.setAttribute(
     "aria-hidden",
