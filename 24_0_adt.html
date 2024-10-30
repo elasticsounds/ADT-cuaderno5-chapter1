@@ -1,90 +1,109 @@
 <!DOCTYPE html>
 
 <html lang="es">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Biomas de Amé rica</title>
-<!-- DO NOT EDIT OR REMOVE the <script> tags -->
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"></script>
-<!-- Mathjax script to use for rendering math. -->
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<meta content="24_0" name="page-section-id"/>
-</head>
-<body class="bg-gray-100 lg:p-5 md:p-5 sm:p-0 mb-12 font-sans text-lg">
-<!-- The main interface components -->
-<!-- DO NOT EDIT Contains the bottom bar, next back buttons, submit button, right sidebar, ai language, eli5 and tts toggles -->
-<div id="interface-container"></div>
-<!-- DO NOT EDIT Contains the left nav bar, html page list -->
-<div id="nav-container"></div>
-<!-- The main content container, EVERYTHING CAN BE EDITED, DELETED, OR ADDITIONAL ELEMENTS ADDED AS REQUIRED -->
-<main class="container content border-t-4 border-blue-700 mx-auto bg-white mt-auto max-w-5xl p-5 rounded-lg shadow-lg lg:px-24 md:px-12 sm:px-6" id="content">
-<section data-id="sectioneli5-24-0" data-section-type="activity_fill_in_a_table" role="activity">
-<h1 class="text-2xl font-bold text-gray-800 mb-4" data-id="text-24-0">Del cuadro al texto</h1>
-<h2 class="text-xl font-bold text-gray-800 mb-4" data-id="text-24-1">Biomas de América</h2>
-<div class="mb-4 text-gray-700">
-<p><i class="fas fa-pen-to-square mr-2 text-blue-700"></i><span data-id="text-24-2">Escribe los encabezados y la
-                        información que falta para completar el cuadro sobre algunos de los biomas de América.</span></p>
-</div>
-<div class="max-w-full overflow-x-auto">
-<form>
-<table class="min-w-full bg-white border border-gray-300">
-<thead>
-<tr>
-<th class="w-1/5 border border-gray-300 px-4 py-2 text-left bg-green-200" data-id="text-24-3">TIPO DE BIOMA</th>
-<th class="w-1/5 border border-gray-300 px-4 py-2 text-left">Clima</th>
-<th class="w-1/5 border border-gray-300 px-4 py-2 text-left">Vegetación</th>
-<th class="w-1/5 border border-gray-300 px-4 py-2 text-left">Fauna</th>
-<th class="w-1/5 border border-gray-300 px-4 py-2 text-left bg-green-200" data-id="text-24-14">ACTIVIDADES ECONOMICAS</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="border border-gray-300 px-4 py-2" data-id="text-24-4">Sabana</td>
-<td class="border border-gray-300 px-4 py-2"> <input aria-label="Clima de Sabana" class="w-full px-2 py-1 border rounded" data-aria-id="aria-24-0-0" data-id="text-24-5" placeholder="Clima tropical" tabindex="0" type="text"/></td>
-<td class="border border-gray-300 px-4 py-2"> <input aria-label="Vegetación de Sabana" class="w-full px-2 py-1 border rounded" data-aria-id="aria-24-0-1" data-placeholder-id="placeholder-24-0-1" placeholder="Vegetación" tabindex="0" type="text"/></td>
-<td class="border border-gray-300 px-4 py-2">
-<ul class="list-disc ml-4">
-<li data-id="text-24-7">Jaguar</li>
-<li data-id="text-24-8">Ciervo</li>
-<li data-id="text-24-9">Oso hormiguero</li>
-<li data-id="text-24-10">Liebre</li>
-<li data-id="text-24-11">Coatí</li>
-<li data-id="text-24-12">Mulita</li>
-<li data-id="text-24-13">Lagarto</li>
-</ul>
-</td>
-<td class="border border-gray-300 px-4 py-2">
-<ul class="list-disc ml-4">
-<li data-id="text-24-15">Agricultura</li>
-<li data-id="text-24-16">Ganadería</li>
-<li data-id="text-24-17">Explotación de recursos mineros</li>
-</ul>
-</td>
-</tr>
-<tr>
-<td class="border border-gray-300 px-4 py-2" data-id="text-24-18">Desierto</td>
-<td class="border border-gray-300 px-4 py-2"> <input aria-label="Clima de Desierto" class="w-full px-2 py-1 border rounded" data-aria-id="aria-24-0-2" data-id="text-24-19" placeholder="Clima árido" tabindex="0" type="text"/></td>
-<td class="border border-gray-300 px-4 py-2"> <input aria-label="Vegetación de Desierto" class="w-full px-2 py-1 border rounded" data-aria-id="aria-24-0-3" data-placeholder-id="placeholder-24-0-3" placeholder="Vegetación" tabindex="0" type="text"/></td>
-<td class="border border-gray-300 px-4 py-2">
-<ul class="list-disc ml-4">
-<li data-id="text-24-23">Plantas xeró filas (cactus)</li>
-</ul>
-</td>
-<td class="border border-gray-300 px-4 py-2">
-<ul class="list-disc ml-4">
-<li data-id="text-24-24">Explotación de recursos mineros</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</form>
-</div>
-</section>
-</main>
 
-<script src="assets/base.js"></script>
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>Biomas de Amé rica</title>
+    <!-- DO NOT EDIT OR REMOVE the <script> tags -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"></script>
+    <!-- Mathjax script to use for rendering math. -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <meta content="24_0" name="page-section-id" />
+</head>
+
+<body class="bg-gray-100 lg:p-5 p-3 mb-12 font-sans text-lg">
+    <!-- The main interface components -->
+    <!-- DO NOT EDIT Contains the bottom bar, next back buttons, submit button, right sidebar, ai language, eli5 and tts toggles -->
+    <div id="interface-container"></div>
+    <!-- DO NOT EDIT Contains the left nav bar, html page list -->
+    <div id="nav-container"></div>
+    <!-- The main content container, EVERYTHING CAN BE EDITED, DELETED, OR ADDITIONAL ELEMENTS ADDED AS REQUIRED -->
+    <main
+        class="container content mx-auto bg-white mt-auto max-w-5xl p-5 rounded-lg border-gray-200 border lg:px-16 md:px-12 sm:px-6 sm:py-6 md:py-10 mb-5 border-t-8 border-t-blue-700"
+        id="content">
+        <section data-id="sectioneli5-24-0" data-section-type="activity_fill_in_a_table" role="activity">
+            <h1 class="font-bold text-4xl text-center mb-4" data-id="text-24-0">Del cuadro al texto</h1>
+            <h2 class="text-xl text-center text-gray-800 mb-4" data-id="text-24-1">Biomas de América</h2>
+            <div class="mb-4 text-center md:w-4/5 mx-auto">
+                <p><i class="fas fa-pen-to-square mr-2 text-blue-700"></i><span data-id="text-24-2">Escribe los
+                        encabezados y la información que falta para completar el cuadro sobre algunos de los biomas de América.</span>
+                </p>
+            </div>
+            <div class="max-w-full overflow-x-auto">
+                <form>
+                    <table class="min-w-full bg-white border border-gray-300">
+                        <thead>
+                            <tr>
+                                <th class="w-1/5 border border-gray-300 px-4 py-2 text-left bg-green-200"
+                                    data-id="text-24-3">TIPO DE BIOMA</th>
+                                <th class="w-1/5 border border-gray-300 px-4 py-2 text-left">Clima</th>
+                                <th class="w-1/5 border border-gray-300 px-4 py-2 text-left">Vegetación</th>
+                                <th class="w-1/5 border border-gray-300 px-4 py-2 text-left">Fauna</th>
+                                <th class="w-1/5 border border-gray-300 px-4 py-2 text-left bg-green-200"
+                                    data-id="text-24-14">ACTIVIDADES ECONOMICAS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2" data-id="text-24-4">Sabana</td>
+                                <td class="border border-gray-300 px-4 py-2"> <input aria-label="Clima de Sabana"
+                                        class="w-full px-2 py-1 border rounded" data-aria-id="aria-24-0-0"
+                                        data-id="text-24-5" placeholder="Clima tropical" tabindex="0" type="text" />
+                                </td>
+                                <td class="border border-gray-300 px-4 py-2"> <input aria-label="Vegetación de Sabana"
+                                        class="w-full px-2 py-1 border rounded" data-aria-id="aria-24-0-1"
+                                        data-placeholder-id="placeholder-24-0-1" placeholder="Vegetación" tabindex="0"
+                                        type="text" /></td>
+                                <td class="border border-gray-300 px-4 py-2">
+                                    <ul class="list-disc ml-4">
+                                        <li data-id="text-24-7">Jaguar</li>
+                                        <li data-id="text-24-8">Ciervo</li>
+                                        <li data-id="text-24-9">Oso hormiguero</li>
+                                        <li data-id="text-24-10">Liebre</li>
+                                        <li data-id="text-24-11">Coatí</li>
+                                        <li data-id="text-24-12">Mulita</li>
+                                        <li data-id="text-24-13">Lagarto</li>
+                                    </ul>
+                                </td>
+                                <td class="border border-gray-300 px-4 py-2">
+                                    <ul class="list-disc ml-4">
+                                        <li data-id="text-24-15">Agricultura</li>
+                                        <li data-id="text-24-16">Ganadería</li>
+                                        <li data-id="text-24-17">Explotación de recursos mineros</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2" data-id="text-24-18">Desierto</td>
+                                <td class="border border-gray-300 px-4 py-2"> <input aria-label="Clima de Desierto"
+                                        class="w-full px-2 py-1 border rounded" data-aria-id="aria-24-0-2"
+                                        data-id="text-24-19" placeholder="Clima árido" tabindex="0" type="text" /></td>
+                                <td class="border border-gray-300 px-4 py-2"> <input aria-label="Vegetación de Desierto"
+                                        class="w-full px-2 py-1 border rounded" data-aria-id="aria-24-0-3"
+                                        data-placeholder-id="placeholder-24-0-3" placeholder="Vegetación" tabindex="0"
+                                        type="text" /></td>
+                                <td class="border border-gray-300 px-4 py-2">
+                                    <ul class="list-disc ml-4">
+                                        <li data-id="text-24-23">Plantas xeró filas (cactus)</li>
+                                    </ul>
+                                </td>
+                                <td class="border border-gray-300 px-4 py-2">
+                                    <ul class="list-disc ml-4">
+                                        <li data-id="text-24-24">Explotación de recursos mineros</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <script src="assets/base.js"></script>
 </body>
+
 </html>
