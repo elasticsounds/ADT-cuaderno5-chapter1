@@ -397,7 +397,8 @@
         "matching-correct-answers": "All answers are correct!",
         "matching-correct-answers-count": "You have ${correctCount} correct answers. Try again.",
         "page": "Page",
-        "text-read-aloud-speed": "Speed"
+        "text-read-aloud-speed": "Speed",
+        "activity-to-do": "To do"
     },
     "es": {
         "toc-title": "Índice",
@@ -422,7 +423,8 @@
         "matching-correct-answers": "¡Todas las respuestas son correctas!",
         "matching-correct-answers-count": "Tienes ${correctCount} respuestas correctas. Inténtalo de nuevo.",
         "page": "Página",
-        "text-read-aloud-speed": "Velocidad"
+        "text-read-aloud-speed": "Velocidad",
+        "activity-to-do": "Por hacer"
     },
     "et": {
         "toc-title": "Sisukord",

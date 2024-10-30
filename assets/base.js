@@ -167,7 +167,7 @@ document.addEventListener("DOMContentLoaded", function () {
       document
         .getElementById("forward-button")
         .addEventListener("click", nextPage);
-     
+
       // left nav bar
       document.getElementById("nav-popup").addEventListener("click", toggleNav);
       document.getElementById("nav-close").addEventListener("click", toggleNav);
@@ -209,19 +209,23 @@ document.addEventListener("DOMContentLoaded", function () {
         let itemSubtitle = "";
         if (item.classList.contains("activity")) {
           itemIcon = '<i class="fas fa-pen-to-square"></i>';
-          itemSubtitle = translateText("activity-to-do");
+          itemSubtitle = "<span data-id='activity-to-do'></span>";
         }
 
         const href = link.getAttribute("href");
         const pageSectionMatch = href.match(/(\d+)_(\d+)/);
-        //const textId = link.getAttribute("data-text-id");
+        const textId = link.getAttribute("data-text-id");
 
         if (pageSectionMatch) {
           const [_, pageNumber, sectionNumber] = pageSectionMatch.map(Number);
           link.innerHTML =
-            "<div class='whitespace-normal'>" + itemIcon + "<span class='inline' data-id='page'></span><span class='inline'> " +
-            `${pageNumber + 1}.${sectionNumber + 1}: ${link.innerText}` +
-            "</span><span class='text-sm text-gray-500'>" + itemSubtitle + "</span></div>";
+            "<div class='flex items-center space-x-2'>" +
+            itemIcon +
+            "<div>" +
+            `<div>${pageNumber + 1}.${sectionNumber + 1}: </span><span class='inline' data-id='${textId}'></div>` +
+            "<div class='text-sm text-gray-500'>" +
+            itemSubtitle +
+            "</div></div></div>";
         }
 
         if (href === window.location.pathname.split("/").pop()) {
@@ -530,14 +534,15 @@ function applyTranslations() {
         }
       }
     });
-    const placeholderElements = document.querySelectorAll(`[data-placeholder-id="${key}"]`);
+    const placeholderElements = document.querySelectorAll(
+      `[data-placeholder-id="${key}"]`
+    );
     placeholderElements.forEach((element) => {
       if (element) {
         if (element.tagName === "INPUT" || element.tagName === "TEXTAREA") {
           element.setAttribute("placeholder", translations[translationKey]); // Set the placeholder text for input elements
         }
       }
-      
     });
   }
 
@@ -1035,7 +1040,7 @@ function toggleNav() {
     // Set focus on first link
     navLinks[0].focus();
   }
-  
+
   navPopup.classList.toggle("-translate-x-full");
   navPopup.setAttribute(
     "aria-hidden",
