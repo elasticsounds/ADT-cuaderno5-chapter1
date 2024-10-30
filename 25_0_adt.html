@@ -1,73 +1,114 @@
 <!DOCTYPE html>
 
 <html lang="es">
+
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<!-- CAN BE EDITED -->
-<title>Sumapalabras</title>
-<!-- DO NOT EDIT OR REMOVE the <script> tags -->
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"></script>
-<!-- Mathjax script to use for rendering math. -->
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<meta content="25_0" name="page-section-id"/>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <!-- CAN BE EDITED -->
+    <title>Sumapalabras</title>
+    <!-- DO NOT EDIT OR REMOVE the <script> tags -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"></script>
+    <!-- Mathjax script to use for rendering math. -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <meta content="25_0" name="page-section-id" />
 </head>
-<body class="bg-gray-100 lg:p-5 md:p-5 sm:p-0 mb-12 font-sans text-lg">
-<!-- The main interface components -->
-<!-- DO NOT EDIT Contains the bottom bar, next back buttons, submit button, right sidebar, ai language, eli5 and tts toggles -->
-<div id="interface-container"></div>
-<!-- DO NOT EDIT Contains the left nav bar, html page list -->
-<div id="nav-container"></div>
-<!-- The main content container, EVERYTHING CAN BE EDITED, DELETED, OR ADDITIONAL ELEMENTS ADDED AS REQUIRED -->
-<main class="container mx-auto bg-white mt-auto max-w-5xl p-5 rounded-lg shadow-lg lg:px-24 md:px-12 sm:px-6" id="content">
-<h1 class="text-3xl font-bold mb-6" data-id="text-25-0">Sumapalabras</h1>
-<p class="text-gray-700 mb-4"><i class="fas fa-pen-to-square mr-2 text-blue-700"></i><span data-id="text-25-1">Ubica cada una de estas palabras junto al par con el cual se relaciona.</span></p>
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-<!-- Image with overlays -->
-<div class="relative mb-6">
-<img alt="Una página de un libro de texto que describe biomas y la acción del hombre sobre el medio ambiente." aria-label="Una página de un libro de texto que describe biomas y la acción del hombre sobre el medio ambiente." class="w-full h-auto rounded-lg shadow-lg" data-aria-id="aria-25-0-0" data-id="img-25-2" src="images/25_img-25-2.png" tabindex="0"/>
-<div aria-label="Esta palabra es relieve" class="absolute top-10 left-1/4 transform -translate-x-1/2 -translate-y-1/2 bg-white p-2 rounded shadow-lg" data-aria-id="aria-25-0-1" data-id="text-25-2" tabindex="0">relieve</div>
-<div aria-label="Esta palabra es suelo" class="absolute bottom-10 left-0 transform -translate-x-1/2 -translate-y-1/2 bg-white p-2 rounded shadow-lg" data-aria-id="aria-25-0-2" data-id="text-25-3" tabindex="0">suelo</div>
-<div aria-label="Esta palabra es pradera" class="absolute bottom-5 left-1/2 transform -translate-x-1/2 translate-y-1/2 bg-white p-2 rounded shadow-lg" data-aria-id="aria-25-0-3" data-id="text-25-4" tabindex="0">pradera</div>
-<div aria-label="Esta palabra es Sudamérica" class="absolute top-1/4 left-0 transform -translate-x-1/2 translate-y-1/2 bg-white p-2 rounded shadow-lg" data-aria-id="aria-25-0-4" data-id="text-25-5" tabindex="0">Sudamérica</div>
-<div aria-label="Esta palabra es follaje" class="absolute top-1/4 right-0 transform translate-x-1/2 -translate-y-1/2 bg-white p-2 rounded shadow-lg" data-aria-id="aria-25-0-5" data-id="text-25-6" tabindex="0">follaje</div>
-<div aria-label="Esta palabra es húmedo" class="absolute bottom-0 right-1/4 transform translate-x-1/2 -translate-y-1/2 bg-white p-2 rounded shadow-lg" data-aria-id="aria-25-0-6" data-id="text-25-7" tabindex="0">húmedo</div>
-<div aria-label="Esta palabra es arbustos" class="absolute top-10 right-1/4 transform translate-x-1/2 translate-y-1/2 bg-white p-2 rounded shadow-lg" data-aria-id="aria-25-0-7" data-id="text-25-8" tabindex="0">arbustos</div>
-<div aria-label="Esta palabra es linces" class="absolute top-1/2 right-0 transform translate-x-1/2 translate-y-1/2 bg-white p-2 rounded shadow-lg" data-aria-id="aria-25-0-8" data-id="text-25-9" tabindex="0">linces</div>
-</div>
-<!-- Grid with words to pair -->
-<section class="grid gap-4 px-4" data-id="sectioneli5-25-0" data-section-type="activity_matching" role="activity">
-<div class="grid grid-cols-4 gap-4">
-<div aria-label="Elemento interactivo que representa montaña" class="bg-white shadow-lg rounded-lg p-4 flex justify-center items-center activity-item" data-activity-item="mountain-pair" data-aria-id="aria-25-0-9" tabindex="0">
-<span data-id="text-25-10">montaña</span>
-</div>
-<div aria-label="Elemento interactivo que representa árboles" class="bg-white shadow-lg rounded-lg p-4 flex justify-center items-center activity-item" data-activity-item="forest-pair" data-aria-id="aria-25-0-10" tabindex="0">
-<span data-id="text-25-12">árboles</span>
-</div>
-<div aria-label="Elemento interactivo que representa templado" class="bg-white shadow-lg rounded-lg p-4 flex justify-center items-center activity-item" data-activity-item="warm-pair" data-aria-id="aria-25-0-11" tabindex="0">
-<span data-id="text-25-14">templado</span>
-</div>
-<div aria-label="Elemento interactivo que representa perenne" class="bg-white shadow-lg rounded-lg p-4 flex justify-center items-center activity-item" data-activity-item="perennial-pair" data-aria-id="aria-25-0-12" tabindex="0">
-<span data-id="text-25-16">perenne</span>
-</div>
-<div aria-label="Elemento interactivo que representa pumas" class="bg-white shadow-lg rounded-lg p-4 flex justify-center items-center activity-item" data-activity-item="puma-pair" data-aria-id="aria-25-0-13" tabindex="0">
-<span data-id="text-25-18">pumas</span>
-</div>
-<div aria-label="Elemento interactivo que representa desiertos" class="bg-white shadow-lg rounded-lg p-4 flex justify-center items-center activity-item" data-activity-item="desert-pair" data-aria-id="aria-25-0-14" tabindex="0">
-<span data-id="text-25-20">desiertos</span>
-</div>
-<div aria-label="Elemento interactivo que representa sol" class="bg-white shadow-lg rounded-lg p-4 flex justify-center items-center activity-item" data-activity-item="sun-pair" data-aria-id="aria-25-0-15" tabindex="0">
-<span data-id="text-25-22">sol</span>
-</div>
-<div aria-label="Elemento interactivo que representa África" class="bg-white shadow-lg rounded-lg p-4 flex justify-center items-center activity-item" data-activity-item="africa-pair" data-aria-id="aria-25-0-16" tabindex="0">
-<span data-id="text-25-24">África</span>
-</div>
-</div>
-</section>
-</div>
-</main>
-<script>const correctAnswers = {'mountain-pair': 'ladera', 'forest-pair': 'bosques', 'warm-pair': 'frío', 'perennial-pair': 'caducuo', 'puma-pair': 'zorros', 'desert-pair': 'selvas', 'sun-pair': 'agua', 'africa-pair': 'Asia'}</script>
-<script src="assets/base.js"></script>
+
+<body class="bg-gray-100 lg:p-5 p-3 mb-12 font-sans text-lg">
+    <!-- The main interface components -->
+    <!-- DO NOT EDIT Contains the bottom bar, next back buttons, submit button, right sidebar, ai language, eli5 and tts toggles -->
+    <div id="interface-container"></div>
+    <!-- DO NOT EDIT Contains the left nav bar, html page list -->
+    <div id="nav-container"></div>
+    <!-- The main content container, EVERYTHING CAN BE EDITED, DELETED, OR ADDITIONAL ELEMENTS ADDED AS REQUIRED -->
+    <main class="container content mx-auto bg-white mt-auto max-w-5xl p-5 rounded-lg border-gray-200 border lg:px-16 md:px-12 sm:px-6 sm:py-6 md:py-10 mb-5    border-t-8 border-t-blue-700"
+        id="content">
+        <h1 class="font-bold text-4xl text-center mb-4" data-id="text-25-0">Sumapalabras</h1>
+        <p class="text-center mb-4"><i class="fas fa-pen-to-square mr-2 text-blue-700"></i><span
+                data-id="text-25-1">Ubica cada una de estas palabras junto al par con el cual se relaciona.</span></p>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Image with overlays -->
+            <div class="relative mb-6">
+                <img alt="Una página de un libro de texto que describe biomas y la acción del hombre sobre el medio ambiente."
+                    aria-label="Una página de un libro de texto que describe biomas y la acción del hombre sobre el medio ambiente."
+                    class="w-full h-auto rounded-lg shadow-lg" data-aria-id="aria-25-0-0" data-id="img-25-2"
+                    src="images/25_img-25-2.png" tabindex="0" />
+                <div aria-label="Esta palabra es relieve"
+                    class="absolute top-10 left-1/4 transform -translate-x-1/2 -translate-y-1/2 bg-white p-2 rounded shadow-lg"
+                    data-aria-id="aria-25-0-1" data-id="text-25-2" tabindex="0">relieve</div>
+                <div aria-label="Esta palabra es suelo"
+                    class="absolute bottom-10 left-0 transform -translate-x-1/2 -translate-y-1/2 bg-white p-2 rounded shadow-lg"
+                    data-aria-id="aria-25-0-2" data-id="text-25-3" tabindex="0">suelo</div>
+                <div aria-label="Esta palabra es pradera"
+                    class="absolute bottom-5 left-1/2 transform -translate-x-1/2 translate-y-1/2 bg-white p-2 rounded shadow-lg"
+                    data-aria-id="aria-25-0-3" data-id="text-25-4" tabindex="0">pradera</div>
+                <div aria-label="Esta palabra es Sudamérica"
+                    class="absolute top-1/4 left-0 transform -translate-x-1/2 translate-y-1/2 bg-white p-2 rounded shadow-lg"
+                    data-aria-id="aria-25-0-4" data-id="text-25-5" tabindex="0">Sudamérica</div>
+                <div aria-label="Esta palabra es follaje"
+                    class="absolute top-1/4 right-0 transform translate-x-1/2 -translate-y-1/2 bg-white p-2 rounded shadow-lg"
+                    data-aria-id="aria-25-0-5" data-id="text-25-6" tabindex="0">follaje</div>
+                <div aria-label="Esta palabra es húmedo"
+                    class="absolute bottom-0 right-1/4 transform translate-x-1/2 -translate-y-1/2 bg-white p-2 rounded shadow-lg"
+                    data-aria-id="aria-25-0-6" data-id="text-25-7" tabindex="0">húmedo</div>
+                <div aria-label="Esta palabra es arbustos"
+                    class="absolute top-10 right-1/4 transform translate-x-1/2 translate-y-1/2 bg-white p-2 rounded shadow-lg"
+                    data-aria-id="aria-25-0-7" data-id="text-25-8" tabindex="0">arbustos</div>
+                <div aria-label="Esta palabra es linces"
+                    class="absolute top-1/2 right-0 transform translate-x-1/2 translate-y-1/2 bg-white p-2 rounded shadow-lg"
+                    data-aria-id="aria-25-0-8" data-id="text-25-9" tabindex="0">linces</div>
+            </div>
+            <!-- Grid with words to pair -->
+            <section class="grid gap-4 px-4" data-id="sectioneli5-25-0" data-section-type="activity_matching"
+                role="activity">
+                <div class="grid grid-cols-4 gap-4">
+                    <div aria-label="Elemento interactivo que representa montaña"
+                        class="bg-white shadow-lg rounded-lg p-4 flex justify-center items-center activity-item"
+                        data-activity-item="mountain-pair" data-aria-id="aria-25-0-9" tabindex="0">
+                        <span data-id="text-25-10">montaña</span>
+                    </div>
+                    <div aria-label="Elemento interactivo que representa árboles"
+                        class="bg-white shadow-lg rounded-lg p-4 flex justify-center items-center activity-item"
+                        data-activity-item="forest-pair" data-aria-id="aria-25-0-10" tabindex="0">
+                        <span data-id="text-25-12">árboles</span>
+                    </div>
+                    <div aria-label="Elemento interactivo que representa templado"
+                        class="bg-white shadow-lg rounded-lg p-4 flex justify-center items-center activity-item"
+                        data-activity-item="warm-pair" data-aria-id="aria-25-0-11" tabindex="0">
+                        <span data-id="text-25-14">templado</span>
+                    </div>
+                    <div aria-label="Elemento interactivo que representa perenne"
+                        class="bg-white shadow-lg rounded-lg p-4 flex justify-center items-center activity-item"
+                        data-activity-item="perennial-pair" data-aria-id="aria-25-0-12" tabindex="0">
+                        <span data-id="text-25-16">perenne</span>
+                    </div>
+                    <div aria-label="Elemento interactivo que representa pumas"
+                        class="bg-white shadow-lg rounded-lg p-4 flex justify-center items-center activity-item"
+                        data-activity-item="puma-pair" data-aria-id="aria-25-0-13" tabindex="0">
+                        <span data-id="text-25-18">pumas</span>
+                    </div>
+                    <div aria-label="Elemento interactivo que representa desiertos"
+                        class="bg-white shadow-lg rounded-lg p-4 flex justify-center items-center activity-item"
+                        data-activity-item="desert-pair" data-aria-id="aria-25-0-14" tabindex="0">
+                        <span data-id="text-25-20">desiertos</span>
+                    </div>
+                    <div aria-label="Elemento interactivo que representa sol"
+                        class="bg-white shadow-lg rounded-lg p-4 flex justify-center items-center activity-item"
+                        data-activity-item="sun-pair" data-aria-id="aria-25-0-15" tabindex="0">
+                        <span data-id="text-25-22">sol</span>
+                    </div>
+                    <div aria-label="Elemento interactivo que representa África"
+                        class="bg-white shadow-lg rounded-lg p-4 flex justify-center items-center activity-item"
+                        data-activity-item="africa-pair" data-aria-id="aria-25-0-16" tabindex="0">
+                        <span data-id="text-25-24">África</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <script>const correctAnswers = { 'mountain-pair': 'ladera', 'forest-pair': 'bosques', 'warm-pair': 'frío', 'perennial-pair': 'caducuo', 'puma-pair': 'zorros', 'desert-pair': 'selvas', 'sun-pair': 'agua', 'africa-pair': 'Asia' }</script>
+    <script src="assets/base.js"></script>
 </body>
+
 </html>

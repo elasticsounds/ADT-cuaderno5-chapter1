@@ -1,109 +1,142 @@
 <!DOCTYPE html>
 
 <html lang="es">
+
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<!-- CAN BE EDITED, make this the title of the page's contents -->
-<title>Sorting Activity</title>
-<!-- DO NOT EDIT OR REMOVE the <script> tags -->
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"></script>
-<!-- Mathjax script to use for rendering math. -->
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<meta content="17_2" name="page-section-id"/>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <!-- CAN BE EDITED, make this the title of the page's contents -->
+  <title>Sorting Activity</title>
+  <!-- DO NOT EDIT OR REMOVE the <script> tags -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"></script>
+  <!-- Mathjax script to use for rendering math. -->
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <meta content="17_2" name="page-section-id" />
 </head>
-<body class="bg-gray-100 lg:p-5 md:p-5 sm:p-0 mb-12 font-sans text-lg">
-<!-- The main interface components -->
-<!-- DO NOT EDIT Contains the bottom bar, next back buttons, submit button, right sidebar, ai language, eli5 and tts toggles -->
-<div id="interface-container"></div>
-<!-- DO NOT EDIT Contains the left nav bar, html page list -->
-<div id="nav-container"></div>
-<!-- The main content container, EVERYTHING CAN BE EDITED, DELETED, OR ADDITIONAL ELEMENTS ADDED AS REQUIRED but there must always be a section tag -->
-<main class="container content mx-auto bg-white mt-auto max-w-5xl p-5 rounded-lg border-gray-200 border lg:px-16 md:px-12 sm:px-6 sm:py-6 md:py-10 mb-5 border-t-8 border-t-blue-700" id="content">
-  <h1 class="font-bold text-4xl text-center mb-4" data-id="text-17-0" tabindex="0">Fuente: el manual de estudio</h1>
 
-  <section class="space-y-4" aria-label="Actividad de clasificación de ciencias" data-aria-id="aria-17-2-0" data-id="sectioneli5-17-2" data-section-type="activity_sorting" role="activity">
+<body class="bg-gray-100 lg:p-5 p-3 mb-12 font-sans text-lg">
+  <!-- The main interface components -->
+  <!-- DO NOT EDIT Contains the bottom bar, next back buttons, submit button, right sidebar, ai language, eli5 and tts toggles -->
+  <div id="interface-container"></div>
+  <!-- DO NOT EDIT Contains the left nav bar, html page list -->
+  <div id="nav-container"></div>
+  <!-- The main content container, EVERYTHING CAN BE EDITED, DELETED, OR ADDITIONAL ELEMENTS ADDED AS REQUIRED but there must always be a section tag -->
+  <main
+    class="container content mx-auto bg-white mt-auto max-w-5xl p-5 rounded-lg border-gray-200 border lg:px-16 md:px-12 sm:px-6 sm:py-6 md:py-10 mb-5 border-t-8 border-t-blue-700"
+    id="content">
+    <h1 class="font-bold text-4xl text-center mb-4" data-id="text-17-0" tabindex="0">Fuente: el manual de estudio</h1>
 
-<p aria-label="Clasificación de áreas de estudio en ciencias" class="text-center text-lg mb-4" data-aria-id="aria-17-2-1"><i aria-hidden="true" class="fas fa-pen-to-square text-blue-700 mr-2"></i><span data-id="text-17-21">Clasifica las áreas de estudio en ciencias naturales y ciencias sociales.</span></p>
+    <section class="space-y-4" aria-label="Actividad de clasificación de ciencias" data-aria-id="aria-17-2-0"
+      data-id="sectioneli5-17-2" data-section-type="activity_sorting" role="activity">
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-<div>
-<h2 aria-label="Categoría Ciencias Naturales" class="text-lg font-semibold mb-2 text-green-700" data-aria-id="aria-17-2-2">Ciencias Naturales</h2>
-<div class="min-h-48 bg-green-50 p-4 rounded-lg border border-gray-300">
-<div aria-label="Lista de Ciencias Naturales" class="category p-2 min-h-40" data-activity-category="naturales" data-aria-id="aria-17-2-3">
-<ul class="word-list space-y-2">
-<!-- Empty initially -->
-</ul>
-</div>
-</div>
-</div>
-<div>
-<h2 aria-label="Categoría Ciencias Sociales" class="text-lg font-semibold mb-2 text-blue-500" data-aria-id="aria-17-2-9">Ciencias Sociales</h2>
-<div class="min-h-48 bg-blue-50 p-4 rounded-lg border border-gray-300">
-<div aria-label="Lista de Ciencias Sociales" class="category p-2 min-h-40" data-activity-category="sociales" data-aria-id="aria-17-2-10">
-<ul class="word-list space-y-2">
-<!-- Empty initially -->
-</ul>
-</div>
-</div>
-</div>
-</div>
+      <p aria-label="Clasificación de áreas de estudio en ciencias" class="text-center text-lg mb-4"
+        data-aria-id="aria-17-2-1"><i aria-hidden="true" class="fas fa-pen-to-square text-blue-700 mr-2"></i><span
+          data-id="text-17-21">Clasifica las áreas de estudio en ciencias naturales y ciencias sociales.</span></p>
 
-<!-- Draggable Items -->
-<div class="flex flex-wrap gap-4 mt-6">
-  <!-- Word Card: Geografía -->
-  <p class="word-card border border-gray-300 p-2 rounded-md shadow bg-white hover:bg-gray-100" data-activity-item="item-1" aria-label="Geografía" data-aria-id="aria-17-2-11" draggable="true" tabindex="0">
-    <img src="images/17_img-17-3.png" alt="Una imagen de un globo terráqueo marrón que representa la Tierra, simbolizando el estudio de la geografía." class="w-full h-auto mb-2"/>
-    <span class="word-text" data-id="text-17-22">geografía</span>
-  </p>
-  <!-- Word Card: Química -->
-  <p class="word-card border border-gray-300 p-2 rounded-md shadow bg-white hover:bg-gray-100" data-activity-item="item-2" aria-label="Química" data-aria-id="aria-17-2-4" draggable="true" tabindex="0">
-    <img src="images/17_img-17-17.png" alt="Un estante con tubos de ensayo llenos de líquidos de diferentes colores, representando la ciencia de la química." class="w-full h-auto mb-2"/>
-    <span class="word-text" data-id="text-17-23">química</span>
-  </p>
-  <!-- Word Card: Historia -->
-  <p class="word-card border border-gray-300 p-2 rounded-md shadow bg-white hover:bg-gray-100" data-activity-item="item-3" aria-label="Historia" data-aria-id="aria-17-2-12" draggable="true" tabindex="0">
-    <img src="images/17_img-17-4.png" alt="Un libro rojo junto a un reloj de arena, simbolizando el estudio de la historia y el paso del tiempo." class="w-full h-auto mb-2"/>
-    <span class="word-text" data-id="text-17-24">historia</span>
-  </p>
-  <!-- Word Card: Astronomía -->
-  <p class="word-card border border-gray-300 p-2 rounded-md shadow bg-white hover:bg-gray-100" data-activity-item="item-4" aria-label="Astronomía" data-aria-id="aria-17-2-5" draggable="true" tabindex="0">
-    <img src="images/17_img-17-8.png" alt="Un telescopio apuntando hacia el cielo, representando la exploración del universo en la astronomía." class="w-full h-auto mb-2"/>
-    <span class="word-text" data-id="text-17-25">>astronomía</span>
-  </p>
-  <!-- Word Card: Física -->
-  <p class="word-card border border-gray-300 p-2 rounded-md shadow bg-white hover:bg-gray-100" data-activity-item="item-5" aria-label="Física" data-aria-id="aria-17-2-6" draggable="true" tabindex="0">
-    <img src="images/17_img-17-6.png" alt="Una ilustración de la fórmula E=mc² con un átomo en el fondo, representando el estudio de la física." class="w-full h-auto mb-2"/>
-    <span class="word-text" data-id="text-17-26">física</span>
-  </p>
-  <!-- Word Card: Biología -->
-  <p class="word-card border border-gray-300 p-2 rounded-md shadow bg-white hover:bg-gray-100" data-activity-item="item-6" aria-label="Biología" data-aria-id="aria-17-2-7" draggable="true" tabindex="0">
-    <img src="images/17_img-17-7.png" alt="Una doble hélice de ADN, simbolizando la biología y el estudio de los seres vivos." class="w-full h-auto mb-2"/>
-    <span class="word-text" data-id="text-17-27">biología</span>
-  </p>
-  <!-- Word Card: Geología -->
-  <p class="word-card border border-gray-300 p-2 rounded-md shadow bg-white hover:bg-gray-100" data-activity-item="item-7" aria-label="Geología" data-aria-id="aria-17-2-8" draggable="true" tabindex="0">
-    <img src="images/17_img-17-5.png" alt="Una roca y un martillo de geólogo, representando el estudio de la geología y la composición de la Tierra." class="w-full h-auto mb-2"/>
-    <span class="word-text" data-id="text-17-28">geología</span>
-  </p>
-</div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <h2 aria-label="Categoría Ciencias Naturales" class="text-lg font-semibold mb-2 text-green-700"
+            data-aria-id="aria-17-2-2">Ciencias Naturales</h2>
+          <div class="min-h-48 bg-green-50 p-4 rounded-lg border border-gray-300">
+            <div aria-label="Lista de Ciencias Naturales" class="category p-2 min-h-40"
+              data-activity-category="naturales" data-aria-id="aria-17-2-3">
+              <ul class="word-list space-y-2">
+                <!-- Empty initially -->
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h2 aria-label="Categoría Ciencias Sociales" class="text-lg font-semibold mb-2 text-blue-500"
+            data-aria-id="aria-17-2-9">Ciencias Sociales</h2>
+          <div class="min-h-48 bg-blue-50 p-4 rounded-lg border border-gray-300">
+            <div aria-label="Lista de Ciencias Sociales" class="category p-2 min-h-40" data-activity-category="sociales"
+              data-aria-id="aria-17-2-10">
+              <ul class="word-list space-y-2">
+                <!-- Empty initially -->
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
 
-</section>
-<div id="feedback"></div>
-</main>
-<script>
-const correctAnswers = 
-{
-    'item-2': 'naturales', 
-    'item-4': 'naturales', 
-    'item-5': 'naturales', 
-    'item-6': 'naturales', 
-    'item-7': 'naturales', 
-    'item-1': 'sociales', 
-    'item-3': 'sociales'
-}
-</script>
-<script src="assets/base.js"></script>
+      <!-- Draggable Items -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+        <!-- Word Card: Geografía -->
+        <p class="word-card border border-gray-300 p-2 rounded-md flex flex-col justify-between items-center bg-white hover:bg-gray-100"
+          data-activity-item="item-1" aria-label="Geografía" data-aria-id="aria-17-2-11" draggable="true" tabindex="0">
+          <img src="images/17_img-17-3.png"
+            alt="Una imagen de un globo terráqueo marrón que representa la Tierra, simbolizando el estudio de la geografía."
+            class="h-24 mb-2" />
+          <span class="word-text" data-id="text-17-22">geografía</span>
+        </p>
+        <!-- Word Card: Química -->
+        <p class="word-card border border-gray-300 p-2 rounded-md flex flex-col justify-between items-center bg-white hover:bg-gray-100"
+          data-activity-item="item-2" aria-label="Química" data-aria-id="aria-17-2-4" draggable="true" tabindex="0">
+          <img src="images/17_img-17-17.png"
+            alt="Un estante con tubos de ensayo llenos de líquidos de diferentes colores, representando la ciencia de la química."
+            class="h-24 mb-2" />
+          <span class="word-text" data-id="text-17-23">química</span>
+        </p>
+        <!-- Word Card: Historia -->
+        <p class="word-card border border-gray-300 p-2 rounded-md flex flex-col justify-between items-center bg-white hover:bg-gray-100"
+          data-activity-item="item-3" aria-label="Historia" data-aria-id="aria-17-2-12" draggable="true" tabindex="0">
+          <img src="images/17_img-17-4.png"
+            alt="Un libro rojo junto a un reloj de arena, simbolizando el estudio de la historia y el paso del tiempo."
+            class="h-24 mb-2" />
+          <span class="word-text" data-id="text-17-24">historia</span>
+        </p>
+        <!-- Word Card: Astronomía -->
+        <p class="word-card border border-gray-300 p-2 rounded-md flex flex-col justify-between items-center bg-white hover:bg-gray-100"
+          data-activity-item="item-4" aria-label="Astronomía" data-aria-id="aria-17-2-5" draggable="true" tabindex="0">
+          <img src="images/17_img-17-8.png"
+            alt="Un telescopio apuntando hacia el cielo, representando la exploración del universo en la astronomía."
+            class="h-24 mb-2" />
+          <span class="word-text" data-id="text-17-25">>astronomía</span>
+        </p>
+        <!-- Word Card: Física -->
+        <p class="word-card border border-gray-300 p-2 rounded-md flex flex-col justify-between items-center bg-white hover:bg-gray-100"
+          data-activity-item="item-5" aria-label="Física" data-aria-id="aria-17-2-6" draggable="true" tabindex="0">
+          <img src="images/17_img-17-6.png"
+            alt="Una ilustración de la fórmula E=mc² con un átomo en el fondo, representando el estudio de la física."
+            class="h-24 mb-2" />
+          <span class="word-text" data-id="text-17-26">física</span>
+        </p>
+        <!-- Word Card: Biología -->
+        <p class="word-card border border-gray-300 p-2 rounded-md flex flex-col justify-between items-center bg-white hover:bg-gray-100"
+          data-activity-item="item-6" aria-label="Biología" data-aria-id="aria-17-2-7" draggable="true" tabindex="0">
+          <img src="images/17_img-17-7.png"
+            alt="Una doble hélice de ADN, simbolizando la biología y el estudio de los seres vivos."
+            class="h-24 mb-2" />
+          <span class="word-text" data-id="text-17-27">biología</span>
+        </p>
+        <!-- Word Card: Geología -->
+        <p class="word-card border border-gray-300 p-2 rounded-md flex flex-col justify-between items-center bg-white hover:bg-gray-100"
+          data-activity-item="item-7" aria-label="Geología" data-aria-id="aria-17-2-8" draggable="true" tabindex="0">
+          <img src="images/17_img-17-5.png"
+            alt="Una roca y un martillo de geólogo, representando el estudio de la geología y la composición de la Tierra."
+            class="h-24 mb-2" />
+          <span class="word-text" data-id="text-17-28">geología</span>
+        </p>
+      </div>
+
+    </section>
+    <div id="feedback"></div>
+  </main>
+  <script>
+    const correctAnswers =
+    {
+      'item-2': 'naturales',
+      'item-4': 'naturales',
+      'item-5': 'naturales',
+      'item-6': 'naturales',
+      'item-7': 'naturales',
+      'item-1': 'sociales',
+      'item-3': 'sociales'
+    }
+  </script>
+  <script src="assets/base.js"></script>
 </body>
+
 </html>
