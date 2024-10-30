@@ -415,6 +415,11 @@ document.addEventListener("DOMContentLoaded", function () {
       initializeAudioSpeed();
       loadToggleButtonState();
       loadEasyReadMode();
+      loadAutoplayState();
+      document.getElementById("toggle-autoplay").addEventListener("click", toggleAutoplay);
+      window.addEventListener("load", initializeAutoplay);
+      document.getElementById("toggle-describe-images").addEventListener("click", toggleDescribeImages);
+      loadDescribeImagesState();
 
       // Unhide navigation and sidebar after a short delay to allow animations
       setTimeout(() => {
@@ -536,6 +541,54 @@ let readAloudMode = false;
 let sideBarActive = false;
 let easyReadMode = false;
 let audioSpeed = 1;
+let autoplayMode = true;
+let describeImagesMode = false;
+
+// Add this function to handle loading the autoplay state
+function loadAutoplayState() {
+  const autoplayModeCookie = getCookie("autoplayMode");
+  if (autoplayModeCookie !== null) {
+    autoplayMode = autoplayModeCookie === "true";
+    const autoplayIcon = document.getElementById("toggle-autoplay-icon");
+    if (autoplayIcon) {
+      autoplayIcon.classList.toggle("fa-toggle-on", autoplayMode);
+      autoplayIcon.classList.toggle("fa-toggle-off", !autoplayMode);
+    }
+  }
+}
+
+function toggleDescribeImages() {
+  describeImagesMode = !describeImagesMode;
+  const describeImagesIcon = document.getElementById("toggle-describe-images-icon");
+  
+  describeImagesIcon.classList.toggle("fa-toggle-on", describeImagesMode);
+  describeImagesIcon.classList.toggle("fa-toggle-off", !describeImagesMode);
+  
+  setCookie("describeImagesMode", describeImagesMode, 7);
+
+  // Regather audio elements to update the sequence with or without images
+  if (readAloudMode) {
+      gatherAudioElements();
+      if (isPlaying) {
+          stopAudio();
+          currentIndex = 0;
+          playAudioSequentially();
+      }
+  }
+}
+
+// Add function to load the describe images state
+function loadDescribeImagesState() {
+  const describeImagesModeCookie = getCookie("describeImagesMode");
+  if (describeImagesModeCookie !== null) {
+      describeImagesMode = describeImagesModeCookie === "true";
+      const describeImagesIcon = document.getElementById("toggle-describe-images-icon");
+      if (describeImagesIcon) {
+          describeImagesIcon.classList.toggle("fa-toggle-on", describeImagesMode);
+          describeImagesIcon.classList.toggle("fa-toggle-off", !describeImagesMode);
+      }
+  }
+}
 
 // Get the base path of the current URL
 const currentPath = window.location.pathname;
@@ -715,33 +768,77 @@ function translateText(textToTranslate, variables = {}) {
   return newText.replace(/\${(.*?)}/g, (match, p1) => variables[p1] || "");
 }
 
+// Add this new function
+function initializeAutoplay() {
+  if (readAloudMode && autoplayMode) {
+    gatherAudioElements();
+    currentIndex = 0;
+    isPlaying = true;
+    setPlayPauseIcon();
+    playAudioSequentially();
+  }
+}
+
+// Add this new function to toggle autoplay
+function toggleAutoplay() {
+  autoplayMode = !autoplayMode;
+  const autoplayIcon = document.getElementById("toggle-autoplay-icon");
+  
+  autoplayIcon.classList.toggle("fa-toggle-on", autoplayMode);
+  autoplayIcon.classList.toggle("fa-toggle-off", !autoplayMode);
+  
+  setCookie("autoplayMode", autoplayMode, 7);
+
+  if (readAloudMode && autoplayMode && !isPlaying) {
+    currentIndex = 0;
+    isPlaying = true;
+    setPlayPauseIcon();
+    playAudioSequentially();
+  }
+}
+
 // Audio functionality
 function gatherAudioElements() {
   audioElements = Array.from(document.querySelectorAll("[data-id]"))
-    .filter(el => {
-      // Filter out navigation elements
-      const isNavElement = el.closest('.nav__list') !== null;
-      return !isNavElement && !el.getAttribute("data-id").startsWith("sectioneli5");
-    })
-    .map(el => {
-      const id = el.getAttribute("data-id");
-      let audioSrc = audioFiles[id];
+      .filter(el => {
+          // Filter out navigation elements
+          const isNavElement = el.closest('.nav__list') !== null;
+          
+          // Skip images if describe images mode is off
+          const isImage = el.tagName.toLowerCase() === 'img';
+          if (isImage && !describeImagesMode) {
+              return false;
+          }
+          
+          return !isNavElement && !el.getAttribute("data-id").startsWith("sectioneli5");
+      })
+      .map(el => {
+          const id = el.getAttribute("data-id");
+          let audioSrc = audioFiles[id];
 
-      // Check if Easy-Read mode is enabled and if an easy-read version exists
-      if (easyReadMode) {
-        const easyReadAudioId = `easyread-${id}`;
-        if (audioFiles.hasOwnProperty(easyReadAudioId)) {
-          audioSrc = audioFiles[easyReadAudioId];
-        }
-      }
+          // If it's an image, try to get its aria description audio
+          if (el.tagName.toLowerCase() === 'img') {
+              const ariaId = el.getAttribute("data-aria-id");
+              if (ariaId && audioFiles[ariaId]) {
+                  audioSrc = audioFiles[ariaId];
+              }
+          }
 
-      return {
-        element: el,
-        id: id,
-        audioSrc: audioSrc,
-      };
-    })
-    .filter(item => item && item.audioSrc); // Filter out items without audio source
+          // Check if Easy-Read mode is enabled and if an easy-read version exists
+          if (easyReadMode) {
+              const easyReadAudioId = `easyread-${id}`;
+              if (audioFiles.hasOwnProperty(easyReadAudioId)) {
+                  audioSrc = audioFiles[easyReadAudioId];
+              }
+          }
+
+          return {
+              element: el,
+              id: id,
+              audioSrc: audioSrc,
+          };
+      })
+      .filter(item => item && item.audioSrc);
 }
 
 function playAudioSequentially() {
@@ -816,13 +913,44 @@ function togglePlayPause() {
 function toggleReadAloud() {
   readAloudMode = !readAloudMode;
   setCookie("readAloudMode", readAloudMode);
-  document
-    .getElementById("toggle-read-aloud-icon")
-    .classList.toggle("fa-toggle-on", readAloudMode);
-  document
-    .getElementById("toggle-read-aloud-icon")
-    .classList.toggle("fa-toggle-off", !readAloudMode);
+  
+  const readAloudIcon = document.getElementById("toggle-read-aloud-icon");
+  const autoplayContainer = document.getElementById("autoplay-container");
+  const describeImagesContainer = document.getElementById("describe-images-container");
+  const sidebar = document.getElementById("sidebar");
+  
+  readAloudIcon.classList.toggle("fa-toggle-on", readAloudMode);
+  readAloudIcon.classList.toggle("fa-toggle-off", !readAloudMode);
+  
+  if (autoplayContainer && describeImagesContainer) {
+    if (readAloudMode) {
+      autoplayContainer.classList.remove("hidden");
+      describeImagesContainer.classList.remove("hidden");
+      sidebar.setAttribute("aria-hidden", "false");
+    } else {
+      autoplayContainer.classList.add("hidden");
+      describeImagesContainer.classList.add("hidden");
+      // Only set aria-hidden if no elements in the sidebar have focus
+      if (!sidebar.contains(document.activeElement)) {
+        sidebar.setAttribute("aria-hidden", "true");
+      }
+    }
+  }
+  
   togglePlayBar();
+
+  if (readAloudMode) {
+    gatherAudioElements();
+    if (autoplayMode) {
+      currentIndex = 0;
+      isPlaying = true;
+      setPlayPauseIcon();
+      playAudioSequentially();
+    }
+  } else {
+    stopAudio();
+    unhighlightAllElements();
+  }
 }
 
 function loadToggleButtonState() {
@@ -830,6 +958,8 @@ function loadToggleButtonState() {
   const readAloudIcon = document.getElementById("toggle-read-aloud-icon");
   const eli5Icon = document.getElementById("toggle-eli5-icon");
   const eli5Content = document.getElementById("eli5-content");
+  const autoplayContainer = document.getElementById("autoplay-container");
+  const describeImagesContainer = document.getElementById("describe-images-container");
 
   if (!readAloudIcon || !eli5Icon || !eli5Content) {
     // If elements aren't ready, retry after a short delay
@@ -842,22 +972,36 @@ function loadToggleButtonState() {
 
   if (readAloudModeCookie) {
     readAloudMode = readAloudModeCookie === "true";
-    document
-      .getElementById("toggle-read-aloud-icon")
-      .classList.toggle("fa-toggle-on", readAloudMode);
-    document
-      .getElementById("toggle-read-aloud-icon")
-      .classList.toggle("fa-toggle-off", !readAloudMode);
+    readAloudIcon.classList.toggle("fa-toggle-on", readAloudMode);
+    readAloudIcon.classList.toggle("fa-toggle-off", !readAloudMode);
+    
+    // Show/hide autoplay container based on readAloudMode
+    if (autoplayContainer) {
+      if (readAloudMode) {
+        autoplayContainer.classList.remove("hidden");
+        describeImagesContainer.classList.remove("hidden");
+      } else {
+        autoplayContainer.classList.add("hidden");
+        describeImagesContainer.classList.add("hidden");
+      }
+    }
   }
+
+  // Initialize autoplay after a brief delay to ensure everything is loaded
+  setTimeout(() => {
+    if (readAloudMode && autoplayMode) {
+      gatherAudioElements();
+      currentIndex = 0;
+      isPlaying = true;
+      setPlayPauseIcon();
+      playAudioSequentially();
+    }
+  }, 500);
 
   if (eli5ModeCookie) {
     eli5Mode = eli5ModeCookie === "true";
-    document
-      .getElementById("toggle-eli5-icon")
-      .classList.toggle("fa-toggle-on", eli5Mode);
-    document
-      .getElementById("toggle-eli5-icon")
-      .classList.toggle("fa-toggle-off", !eli5Mode);
+    eli5Icon.classList.toggle("fa-toggle-on", eli5Mode);
+    eli5Icon.classList.toggle("fa-toggle-off", !eli5Mode);
 
     // Automatically display ELI5 content if mode is enabled
     if (eli5Mode && translations) {
@@ -947,6 +1091,16 @@ function initializePlayBar() {
     document.getElementById("play-bar").classList.remove("hidden");
   } else {
     document.getElementById("play-bar").classList.add("hidden");
+  }
+}
+
+function initializeAutoplay() {
+  if (readAloudMode && autoplayMode) {
+    gatherAudioElements();
+    currentIndex = 0;
+    isPlaying = true;
+    setPlayPauseIcon();
+    playAudioSequentially();
   }
 }
 
