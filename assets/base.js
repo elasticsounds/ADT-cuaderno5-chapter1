@@ -10,6 +10,82 @@ document.addEventListener("DOMContentLoaded", function () {
     currentLanguage = languageCookie;
   }
 
+  //save function 
+  function saveActivities() {
+    const activities = document.querySelectorAll("input[type='text'], textarea, .word-card")
+
+    const submitButton = document.getElementById("submit-button")
+
+    const dropzones = document.querySelectorAll(".dropzone");
+
+    const activityId = location.pathname.substring(location.pathname.lastIndexOf("/") + 1).split(".")[0];
+
+    // Add event listeners to dropzones
+    dropzones.forEach((dropzone) => {
+      const dropzonesData = JSON.parse(localStorage.getItem(activityId)) || {}
+
+      const dropzoneRegion = dropzone.querySelector("div[role='region']");
+
+      const dropzoneId = dropzoneRegion.getAttribute("id")
+
+      if (dropzoneId in dropzonesData) {
+        const { itemId } = dropzonesData[dropzoneId]
+
+        const wordElement = document.querySelector(
+          `.activity-item[data-activity-item='${itemId}']`
+        );
+
+        dropzoneRegion.appendChild(wordElement)
+      }
+
+
+      dropzone.addEventListener("drop", (event) => {
+        event.preventDefault()
+
+        const itemId = event.dataTransfer.getData("text")
+
+        const regexItem = /^item-/;
+
+        if (!regexItem.test(itemId)) {
+          return
+        }
+
+        if (!itemId || itemId === "null") {
+          return
+        }
+
+        let dataActivity = JSON.parse(localStorage.getItem(activityId)) || {};
+
+        if (dataActivity[dropzoneId] && dataActivity[dropzoneId].itemId === itemId) {
+          console.log("El elemento ya está presente en esta zona");
+          return;
+        }
+
+        dataActivity[dropzoneId] = { itemId }
+
+        localStorage.setItem(activityId, JSON.stringify(dataActivity))
+
+      });
+    });
+
+    // Add event listeners to other activities
+    activities.forEach((nodo) => {
+      const id = nodo.getAttribute("data-aria-id")
+      const localStorageNodeId = `${activityId}_${id}`
+      nodo.value = localStorage.getItem(localStorageNodeId)
+
+      nodo.addEventListener("input", (event) => {
+        const value = event.target.value
+        localStorage.setItem(localStorageNodeId, value)
+      })
+    })
+
+    /* submitButton.addEventListener("click", ()=> {
+      localStorage.setItem(`${activityId}_success`, "true")
+    }) */
+  }
+
+
   // Fetch interface.html and nav.html, and activity.js concurrently
   Promise.all([
     fetch("assets/interface.html").then((response) => response.text()),
@@ -93,6 +169,8 @@ document.addEventListener("DOMContentLoaded", function () {
           openSidebar.setAttribute("aria-expanded", "false");
         }
       });
+
+      saveActivities()
 
       // Initialize left nav bar state from cookie
       const navState = getCookie("navState") || "closed";
@@ -256,6 +334,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const href = link.getAttribute("href");
         const pageSectionMatch = href.match(/(\d+)_(\d+)/);
+        const activityId = href.split(".")[0];
+        
         const textId = link.getAttribute("data-text-id");
 
         if (pageSectionMatch) {
@@ -277,6 +357,19 @@ document.addEventListener("DOMContentLoaded", function () {
             "border-blue-500",
             "bg-blue-100",
             "p-2"
+          );
+        }
+
+        const success = JSON.parse(localStorage.getItem(`${activityId}_success`)) || false
+
+        if(success){
+          item.classList.add("min-h-[3rem]");
+          link.classList.add(
+            "border-l-4",
+            "border-green-500",
+            "bg-green-100",
+            "p-2",
+            "text-green-700"
           );
         }
       });
