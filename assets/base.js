@@ -172,6 +172,66 @@ document.addEventListener("DOMContentLoaded", function () {
 
       saveActivities()
 
+      // Initialize left nav bar state from cookie
+      const navState = getCookie("navState") || "closed";
+      const navPopup = document.getElementById("navPopup");
+      const navToggle = document.querySelector(".nav__toggle");
+      const navList = document.querySelector(".nav__list");
+      const savedPosition = getCookie("navScrollPosition");
+
+      if (navState === "open") {
+        navPopup.classList.remove("-translate-x-full");
+        navPopup.classList.add("left-2");
+        navPopup.setAttribute("aria-hidden", "false");
+        if (navList) {
+          navList.removeAttribute("hidden");
+          // Wait for nav list to be visible before setting scroll
+          setTimeout(() => {
+            if (savedPosition) {
+              console.log("Setting scroll after delay to:", savedPosition);
+              navList.scrollTop = parseInt(savedPosition);
+              console.log("Actual scroll position:", navList.scrollTop);
+            }
+          }, 300); // Increased delay
+        }
+        if (navToggle) {
+          navToggle.setAttribute("aria-expanded", "true");
+        }
+      }
+
+      // Restore nav scroll position
+      //navList = document.querySelector(".nav__list");
+      console.log("DOMContentLoaded - Retrieved saved position:", savedPosition);
+      console.log("DOMContentLoaded - Current navList:", navList);
+      if (navList && savedPosition) {
+        navList.scrollTop = parseInt(savedPosition);
+        
+        // Only handle focus if nav is open
+    if (navState === "open") {
+      setTimeout(() => {
+        const currentPath = window.location.pathname.split("/").pop() || "index.html";
+        const activeLink = Array.from(document.querySelectorAll(".nav__list-link")).find(
+          link => link.getAttribute("href") === currentPath
+        );
+        
+        if (activeLink) {
+          const linkRect = activeLink.getBoundingClientRect();
+          const navRect = navList.getBoundingClientRect();
+          const isInView = (
+            linkRect.top >= navRect.top &&
+            linkRect.bottom <= navRect.bottom
+          );
+          
+          if (!isInView) {
+            activeLink.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+          activeLink.setAttribute("tabindex", "0");
+          activeLink.focus({ preventScroll: true });
+        }
+      }, 300);
+    }
+      }
+
       // Add event listeners to various UI elements
       prepareActivity();
       // right side bar
@@ -227,16 +287,13 @@ document.addEventListener("DOMContentLoaded", function () {
       document
         .getElementById("forward-button")
         .addEventListener("click", nextPage);
-      // document
-      //   .getElementById("submit-button")
-      //   .addEventListener("click", validateInputs);
 
       // left nav bar
       document.getElementById("nav-popup").addEventListener("click", toggleNav);
       document.getElementById("nav-close").addEventListener("click", toggleNav);
-      const navToggle = document.querySelector(".nav__toggle");
+      //const navToggle = document.querySelector(".nav__toggle");
       const navLinks = document.querySelectorAll(".nav__list-link");
-      const navPopup = document.getElementById("navPopup");
+      //const navPopup = document.getElementById("navPopup");
 
       if (navToggle) {
         navToggle.addEventListener("click", toggleNav);
@@ -268,17 +325,29 @@ document.addEventListener("DOMContentLoaded", function () {
         if (index === 0) {
           item.classList.add("border-t");
         }
+        let itemIcon = "";
+        let itemSubtitle = "";
+        if (item.classList.contains("activity")) {
+          itemIcon = '<i class="fas fa-pen-to-square"></i>';
+          itemSubtitle = "<span data-id='activity-to-do'></span>";
+        }
 
         const href = link.getAttribute("href");
         const pageSectionMatch = href.match(/(\d+)_(\d+)/);
         const activityId = href.split(".")[0];
         
+        const textId = link.getAttribute("data-text-id");
+
         if (pageSectionMatch) {
           const [_, pageNumber, sectionNumber] = pageSectionMatch.map(Number);
           link.innerHTML =
-            "<div class='whitespace-normal'><span class='inline' data-id='page'></span><span class='inline'> " +
-            `${pageNumber + 1}.${sectionNumber + 1}: ${link.innerText}` +
-            "</span></div>";
+            "<div class='flex items-center space-x-2'>" +
+            itemIcon +
+            "<div>" +
+            `<div>${pageNumber + 1}.${sectionNumber + 1}: </span><span class='inline' data-id='${textId}'></div>` +
+            "<div class='text-sm text-gray-500'>" +
+            itemSubtitle +
+            "</div></div></div>";
         }
 
         if (href === window.location.pathname.split("/").pop()) {
@@ -351,6 +420,8 @@ document.addEventListener("DOMContentLoaded", function () {
       setTimeout(() => {
         navPopup.classList.remove("hidden");
         document.getElementById("sidebar").classList.remove("hidden");
+        console.log("DOMContentLoaded - Actual scroll position:", navList.scrollTop);
+
       }, 100); // Adjust the timeout duration as needed
 
       // Add click handler specifically for eli5-content area
@@ -597,6 +668,16 @@ function applyTranslations() {
           element.setAttribute("alt", translations[translationKey]); // Set the alt text for images
         } else {
           element.textContent = translations[translationKey]; // Set the text content for other elements
+        }
+      }
+    });
+    const placeholderElements = document.querySelectorAll(
+      `[data-placeholder-id="${key}"]`
+    );
+    placeholderElements.forEach((element) => {
+      if (element) {
+        if (element.tagName === "INPUT" || element.tagName === "TEXTAREA") {
+          element.setAttribute("placeholder", translations[translationKey]); // Set the placeholder text for input elements
         }
       }
     });
@@ -1083,16 +1164,52 @@ function toggleNav() {
     return; // Exit if elements are not found
   }
 
-  if (!navList.hasAttribute("hidden")) {
+  const isNavOpen = !navList.hasAttribute("hidden");
+  const currentPath = window.location.pathname.split("/").pop() || "index.html";
+  console.log("toggleNav - Nav is open:", isNavOpen);
+
+  if (isNavOpen) {
+    const scrollPosition = navList.scrollTop;
+    setCookie("navScrollPosition", scrollPosition, 7, basePath);
     navToggle.setAttribute("aria-expanded", "false");
     navList.setAttribute("hidden", "true");
+    setCookie("navState", "closed", 7, basePath);
   } else {
     navToggle.setAttribute("aria-expanded", "true");
     navList.removeAttribute("hidden");
+    setCookie("navState", "open", 7, basePath);
 
-    // Set focus on first link
-    navLinks[0].focus();
+    // First restore the saved position immediately
+    const savedPosition = getCookie("navScrollPosition");
+    if (savedPosition) {
+      navList.scrollTop = parseInt(savedPosition);
+    }
+
+    // Find the active link
+    const activeLink = Array.from(navLinks).find(
+      link => link.getAttribute("href") === currentPath
+    );
+
+    if (activeLink) {
+      // Make the active link focusable and give it focus for keyboard navigation
+      activeLink.setAttribute("tabindex", "0");
+      
+      setTimeout(() => {
+        const linkRect = activeLink.getBoundingClientRect();
+        const navRect = navList.getBoundingClientRect();
+        const isInView = (
+          linkRect.top >= navRect.top &&
+          linkRect.bottom <= navRect.bottom
+        );
+        
+        if (!isInView) {
+          activeLink.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+        activeLink.focus({ preventScroll: true });
+      }, 100);
+    }
   }
+
   navPopup.classList.toggle("-translate-x-full");
   navPopup.setAttribute(
     "aria-hidden",
@@ -1105,13 +1222,19 @@ function toggleNav() {
 function previousPage() {
   const currentHref = window.location.href.split("/").pop() || "index.html";
   const navItems = document.querySelectorAll(".nav__list-link");
+  const navList = document.querySelector(".nav__list");
+
+  // // Save current scroll position before navigation
+  // if (navList) {
+  //   const scrollPosition = navList.scrollTop;
+  //   setCookie("navScrollPosition", scrollPosition, 7, basePath);
+  // }
+  
   for (let i = 0; i < navItems.length; i++) {
-    if (navItems[i].getAttribute("href") === currentHref) {
-      if (i > 0) {
-        const prevItem = navItems[i - 1];
-        window.location.href = prevItem.getAttribute("href");
-        document.getElementById("page-number").innerText = prevItem.innerText;
-      }
+    if (navItems[i].getAttribute("href") === currentHref && i > 0) {
+      const scrollPosition = navList?.scrollTop || 0;
+      setCookie("navScrollPosition", scrollPosition, 7, basePath);
+      window.location.href = navItems[i - 1].getAttribute("href");
       break;
     }
   }
@@ -1120,13 +1243,13 @@ function previousPage() {
 function nextPage() {
   const currentHref = window.location.href.split("/").pop() || "index.html";
   const navItems = document.querySelectorAll(".nav__list-link");
+  const navList = document.querySelector(".nav__list");
+
   for (let i = 0; i < navItems.length; i++) {
-    if (navItems[i].getAttribute("href") === currentHref) {
-      if (i < navItems.length - 1) {
-        const nextItem = navItems[i + 1];
-        window.location.href = nextItem.getAttribute("href");
-        document.getElementById("page-number").innerText = nextItem.innerText;
-      }
+    if (navItems[i].getAttribute("href") === currentHref && i < navItems.length - 1) {
+      const scrollPosition = navList?.scrollTop || 0;
+      setCookie("navScrollPosition", scrollPosition, 7, basePath);
+      window.location.href = navItems[i + 1].getAttribute("href");
       break;
     }
   }

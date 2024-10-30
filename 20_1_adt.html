@@ -1,118 +1,151 @@
 <!DOCTYPE html>
 
 <html lang="es">
+
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Factores de Biomas</title>
-<!-- DO NOT REMOVE the <script> tags -->
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"></script>
-<!-- Mathjax script to use for rendering math. -->
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<meta content="20_1" name="page-section-id"/>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>Factores de Biomas</title>
+    <!-- DO NOT REMOVE the <script> tags -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"></script>
+    <!-- Mathjax script to use for rendering math. -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <meta content="20_1" name="page-section-id" />
 </head>
-<body class="bg-gray-100 lg:p-5 md:p-5 sm:p-0 mb-12 font-sans text-lg">
-<!-- The main interface components -->
-<!-- DO NOT REMOVE Contains the bottom bar, next back buttons, submit button, right sidebar, ai language, eli5 and tts toggles -->
-<div id="interface-container"></div>
-<!-- DO NOT REMOVE Contains the left nav bar, html page list -->
-<div id="nav-container"></div>
-<!-- The main content container -->
-<main class="container content mx-auto bg-white mt-auto max-w-5xl p-5 rounded-lg shadow-lg lg:px-24 md:px-12 sm:px-6" id="content">
-<img alt="Un personaje cartoon de un reptil sonriente con sombrero y chaqueta roja." aria-label="Un personaje cartoon de un reptil sonriente con sombrero y chaqueta roja." class="float-right mb-4 ml-4 w-32" data-id="img-20-2" src="images/20_img-20-2.png"/>
-<h2 class="text-2xl font-bold mb-4">Del texto al cuadro</h2>
-<p class="mb-4"><i class="fas fa-check-circle text-green-700 mr-2"></i><span data-id="text-20-14">Completa el
-                esquema de la derecha que resume los factores que caracterizan a los biomas.</span></p>
-<p class="mb-4"><span class="text-xl text-green-700 font-bold" data-id="text-20-16">Factores que caracterizan a
-                los biomas</span><br/><span data-id="text-20-15">Emplea todos los conceptos de la lista.</span></p>
-<!-- THERE MUST ALWAYS BE A SECTION TAG -->
-<section aria-label="Ordena los conceptos correctamente" class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4" data-aria-id="aria-20-1-0" data-id="sectioneli5-20-1" data-section-type="activity_sorting" role="activity">
-<div aria-label="temperatura" class="word-card bg-yellow-100 p-2 border rounded-md" data-activity-item="item-1" data-aria-id="aria-20-1-1" draggable="true" tabindex="0">
-<i class="fas fa-seedling"></i> <span data-id="text-20-17">temperatura</span>
-</div>
-<div aria-label="tipo de suelo" class="word-card bg-yellow-100 p-2 border rounded-md" data-activity-item="item-2" data-aria-id="aria-20-1-2" draggable="true" tabindex="0">
-<i class="fas fa-mountain"></i> <span data-id="text-20-18">tipo de suelo</span>
-</div>
-<div aria-label="montaña" class="word-card bg-yellow-100 p-2 border rounded-md" data-activity-item="item-3" data-aria-id="aria-20-1-3" draggable="true" tabindex="0">
-<i class="fas fa-tree"></i> <span data-id="text-20-19">montaña</span>
-</div>
-<div aria-label="árboles" class="word-card bg-yellow-100 p-2 border rounded-md" data-activity-item="item-4" data-aria-id="aria-20-1-4" draggable="true" tabindex="0">
-<i class="fas fa-leaf"></i> <span data-id="text-20-20">árboles</span>
-</div>
-<div aria-label="lluvia" class="word-card bg-yellow-100 p-2 border rounded-md" data-activity-item="item-5" data-aria-id="aria-20-1-5" draggable="true" tabindex="0">
-<i class="fas fa-cloud-rain"></i> <span data-id="text-20-21">lluvia</span>
-</div>
-<div aria-label="tipo de relieve" class="word-card bg-yellow-100 p-2 border rounded-md" data-activity-item="item-6" data-aria-id="aria-20-1-6" draggable="true" tabindex="0">
-<i class="fas fa-map"></i> <span data-id="text-20-22">tipo de relieve</span>
-</div>
-<div aria-label="rocoso" class="word-card bg-yellow-100 p-2 border rounded-md" data-activity-item="item-7" data-aria-id="aria-20-1-7" draggable="true" tabindex="0">
-<i class="fas fa-stone"></i> <span data-id="text-20-23">rocoso</span>
-</div>
-<div aria-label="arbustos" class="word-card bg-yellow-100 p-2 border rounded-md" data-activity-item="item-8" data-aria-id="aria-20-1-8" draggable="true" tabindex="0">
-<i class="fas fa-seedling"></i> <span data-id="text-20-24">arbustos</span>
-</div>
-<div aria-label="vegetación" class="word-card bg-yellow-100 p-2 border rounded-md" data-activity-item="item-9" data-aria-id="aria-20-1-9" draggable="true" tabindex="0">
-<i class="fas fa-leaf"></i> <span data-id="text-20-25">vegetación</span>
-</div>
-<div aria-label="sierra" class="word-card bg-yellow-100 p-2 border rounded-md" data-activity-item="item-10" data-aria-id="aria-20-1-10" draggable="true" tabindex="0">
-<i class="fas fa-mountain"></i> <span data-id="text-20-26">sierra</span>
-</div>
-<div aria-label="clima" class="word-card bg-yellow-100 p-2 border rounded-md" data-activity-item="item-11" data-aria-id="aria-20-1-11" draggable="true" tabindex="0">
-<i class="fas fa-wind"></i> <span data-id="text-20-27">clima</span>
-</div>
-<div aria-label="arciloso" class="word-card bg-yellow-100 p-2 border rounded-md" data-activity-item="item-12" data-aria-id="aria-20-1-12" draggable="true" tabindex="0">
-<i class="fas fa-seedling"></i> <span data-id="text-20-28">arciloso</span>
-</div>
-<div aria-label="Ilanura" class="word-card bg-yellow-100 p-2 border rounded-md" data-activity-item="item-13" data-aria-id="aria-20-1-13" draggable="true" tabindex="0">
-<i class="fas fa-leaf"></i> <span data-id="text-20-29">Ilanura</span>
-</div>
-<div aria-label="hierbas" class="word-card bg-yellow-100 p-2 border rounded-md" data-activity-item="item-14" data-aria-id="aria-20-1-14" draggable="true" tabindex="0">
-<i class="fas fa-leaf"></i> <span data-id="text-20-30">hierbas</span>
-</div>
-<div aria-label="arenoso" class="word-card bg-yellow-100 p-2 border rounded-md" data-activity-item="item-15" data-aria-id="aria-20-1-15" draggable="true" tabindex="0">
-<i class="fas fa-leaf"></i> <span data-id="text-20-31">arenoso</span>
-</div>
-<div aria-label="nivel de humedad" class="word-card bg-yellow-100 p-2 border rounded-md" data-activity-item="item-16" data-aria-id="aria-20-1-16" draggable="true" tabindex="0">
-<i class="fas fa-water"></i> <span data-id="text-20-32">nivel de humedad</span>
-</div>
-</section>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-<div class="category bg-green-200 p-4 rounded-md" data-activity-category="category-1">
-<h3 class="text-lg font-semibold mb-2">Clima</h3>
-<ul class="word-list"></ul>
-</div>
-<div class="category bg-green-200 p-4 rounded-md" data-activity-category="category-2">
-<h3 class="text-lg font-semibold mb-2">Tipo de Suelo</h3>
-<ul class="word-list"></ul>
-</div>
-<div class="category bg-green-200 p-4 rounded-md" data-activity-category="category-3">
-<h3 class="text-lg font-semibold mb-2">Vegetación</h3>
-<ul class="word-list"></ul>
-</div>
-</div>
-<div id="feedback"></div>
-</main>
-<script>
-const correctAnswers = {
-    'item-1': 'category-1', 
-    'item-2': 'category-2', 
-    'item-3': 'category-2', 
-    'item-4': 'category-3', 
-    'item-5': 'category-1', 
-    'item-6': 'category-2', 
-    'item-7': 'category-2', 
-    'item-8': 'category-3', 
-    'item-9': 'category-3', 
-    'item-10': 'category-2', 
-    'item-11': 'category-1', 
-    'item-12': 'category-2', 
-    'item-13': 'category-2', 
-    'item-14': 'category-3', 
-    'item-15': 'category-2', 
-    'item-16': 'category-1'
-}
-</script>
-<script src="assets/base.js"></script>
+
+<body class="bg-gray-100 lg:p-5 p-3 mb-12 font-sans text-lg">
+    <!-- The main interface components -->
+    <!-- DO NOT REMOVE Contains the bottom bar, next back buttons, submit button, right sidebar, ai language, eli5 and tts toggles -->
+    <div id="interface-container"></div>
+    <!-- DO NOT REMOVE Contains the left nav bar, html page list -->
+    <div id="nav-container"></div>
+    <!-- The main content container -->
+    <main
+        class="container content mx-auto bg-white mt-auto max-w-5xl p-5 rounded-lg border-gray-200 border lg:px-16 md:px-12 sm:px-6 sm:py-6 md:py-10 mb-5 border-t-8 border-t-blue-700"
+        id="content">
+        <!--  <img alt="Un personaje cartoon de un reptil sonriente con sombrero y chaqueta roja."
+            aria-label="Un personaje cartoon de un reptil sonriente con sombrero y chaqueta roja."
+            class="float-right mb-4 ml-4 w-32" data-id="img-20-2" src="images/20_img-20-2.png" /> -->
+        <h2 class="font-bold text-4xl text-center mb-4">Del texto al cuadro</h2>
+        <p class="mb-4 text-center"><i class="fas fa-check-circle text-blue-700 mr-2"></i><span
+                data-id="text-20-14">Completa el
+                esquema de la derecha que resume los factores que caracterizan a los biomas.</span><br>
+            <span data-id="text-20-15">Emplea todos los conceptos de la lista.</span>
+        </p>
+       
+        <!-- THERE MUST ALWAYS BE A SECTION TAG -->
+        <section aria-label="Ordena los conceptos correctamente" class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4"
+            data-aria-id="aria-20-1-0" data-id="sectioneli5-20-1" data-section-type="activity_sorting" role="activity">
+            <div aria-label="temperatura" class="word-card bg-yellow-100 p-2 border rounded-md"
+                data-activity-item="item-1" data-aria-id="aria-20-1-1" draggable="true" tabindex="0">
+                <i class="fas fa-seedling"></i> <span data-id="text-20-17">temperatura</span>
+            </div>
+            <!--  <div aria-label="tipo de suelo" class="word-card bg-yellow-100 p-2 border rounded-md"
+                data-activity-item="item-2" data-aria-id="aria-20-1-2" draggable="true" tabindex="0">
+                <i class="fas fa-mountain"></i> <span data-id="text-20-18">tipo de suelo</span>
+            </div> -->
+            <div aria-label="montaña" class="word-card bg-yellow-100 p-2 border rounded-md" data-activity-item="item-3"
+                data-aria-id="aria-20-1-3" draggable="true" tabindex="0">
+                <i class="fas fa-tree"></i> <span data-id="text-20-19">montaña</span>
+            </div>
+            <div aria-label="árboles" class="word-card bg-yellow-100 p-2 border rounded-md" data-activity-item="item-4"
+                data-aria-id="aria-20-1-4" draggable="true" tabindex="0">
+                <i class="fas fa-leaf"></i> <span data-id="text-20-20">árboles</span>
+            </div>
+            <div aria-label="lluvia" class="word-card bg-yellow-100 p-2 border rounded-md" data-activity-item="item-5"
+                data-aria-id="aria-20-1-5" draggable="true" tabindex="0">
+                <i class="fas fa-cloud-rain"></i> <span data-id="text-20-21">lluvia</span>
+            </div>
+            <!-- <div aria-label="tipo de relieve" class="word-card bg-yellow-100 p-2 border rounded-md"
+                data-activity-item="item-6" data-aria-id="aria-20-1-6" draggable="true" tabindex="0">
+                <i class="fas fa-map"></i> <span data-id="text-20-22">tipo de relieve</span>
+            </div> -->
+            <div aria-label="rocoso" class="word-card bg-yellow-100 p-2 border rounded-md" data-activity-item="item-7"
+                data-aria-id="aria-20-1-7" draggable="true" tabindex="0">
+                <i class="fas fa-stone"></i> <span data-id="text-20-23">rocoso</span>
+            </div>
+            <div aria-label="arbustos" class="word-card bg-yellow-100 p-2 border rounded-md" data-activity-item="item-8"
+                data-aria-id="aria-20-1-8" draggable="true" tabindex="0">
+                <i class="fas fa-seedling"></i> <span data-id="text-20-24">arbustos</span>
+            </div>
+            <!--  <div aria-label="vegetación" class="word-card bg-yellow-100 p-2 border rounded-md"
+                data-activity-item="item-9" data-aria-id="aria-20-1-9" draggable="true" tabindex="0">
+                <i class="fas fa-leaf"></i> <span data-id="text-20-25">vegetación</span>
+            </div> -->
+            <div aria-label="sierra" class="word-card bg-yellow-100 p-2 border rounded-md" data-activity-item="item-10"
+                data-aria-id="aria-20-1-10" draggable="true" tabindex="0">
+                <i class="fas fa-mountain"></i> <span data-id="text-20-26">sierra</span>
+            </div>
+           <!--  <div aria-label="clima" class="word-card bg-yellow-100 p-2 border rounded-md" data-activity-item="item-11"
+                data-aria-id="aria-20-1-11" draggable="true" tabindex="0">
+                <i class="fas fa-wind"></i> <span data-id="text-20-27">clima</span>
+            </div> -->
+            <div aria-label="arciloso" class="word-card bg-yellow-100 p-2 border rounded-md"
+                data-activity-item="item-12" data-aria-id="aria-20-1-12" draggable="true" tabindex="0">
+                <i class="fas fa-seedling"></i> <span data-id="text-20-28">arciloso</span>
+            </div>
+            <div aria-label="Ilanura" class="word-card bg-yellow-100 p-2 border rounded-md" data-activity-item="item-13"
+                data-aria-id="aria-20-1-13" draggable="true" tabindex="0">
+                <i class="fas fa-leaf"></i> <span data-id="text-20-29">Ilanura</span>
+            </div>
+            <div aria-label="hierbas" class="word-card bg-yellow-100 p-2 border rounded-md" data-activity-item="item-14"
+                data-aria-id="aria-20-1-14" draggable="true" tabindex="0">
+                <i class="fas fa-leaf"></i> <span data-id="text-20-30">hierbas</span>
+            </div>
+            <div aria-label="arenoso" class="word-card bg-yellow-100 p-2 border rounded-md" data-activity-item="item-15"
+                data-aria-id="aria-20-1-15" draggable="true" tabindex="0">
+                <i class="fas fa-leaf"></i> <span data-id="text-20-31">arenoso</span>
+            </div>
+            <div aria-label="nivel de humedad" class="word-card bg-yellow-100 p-2 border rounded-md"
+                data-activity-item="item-16" data-aria-id="aria-20-1-16" draggable="true" tabindex="0">
+                <i class="fas fa-water"></i> <span data-id="text-20-32">nivel de humedad</span>
+            </div>
+        </section>
+        <p class="mb-4 mt-8 text-center"><span class="text-xl font-bold" data-id="text-20-16">Factores que caracterizan a
+            los biomas</span></p>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 ">
+            <div class="category bg-green-200 p-4 rounded-md" data-activity-category="category-1">
+                <h3 class="text-lg font-semibold mb-2">Clima</h3>
+                <ul class="word-list items-stretch flex-col"></ul>
+            </div>
+            <div class="category bg-green-200 p-4 rounded-md" data-activity-category="category-2">
+                <h3 class="text-lg font-semibold mb-2">Tipo de Suelo</h3>
+                <ul class="word-list items-stretch flex-col"></ul>
+            </div>
+            <div class="category bg-green-200 p-4 rounded-md" data-activity-category="category-3">
+                <h3 class="text-lg font-semibold mb-2">Vegetación</h3>
+                <ul class="word-list items-stretch flex-col"></ul>
+            </div>
+
+            <div class="category bg-green-200 p-4 rounded-md" data-activity-category="category-4">
+                <h3 class="text-lg font-semibold mb-2">Tipo de relieve</h3>
+                <ul class="word-list items-stretch flex-col"></ul>
+            </div>
+        </div>
+        <div id="feedback"></div>
+    </main>
+    <script>
+        const correctAnswers = {
+            'item-1': 'category-1',
+            'item-2': 'category-2',
+            'item-3': 'category-4',
+            'item-4': 'category-3',
+            'item-5': 'category-1',
+            'item-6': 'category-2',
+            'item-7': 'category-2',
+            'item-8': 'category-3',
+            'item-9': 'category-3',
+            'item-10': 'category-4',
+            'item-11': 'category-1',
+            'item-12': 'category-2',
+            'item-13': 'category-4',
+            'item-14': 'category-3',
+            'item-15': 'category-2',
+            'item-16': 'category-1'
+        }
+    </script>
+    <script src="assets/base.js"></script>
 </body>
+
 </html>

@@ -1,80 +1,106 @@
 <!DOCTYPE html>
 
 <html lang="es">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<!-- CAN BE EDITED -->
-<title>Interrogantes - Biomas</title>
-<!-- DO NOT EXIT the <head> tag -->
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"></script>
-<!-- Mathjax script to use for rendering math. -->
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<meta content="19_0" name="page-section-id"/>
-</head>
-<body class="bg-gray-100 lg:p-5 md:p-5 sm:p-0 mb-12 font-sans text-lg">
-<!-- The main interface components -->
-<!-- DO NOT EDIT Contains the bottom bar, next back buttons, submit button, right sidebar, ai language, eli5 and tts toggles -->
-<div id="interface-container"></div>
-<!-- DO NOT EDIT Contains the left nav bar, html page list -->
-<div id="nav-container"></div>
-<!-- The main content container, EVERYTHING CAN BE EDITED, DELETED, OR ADDITIONAL ELEMENTS ADDED AS REQUIRED -->
-<main class="container content mx-auto bg-white mt-auto max-w-5xl p-5 rounded-lg shadow-lg lg:px-24 md:px-12 sm:px-6" id="content">
-<h1 class="text-2xl font-bold text-left mb-4" data-id="text-19-0">Interrogantes</h1>
-<p class="mb-4"><i class="fas fa-book-reader text-blue-700 mr-2"></i><span data-id="text-19-2">¿Cuáles de estas preguntas pueden contestarse después de leer «Los biomas»? Elige sí o no.</span></p>
-<!-- Activity Section -->
-<section class="space-y-4" data-id="sectioneli5-19-0" data-section-type="activity_true_false" role="activity">
-<!-- Question 1 -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
-<p class="font-semibold" data-id="text-19-3">1.</p>
-<span data-id="text-19-4">¿Cómo surgió la vida en nuestro planeta?</span>
-<div class="flex space-x-2">
-<label><input aria-label="Pregunta 1 Sí" data-aria-id="aria-19-0-0" name="question1" tabindex="0" type="radio" value="yes" data-activity-item="item-1"/> Sí</label>
-<label class="ml-4"><input aria-label="Pregunta 1 No" data-aria-id="aria-19-0-1" name="question1" tabindex="0" type="radio" value="no" data-activity-item="item-1"/> No</label>
-</div>
-</div>
-<!-- Question 2 -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
-<p class="font-semibold" data-id="text-19-5">2.</p>
-<span data-id="text-19-6">¿De qué manera el hombre modifica el medio ambiente?</span>
-<div class="flex space-x-2">
-<label><input aria-label="Pregunta 2 Sí" data-aria-id="aria-19-0-2" name="question2" tabindex="0" type="radio" value="yes" data-activity-item="item-2"/> Sí</label>
-<label class="ml-4"><input aria-label="Pregunta 2 No" data-aria-id="aria-19-0-3" name="question2" tabindex="0" type="radio" value="no" data-activity-item="item-2"/> No</label>
-</div>
-</div>
-<!-- Question 3 -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
-<p class="font-semibold" data-id="text-19-7">3.</p>
-<span data-id="text-19-8">¿Cuál es la definición de desarrollo sostenible?</span>
-<div class="flex space-x-2">
-<label><input aria-label="Pregunta 3 Sí" data-aria-id="aria-19-0-4" name="question3" tabindex="0" type="radio" value="yes" data-activity-item="item-3"/> Sí</label>
-<label class="ml-4"><input aria-label="Pregunta 3 No" data-aria-id="aria-19-0-5" name="question3" tabindex="0" type="radio" value="no" data-activity-item="item-3"/> No</label>
-</div>
-</div>
-<!-- Question 4 -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
-<p class="font-semibold" data-id="text-19-9">4.</p>
-<span data-id="text-19-10">¿En qué zonas del planeta existen selvas?</span>
-<div class="flex space-x-2">
-<label><input aria-label="Pregunta 4 Sí" data-aria-id="aria-19-0-6" name="question4" tabindex="0" type="radio" value="yes" data-activity-item="item-4"/> Sí</label>
-<label class="ml-4"><input aria-label="Pregunta 4 No" data-aria-id="aria-19-0-7" name="question4" tabindex="0" type="radio" value="no" data-activity-item="item-4"/> No</label>
-</div>
-</div>
-<!-- Question 5 -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
-<p class="font-semibold" data-id="text-19-11">5.</p>
-<span data-id="text-19-12">¿Qué tipos de biomas se encuentran en Uruguay?</span>
-<div class="flex space-x-2">
-<label><input aria-label="Pregunta 5 Sí" data-aria-id="aria-19-0-8" name="question5" tabindex="0" type="radio" value="yes" data-activity-item="item-5"/> Sí</label>
-<label class="ml-4"><input aria-label="Pregunta 5 No" data-aria-id="aria-19-0-9" name="question5" tabindex="0" type="radio" value="no" data-activity-item="item-5"/> No</label>
-</div>
-</div>
-</section>
-</main>
 
-<script src="assets/base.js"></script>
-<script>
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <!-- CAN BE EDITED -->
+    <title>Interrogantes - Biomas</title>
+    <!-- DO NOT EXIT the <head> tag -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"></script>
+    <!-- Mathjax script to use for rendering math. -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <meta content="19_0" name="page-section-id" />
+</head>
+
+<body class="bg-gray-100 lg:p-5 p-3 mb-12 font-sans text-lg">
+    <!-- The main interface components -->
+    <!-- DO NOT EDIT Contains the bottom bar, next back buttons, submit button, right sidebar, ai language, eli5 and tts toggles -->
+    <div id="interface-container"></div>
+    <!-- DO NOT EDIT Contains the left nav bar, html page list -->
+    <div id="nav-container"></div>
+    <!-- The main content container, EVERYTHING CAN BE EDITED, DELETED, OR ADDITIONAL ELEMENTS ADDED AS REQUIRED -->
+    <main
+        class="container content mx-auto bg-white mt-auto max-w-5xl p-5 rounded-lg border-gray-200 border lg:px-16 md:px-12 sm:px-6 sm:py-6 md:py-10 mb-5 border-t-8 border-t-blue-700"
+        id="content">
+        <h1 class="font-bold text-4xl text-center mb-4" data-id="text-19-0">Interrogantes</h1>
+        <p class="mb-4 text-center mb-8"><i class="fas fa-book-reader text-blue-700 mr-2"></i><span
+                data-id="text-19-2">¿Cuáles de estas
+                preguntas pueden contestarse después de leer «Los biomas»? Elige sí o no.</span></p>
+        <!-- Activity Section -->
+        <section class="space-y-4 lg:w-3/4 mx-auto" data-id="sectioneli5-19-0" data-section-type="activity_true_false"
+            role="activity">
+            <!-- Question 1 -->
+            <div class="flex gap-4">
+                <p class="font-semibold" data-id="text-19-3">1.</p>
+                <div class="md:flex gap-4 justify-between grow ">
+                    <span data-id="text-19-4">¿Cómo surgió la vida en nuestro planeta?</span>
+                    <div class="flex space-x-4">
+                        <label><input aria-label="Pregunta 1 Sí" data-aria-id="aria-19-0-0" name="question1"
+                                tabindex="0" type="radio" value="yes" /> Sí</label>
+                        <label class="ml-4"><input aria-label="Pregunta 1 No" data-aria-id="aria-19-0-1"
+                                name="question1" tabindex="0" type="radio" value="no" /> No</label>
+                    </div>
+                </div>
+            </div>
+            <!-- Question 2 -->
+            <div class="flex gap-4">
+                <p class="font-semibold" data-id="text-19-5">2.</p>
+                <div class="md:flex gap-4 justify-between grow ">
+                    <span data-id="text-19-6">¿De qué manera el hombre modifica el medio ambiente?</span>
+                    <div class="flex space-x-4">
+                        <label><input aria-label="Pregunta 2 Sí" data-aria-id="aria-19-0-2" name="question2"
+                                tabindex="0" type="radio" value="yes" /> Sí</label>
+                        <label class="ml-4"><input aria-label="Pregunta 2 No" data-aria-id="aria-19-0-3"
+                                name="question2" tabindex="0" type="radio" value="no" /> No</label>
+                    </div>
+                </div>
+            </div>
+            <!-- Question 3 -->
+            <div class="flex gap-4">
+                <p class="font-semibold" data-id="text-19-7">3.</p>
+                <div class="md:flex gap-4 justify-between grow ">
+                    <span data-id="text-19-8">¿Cuál es la definición de desarrollo sostenible?</span>
+                    <div class="flex space-x-4">
+                        <label><input aria-label="Pregunta 3 Sí" data-aria-id="aria-19-0-4" name="question3"
+                                tabindex="0" type="radio" value="yes" /> Sí</label>
+                        <label class="ml-4"><input aria-label="Pregunta 3 No" data-aria-id="aria-19-0-5"
+                                name="question3" tabindex="0" type="radio" value="no" /> No</label>
+                    </div>
+                </div>
+            </div>
+            <!-- Question 4 -->
+            <div class="flex gap-4">
+                <p class="font-semibold" data-id="text-19-9">4.</p>
+                <div class="md:flex gap-4 justify-between grow ">
+                    <span data-id="text-19-10">¿En qué zonas del planeta existen selvas?</span>
+                    <div class="flex space-x-4">
+                        <label><input aria-label="Pregunta 4 Sí" data-aria-id="aria-19-0-6" name="question4"
+                                tabindex="0" type="radio" value="yes" /> Sí</label>
+                        <label class="ml-4"><input aria-label="Pregunta 4 No" data-aria-id="aria-19-0-7"
+                                name="question4" tabindex="0" type="radio" value="no" /> No</label>
+                    </div>
+                </div>
+            </div>
+            <!-- Question 5 -->
+            <div class="flex gap-4">
+                <p class="font-semibold" data-id="text-19-11">5.</p>
+                <div class="md:flex gap-4 justify-between grow ">
+                    <span data-id="text-19-12">¿Qué tipos de biomas se encuentran en Uruguay?</span>
+                    <div class="flex space-x-4">
+                        <label><input aria-label="Pregunta 5 Sí" data-aria-id="aria-19-0-8" name="question5"
+                                tabindex="0" type="radio" value="yes" /> Sí</label>
+                        <label class="ml-4"><input aria-label="Pregunta 5 No" data-aria-id="aria-19-0-9"
+                                name="question5" tabindex="0" type="radio" value="no" /> No</label>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+  
+   <script>
     // Correct answers for validation
     const correctAnswers = {
         "item-1": false, // No
@@ -83,9 +109,9 @@
         "item-4": true,  // Yes
         "item-5": true   // Yes
     };
+  </script>
 
-
-</script>
-
+  <script src="assets/base.js"></script>
 </body>
+
 </html>

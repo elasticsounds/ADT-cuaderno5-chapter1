@@ -1,80 +1,86 @@
 {
-  "sq": {
-      "toc-title": "Indeks",
-      "sidebar-title": "AI Universal",
-      "language-label": "Gjuha",
-      "tts-label": "Teksti në të folur",
-      "eli5-label": "Shpjegoje për mua",
-      "eli5-content-lang": "Klikoni mbi çdo gjë për ta shpjeguar për mua.",
-      "submit-text": "Dërgo",
-      "language-name": "Shqip",
-      "easy-read-label": "Lexim i lehtë",
-      "multiple-choice-correct-answer": "Punë e shkëlqyer! Përgjigjja juaj është e saktë.",
-      "multiple-choice-try-again": "Provo përsëri",
-      "next-activity": "Aktiviteti tjetër",
-      "fill-in-the-blank-try-again": "Provo përsëri",
-      "answers-submitted": "Përgjigjet tuaja janë dorëzuar!",
-      "correct-answer": "Punë e shkëlqyer! Përgjigjja juaj është e saktë.",
-      "retry": "Provo përsëri",
-      "fill-in-the-blank-not-complete": "Ju lutemi plotësoni të gjitha fushat. ${unfilledCount} bosh i mbetur.",
-      "fill-in-the-blank-correct-the-answers": "Ju lutemi korrigjoni përgjigjet tuaja.",
-      "sorting-results": "Keni ${correctCount} përgjigje të sakta dhe ${incorrectCount} përgjigje të pasakta. Provo përsëri?",
-      "matching-correct-answers": "Të gjitha përgjigjet janë të sakta!",
-      "matching-correct-answers-count": "Keni ${correctCount} përgjigje të sakta. Provo përsëri.",
-      "page": "Faqe",
-      "text-read-aloud-speed": "Shpejtësi"
-  },
-  "am": {
-      "toc-title": "አሰሳ",
-      "sidebar-title": "የአለም አቀፍ አይ",
-      "language-label": "ቋንቋ",
-      "tts-label": "ጽሑፍ ወደ ንግግር",
-      "eli5-label": "ለእኔ አስረድቡ",
-      "eli5-content-lang": "ለእኔ ለማስረዳት በማንኛውም ነገር ጠቅ ያድርጉ.",
-      "submit-text": "አስገባ",
-      "language-name": "አማርኛ",
-      "easy-read-label": "ቀላል ንባብ",
-      "multiple-choice-correct-answer": "በጣም ጥሩ ስራ! መልስዎ ትክክለኛ ነው።",
-      "multiple-choice-try-again": "እንደገና ይሞክሩ",
-      "next-activity": "ቀጣይ እንቅስቃሴ",
-      "fill-in-the-blank-try-again": "እንደገና ይሞክሩ",
-      "answers-submitted": "መልሶችዎ ቀርበዋል!",
-      "correct-answer": "በጣም ጥሩ ስራ! መልስዎ ትክክለኛ ነው።",
-      "retry": "እንደገና ይሞክሩ",
-      "fill-in-the-blank-not-complete": "እባኮትን ሁሉንም መስኮች ያሟሉ። ${unfilledCount} ባዶ ቀሪ ነው።",
-      "fill-in-the-blank-correct-the-answers": "መልሶችዎን እባኮትን ያስተካክሉ።",
-      "sorting-results": "${correctCount} ትክክለኛ መልሶች እና ${incorrectCount} የተጎዱ መልሶች አሉዎት። እንደገና ይሞክሩ?",
-      "matching-correct-answers": "መልሶች ሁሉ ትክክለኛ ናቸው!",
-      "matching-correct-answers-count": "${correctCount} ትክክለኛ መልሶች አሉዎት። እንደገና ይሞክሩ.",
-      "page": "ገጽ",
-      "text-read-aloud-speed": "ፍጥነት"
-  },
-  "ar": {
-      "toc-title": "فهرس",
-      "sidebar-title": "الذكاء الاصطناعي العالمي",
-      "language-label": "اللغة",
-      "tts-label": "النص إلى كلام",
-      "eli5-label": "اشرح لي",
-      "eli5-content-lang": "اضغط على أي شيء لشرحه لي.",
-      "submit-text": "إرسال",
-      "language-name": "العربية",
-      "easy-read-label": "قراءة سهلة",
-      "multiple-choice-correct-answer": "عمل رائع! إجابتك صحيحة.",
-      "multiple-choice-try-again": "حاول مرة أخرى",
-      "next-activity": "النشاط التالي",
-      "fill-in-the-blank-try-again": "حاول مرة أخرى",
-      "answers-submitted": "تم إرسال إجاباتك!",
-      "correct-answer": "عمل رائع! إجابتك صحيحة.",
-      "retry": "إعادة المحاولة",
-      "fill-in-the-blank-not-complete": "يرجى ملء جميع الحقول. ${unfilledCount} حقل فارغ متبقي.",
-      "fill-in-the-blank-correct-the-answers": "يرجى تصحيح إجاباتك.",
-      "sorting-results": "لديك ${correctCount} إجابات صحيحة و ${incorrectCount} إجابات غير صحيحة. حاول مرة أخرى؟",
-      "matching-correct-answers": "جميع الإجابات صحيحة!",
-      "matching-correct-answers-count": "لديك ${correctCount} إجابات صحيحة. حاول مرة أخرى.",
-      "page": "صفحة",
-      "text-read-aloud-speed": "سرعة"
-  },
-  "hy": {
+    "sq": {
+        "toc-title": "Indeks",
+        "sidebar-title": "AI Universal",
+        "language-label": "Gjuha",
+        "tts-label": "Teksti në të folur",
+        "eli5-label": "Shpjegoje për mua",
+        "eli5-content-lang": "Klikoni mbi çdo gjë për ta shpjeguar për mua.",
+        "submit-text": "Dërgo",
+        "language-name": "Shqip",
+        "easy-read-label": "Lexim i lehtë",
+        "multiple-choice-correct-answer": "Punë e shkëlqyer! Përgjigjja juaj është e saktë.",
+        "multiple-choice-try-again": "Provo përsëri",
+        "next-activity": "Aktiviteti tjetër",
+        "fill-in-the-blank-try-again": "Provo përsëri",
+        "answers-submitted": "Përgjigjet tuaja janë dorëzuar!",
+        "correct-answer": "Punë e shkëlqyer! Përgjigjja juaj është e saktë.",
+        "retry": "Provo përsëri",
+        "fill-in-the-blank-not-complete": "Ju lutemi plotësoni të gjitha fushat. ${unfilledCount} bosh i mbetur.",
+        "fill-in-the-blank-correct-the-answers": "Ju lutemi korrigjoni përgjigjet tuaja.",
+        "sorting-results": "Keni ${correctCount} përgjigje të sakta dhe ${incorrectCount} përgjigje të pasakta. Provo përsëri?",
+        "matching-correct-answers": "Të gjitha përgjigjet janë të sakta!",
+        "matching-correct-answers-count": "Keni ${correctCount} përgjigje të sakta. Provo përsëri.",
+        "page": "Faqe",
+        "text-read-aloud-speed": "Shpejtësi",
+        "activity-to-do": "Për të bërë",
+        "activity-completed": "Përfunduar"
+    },
+    "am": {
+        "toc-title": "አሰሳ",
+        "sidebar-title": "የአለም አቀፍ አይ",
+        "language-label": "ቋንቋ",
+        "tts-label": "ጽሑፍ ወደ ንግግር",
+        "eli5-label": "ለእኔ አስረድቡ",
+        "eli5-content-lang": "ለእኔ ለማስረዳት በማንኛውም ነገር ጠቅ ያድርጉ.",
+        "submit-text": "አስገባ",
+        "language-name": "አማርኛ",
+        "easy-read-label": "ቀላል ንባብ",
+        "multiple-choice-correct-answer": "በጣም ጥሩ ስራ! መልስዎ ትክክለኛ ነው።",
+        "multiple-choice-try-again": "እንደገና ይሞክሩ",
+        "next-activity": "ቀጣይ እንቅስቃሴ",
+        "fill-in-the-blank-try-again": "እንደገና ይሞክሩ",
+        "answers-submitted": "መልሶችዎ ቀርበዋል!",
+        "correct-answer": "በጣም ጥሩ ስራ! መልስዎ ትክክለኛ ነው።",
+        "retry": "እንደገና ይሞክሩ",
+        "fill-in-the-blank-not-complete": "እባኮትን ሁሉንም መስኮች ያሟሉ። ${unfilledCount} ባዶ ቀሪ ነው።",
+        "fill-in-the-blank-correct-the-answers": "መልሶችዎን እባኮትን ያስተካክሉ።",
+        "sorting-results": "${correctCount} ትክክለኛ መልሶች እና ${incorrectCount} የተጎዱ መልሶች አሉዎት። እንደገና ይሞክሩ?",
+        "matching-correct-answers": "መልሶች ሁሉ ትክክለኛ ናቸው!",
+        "matching-correct-answers-count": "${correctCount} ትክክለኛ መልሶች አሉዎት። እንደገና ይሞክሩ.",
+        "page": "ገጽ",
+        "text-read-aloud-speed": "ፍጥነት",
+        "activity-to-do": "ለማድረግ",
+        "activity-completed": "ተጠናቋል"
+    },
+    "ar": {
+        "toc-title": "فهرس",
+        "sidebar-title": "الذكاء الاصطناعي العالمي",
+        "language-label": "اللغة",
+        "tts-label": "النص إلى كلام",
+        "eli5-label": "اشرح لي",
+        "eli5-content-lang": "اضغط على أي شيء لشرحه لي.",
+        "submit-text": "إرسال",
+        "language-name": "العربية",
+        "easy-read-label": "قراءة سهلة",
+        "multiple-choice-correct-answer": "عمل رائع! إجابتك صحيحة.",
+        "multiple-choice-try-again": "حاول مرة أخرى",
+        "next-activity": "النشاط التالي",
+        "fill-in-the-blank-try-again": "حاول مرة أخرى",
+        "answers-submitted": "تم إرسال إجاباتك!",
+        "correct-answer": "عمل رائع! إجابتك صحيحة.",
+        "retry": "إعادة المحاولة",
+        "fill-in-the-blank-not-complete": "يرجى ملء جميع الحقول. ${unfilledCount} حقل فارغ متبقي.",
+        "fill-in-the-blank-correct-the-answers": "يرجى تصحيح إجاباتك.",
+        "sorting-results": "لديك ${correctCount} إجابات صحيحة و ${incorrectCount} إجابات غير صحيحة. حاول مرة أخرى؟",
+        "matching-correct-answers": "جميع الإجابات صحيحة!",
+        "matching-correct-answers-count": "لديك ${correctCount} إجابات صحيحة. حاول مرة أخرى.",
+        "page": "صفحة",
+        "text-read-aloud-speed": "سرعة",
+        "activity-to-do": "لكى يفعل",
+        "activity-completed": "منجز"
+    },
+    "hy": {
         "toc-title": "Ցուցակ",
         "sidebar-title": "Համընդհանուր ԱԻ",
         "language-label": "Լեզու",
@@ -97,7 +103,9 @@
         "matching-correct-answers": "Բոլոր պատասխանները ճիշտ են!",
         "matching-correct-answers-count": "Դուք ունեք ${correctCount} ճիշտ պատասխան: Փորձեք կրկին:",
         "page": "Էջ",
-        "text-read-aloud-speed": "Արագություն"
+        "text-read-aloud-speed": "Արագություն",
+        "activity-to-do": "Անելիքներ",
+        "activity-completed": "Ավարտված"
     },
     "bn": {
         "toc-title": "সূচিপত্র",
@@ -122,7 +130,9 @@
         "matching-correct-answers": "সমস্ত উত্তর সঠিক!",
         "matching-correct-answers-count": "আপনার ${correctCount} সঠিক উত্তর রয়েছে। আবার চেষ্টা করুন।",
         "page": "পৃষ্ঠা",
-        "text-read-aloud-speed": "গতি"
+        "text-read-aloud-speed": "গতি",
+        "activity-to-do": "করতে হবে",
+        "activity-completed": "সম্পন্ন"
     },
     "bs": {
         "toc-title": "Indeks",
@@ -147,7 +157,9 @@
         "matching-correct-answers": "Svi odgovori su tačni!",
         "matching-correct-answers-count": "Imate ${correctCount} tačnih odgovora. Pokušajte ponovo.",
         "page": "Stranica",
-        "text-read-aloud-speed": "Brzina"
+        "text-read-aloud-speed": "Brzina",
+        "activity-to-do": "Za uraditi",
+        "activity-completed": "Završeno"
     },
     "bg": {
         "toc-title": "Индекс",
@@ -172,7 +184,9 @@
         "matching-correct-answers": "Всички отговори са правилни!",
         "matching-correct-answers-count": "Имате ${correctCount} правилни отговори. Опитайте отново.",
         "page": "Страница",
-        "text-read-aloud-speed": "Скорост"
+        "text-read-aloud-speed": "Скорост",
+        "activity-to-do": "Да се направи",
+        "activity-completed": "Завършен"
     },
     "my": {
         "toc-title": "အညွှန်း",
@@ -197,7 +211,9 @@
         "matching-correct-answers": "အဖြေများအားလုံးမှန်ကန်သည်!",
         "matching-correct-answers-count": "သင့်တွင် ${correctCount} မှန်ကန်သောအဖြေများရှိသည်။ ထပ်မံကြိုးစားပါ။",
         "page": "စာမျက်နှာ",
-        "text-read-aloud-speed": "အမြန်နှုန်း"
+        "text-read-aloud-speed": "အမြန်နှုန်း",
+        "activity-to-do": "လုပ်ရန်",
+        "activity-completed": "ပြီးစီးခဲ့သည်"
     },
     "ca": {
         "toc-title": "Índex",
@@ -222,7 +238,9 @@
         "matching-correct-answers": "Totes les respostes són correctes!",
         "matching-correct-answers-count": "Tens ${correctCount} respostes correctes. Torna-ho a provar.",
         "page": "Pàgina",
-        "text-read-aloud-speed": "Velocitat"
+        "text-read-aloud-speed": "Velocitat",
+        "activity-to-do": "Per fer",
+        "activity-completed": "Completat"
     },
     "zh": {
         "toc-title": "索引",
@@ -247,7 +265,9 @@
         "matching-correct-answers": "所有答案都是正确的！",
         "matching-correct-answers-count": "你有 ${correctCount} 个正确答案。再试一次。",
         "page": "页",
-        "text-read-aloud-speed": "速度"
+        "text-read-aloud-speed": "速度",
+        "activity-to-do": "待办事项",
+        "activity-completed": "已完成"
     },
     "hr": {
         "toc-title": "Indeks",
@@ -397,7 +417,8 @@
         "matching-correct-answers": "All answers are correct!",
         "matching-correct-answers-count": "You have ${correctCount} correct answers. Try again.",
         "page": "Page",
-        "text-read-aloud-speed": "Speed"
+        "text-read-aloud-speed": "Speed",
+        "activity-to-do": "To do"
     },
     "es": {
         "toc-title": "Índice",
@@ -422,7 +443,8 @@
         "matching-correct-answers": "¡Todas las respuestas son correctas!",
         "matching-correct-answers-count": "Tienes ${correctCount} respuestas correctas. Inténtalo de nuevo.",
         "page": "Página",
-        "text-read-aloud-speed": "Velocidad"
+        "text-read-aloud-speed": "Velocidad",
+        "activity-to-do": "Por hacer"
     },
     "et": {
         "toc-title": "Sisukord",
@@ -1498,7 +1520,8 @@
         "matching-correct-answers-count": "Mayroon kang ${correctCount} tamang sagot. Subukang muli.",
         "page": "Pahina",
         "text-read-aloud-speed": "Bilis"
-    },"tr": {
+    },
+    "tr": {
         "toc-title": "İçindekiler",
         "sidebar-title": "Evrensel AI",
         "language-label": "Dil",

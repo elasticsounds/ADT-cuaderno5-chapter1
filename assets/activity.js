@@ -991,6 +991,7 @@ function placeWord(category) {
 
   // Common setup for all card types
   clonedWordCard.classList.remove("border-blue-700", "border-2", "box-border");
+
   clonedWordCard.classList.add(
     'placed-word',
     'max-w-40',
@@ -999,6 +1000,7 @@ function placeWord(category) {
     'cursor-pointer',
     'hover:bg-gray-100'
   );
+
 
   // Disable dragging
   clonedWordCard.setAttribute('draggable', 'false');
