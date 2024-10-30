@@ -718,17 +718,20 @@ function translateText(textToTranslate, variables = {}) {
 // Audio functionality
 function gatherAudioElements() {
   audioElements = Array.from(document.querySelectorAll("[data-id]"))
-    .map((el) => {
+    .filter(el => {
+      // Filter out navigation elements
+      const isNavElement = el.closest('.nav__list') !== null;
+      return !isNavElement && !el.getAttribute("data-id").startsWith("sectioneli5");
+    })
+    .map(el => {
       const id = el.getAttribute("data-id");
-      if (id.startsWith("sectioneli5")) return null; // Skip elements with data-id starting with sectioneli5
-
-      let audioSrc = audioFiles[id]; // Default audio source
+      let audioSrc = audioFiles[id];
 
       // Check if Easy-Read mode is enabled and if an easy-read version exists
       if (easyReadMode) {
         const easyReadAudioId = `easyread-${id}`;
         if (audioFiles.hasOwnProperty(easyReadAudioId)) {
-          audioSrc = audioFiles[easyReadAudioId]; // Use easy-read audio source if available
+          audioSrc = audioFiles[easyReadAudioId];
         }
       }
 
@@ -738,7 +741,7 @@ function gatherAudioElements() {
         audioSrc: audioSrc,
       };
     })
-    .filter((item) => item && item.audioSrc); // Filter out null values
+    .filter(item => item && item.audioSrc); // Filter out items without audio source
 }
 
 function playAudioSequentially() {
