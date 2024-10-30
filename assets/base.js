@@ -170,7 +170,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
 
-      saveActivities()
+      //saveActivities()
 
       // Initialize left nav bar state from cookie
       const navState = getCookie("navState") || "closed";
@@ -813,15 +813,23 @@ function togglePlayPause() {
   setPlayPauseIcon();
 }
 
+function toggleCheckboxState(inputId, toState = null) {
+  const checkbox = document.getElementById(inputId);
+  if (checkbox) {
+    if (toState !== null) {
+      checkbox.checked = toState;
+    } else {
+      checkbox.checked = !checkbox.checked;
+    }
+  } else {
+      console.error(`No element found with ID: ${inputId}`);
+  }
+}
+
 function toggleReadAloud() {
   readAloudMode = !readAloudMode;
   setCookie("readAloudMode", readAloudMode);
-  document
-    .getElementById("toggle-read-aloud-icon")
-    .classList.toggle("fa-toggle-on", readAloudMode);
-  document
-    .getElementById("toggle-read-aloud-icon")
-    .classList.toggle("fa-toggle-off", !readAloudMode);
+  toggleCheckboxState("toggle-tts", readAloudMode);
   togglePlayBar();
 }
 
@@ -842,22 +850,12 @@ function loadToggleButtonState() {
 
   if (readAloudModeCookie) {
     readAloudMode = readAloudModeCookie === "true";
-    document
-      .getElementById("toggle-read-aloud-icon")
-      .classList.toggle("fa-toggle-on", readAloudMode);
-    document
-      .getElementById("toggle-read-aloud-icon")
-      .classList.toggle("fa-toggle-off", !readAloudMode);
+    toggleCheckboxState("toggle-tts", readAloudMode);
   }
 
   if (eli5ModeCookie) {
     eli5Mode = eli5ModeCookie === "true";
-    document
-      .getElementById("toggle-eli5-icon")
-      .classList.toggle("fa-toggle-on", eli5Mode);
-    document
-      .getElementById("toggle-eli5-icon")
-      .classList.toggle("fa-toggle-off", !eli5Mode);
+    toggleCheckboxState("toggle-eli5", eli5Mode);
 
     // Automatically display ELI5 content if mode is enabled
     if (eli5Mode && translations) {
@@ -880,12 +878,8 @@ function loadToggleButtonState() {
 
 function toggleEli5Mode() {
   eli5Mode = !eli5Mode;
-  document
-    .getElementById("toggle-eli5-icon")
-    .classList.toggle("fa-toggle-on", eli5Mode);
-  document
-    .getElementById("toggle-eli5-icon")
-    .classList.toggle("fa-toggle-off", !eli5Mode);
+  setCookie("eli5Mode", eli5Mode, 7);
+  toggleCheckboxState("toggle-eli5", eli5Mode);
 
   if (isPlaying) stopAudio();
   unhighlightAllElements();
@@ -938,7 +932,6 @@ function toggleEli5Mode() {
     document.getElementById("eli5-content").textContent = "";
     document.getElementById("eli5-content").classList.add("hidden");
   }
-  setCookie("eli5Mode", eli5Mode, 7); // Save state in cookie
 }
 
 function initializePlayBar() {
@@ -1263,41 +1256,30 @@ function nextPage() {
 // Function to toggle Easy-Read mode
 function toggleEasyReadMode() {
   easyReadMode = !easyReadMode;
-
-  const toggleButton = document.getElementById("toggle-easy-read-button");
-  const toggleIcon = document.getElementById("toggle-easy-read-icon");
-
-  // Toggle the icon classes
-  toggleIcon.classList.toggle("fa-toggle-on", easyReadMode);
-  toggleIcon.classList.toggle("fa-toggle-off", !easyReadMode);
+  setCookie("easyReadMode", easyReadMode, 7);
+  toggleCheckboxState("toggle-easy", easyReadMode);
 
   // Update the aria-pressed attribute
-  toggleButton.setAttribute("aria-pressed", easyReadMode);
+  // toggleButton.setAttribute("aria-pressed", easyReadMode);
 
   stopAudio();
   currentLanguage = document.getElementById("language-dropdown").value;
   fetchTranslations();
   gatherAudioElements(); // Call this after fetching translations to update audio elements
-
-  // Save the Easy-Read mode state to a cookie
-  setCookie("easyReadMode", easyReadMode, 7);
 }
 
 // Function to load Easy-Read mode state from the cookie
 function loadEasyReadMode() {
   const easyReadModeCookie = getCookie("easyReadMode");
-  const toggleButton = document.getElementById("toggle-easy-read-button");
-  const toggleIcon = document.getElementById("toggle-easy-read-icon");
+  
 
   if (easyReadModeCookie !== "") {
     easyReadMode = easyReadModeCookie === "true";
 
-    // Toggle the icon classes
-    toggleIcon.classList.toggle("fa-toggle-on", easyReadMode);
-    toggleIcon.classList.toggle("fa-toggle-off", !easyReadMode);
+    toggleCheckboxState("toggle-easy", easyReadMode);
 
     // Update the aria-pressed attribute
-    toggleButton.setAttribute("aria-pressed", easyReadMode);
+    //toggleButton.setAttribute("aria-pressed", easyReadMode);
 
     stopAudio();
     currentLanguage = document.getElementById("language-dropdown").value;

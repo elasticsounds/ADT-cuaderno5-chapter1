@@ -16,24 +16,51 @@
     </div>
 
     <div class="flex justify-between items-left mb-4">
-        <h3 class="text-xl text-left m-4 sidebar-item" id="easy-read-label" data-id="easy-read-label">Easy Read</h3>
-        <button id="toggle-easy-read-button" type="button" aria-pressed="false" aria-labelledby="easy-read-label"
-            class="toggle-button text-2xl px-4 py-2 bg-white border-gray-200 border-2 text-black rounded-lg shadow-md hover:bg-blue-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-            <i id="toggle-easy-read-icon" class="text-3xl fas fa-toggle-off"></i>
-        </button>
+        <label for="toggle-easy" class="flex items-center cursor-pointer mb-4 md:mb-0 w-full" id="toggle-easy-read-button" aria-pressed="false" aria-labelledby="easy-read-label">
+            <span class="text-xl text-left m-4 sidebar-item flex-grow" id="easy-read-label" data-id="easy-read-label">Easy Read</span>
+            <!-- Toggle -->
+            <div class="relative">
+                <!-- Input -->
+                <input type="checkbox" id="toggle-easy" class="sr-only peer">
+                <!-- Slider -->
+                <div class="block bg-gray-400 w-12 h-7 rounded-full transition peer-checked:bg-indigo-600"></div>
+                <!-- Circle -->
+                <div class="dot absolute left-1 top-1 bg-white w-5 h-5 rounded-full transition transform peer-checked:translate-x-5"></div>
+            </div>
+        </label>
     </div>
+    
+    
     <div class="flex justify-between items-left mb-4">
-        <h3 class="text-xl text-left m-4 sidebar-item" id="tts-label" data-id="tts-label">Text to speech</h3>
-        <button id="toggle-read-aloud" aria-labelledby="tts-label" aria-pressed="false" type="button"
-            class="text-2xl px-4 py-2 bg-white border-gray-200 border-2 p-5 text-black rounded-lg shadow-md hover:bg-blue-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-            <i id="toggle-read-aloud-icon" class="text-3xl fas fa-toggle-off"></i></button>
+        <label for="toggle-tts" class="flex items-center cursor-pointer mb-4 md:mb-0 w-full" id="toggle-read-aloud" aria-pressed="false" aria-labelledby="tts-label">
+            <span class="text-xl text-left m-4 sidebar-item flex-grow" id="tts-label" data-id="tts-label">Text to speech</span>
+            <!-- Toggle -->
+            <div class="relative">
+                <!-- Input -->
+                <input type="checkbox" id="toggle-tts" class="sr-only peer">
+                <!-- Slider -->
+                <div class="block bg-gray-400 w-12 h-7 rounded-full transition peer-checked:bg-indigo-600"></div>
+                <!-- Circle -->
+                <div class="dot absolute left-1 top-1 bg-white w-5 h-5 rounded-full transition transform peer-checked:translate-x-5"></div>
+            </div>
+        </label>
     </div>
+    
     <div class="flex justify-between items-left mb-4">
-        <h3 class="text-xl text-left m-4 sidebar-item" id="eli5-label" data-id="eli5-label">Explain to me</h3>
-        <button id="toggle-eli5-mode-button" aria-labelledby="eli5-label" aria-pressed="false"
-            class="text-2xl px-4 py-2 bg-white border-gray-200 border-2 text-black hover:text-white rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-            type="button"><i id="toggle-eli5-icon" class="text-3xl fas fa-toggle-off"></i></button>
+        <label for="toggle-eli5" class="flex items-center cursor-pointer mb-4 md:mb-0 w-full" id="toggle-eli5-mode-button" aria-pressed="false" aria-labelledby="eli5-label">
+            <span class="text-xl text-left m-4 sidebar-item flex-grow" id="eli5-label" data-id="eli5-label">Explain to me</span>
+            <!-- Toggle -->
+            <div class="relative">
+                <!-- Input -->
+                <input type="checkbox" id="toggle-eli5" class="sr-only peer">
+                <!-- Slider -->
+                <div class="block bg-gray-400 w-12 h-7 rounded-full transition peer-checked:bg-indigo-600"></div>
+                <!-- Circle -->
+                <div class="dot absolute left-1 top-1 bg-white w-5 h-5 rounded-full transition transform peer-checked:translate-x-5"></div>
+            </div>
+        </label>
     </div>
+    
     <div class="text-left m-4 text-lg" id="eli5-content"></div>
 </aside>
 
