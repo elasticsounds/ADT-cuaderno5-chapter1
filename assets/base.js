@@ -99,6 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const navPopup = document.getElementById("navPopup");
       const navToggle = document.querySelector(".nav__toggle");
       const navList = document.querySelector(".nav__list");
+      const savedPosition = getCookie("navScrollPosition");
 
       if (navState === "open") {
         navPopup.classList.remove("-translate-x-full");
@@ -106,10 +107,51 @@ document.addEventListener("DOMContentLoaded", function () {
         navPopup.setAttribute("aria-hidden", "false");
         if (navList) {
           navList.removeAttribute("hidden");
+          // Wait for nav list to be visible before setting scroll
+          setTimeout(() => {
+            if (savedPosition) {
+              console.log("Setting scroll after delay to:", savedPosition);
+              navList.scrollTop = parseInt(savedPosition);
+              console.log("Actual scroll position:", navList.scrollTop);
+            }
+          }, 300); // Increased delay
         }
         if (navToggle) {
           navToggle.setAttribute("aria-expanded", "true");
         }
+      }
+
+      // Restore nav scroll position
+      //navList = document.querySelector(".nav__list");
+      console.log("DOMContentLoaded - Retrieved saved position:", savedPosition);
+      console.log("DOMContentLoaded - Current navList:", navList);
+      if (navList && savedPosition) {
+        navList.scrollTop = parseInt(savedPosition);
+        
+        // Only handle focus if nav is open
+    if (navState === "open") {
+      setTimeout(() => {
+        const currentPath = window.location.pathname.split("/").pop() || "index.html";
+        const activeLink = Array.from(document.querySelectorAll(".nav__list-link")).find(
+          link => link.getAttribute("href") === currentPath
+        );
+        
+        if (activeLink) {
+          const linkRect = activeLink.getBoundingClientRect();
+          const navRect = navList.getBoundingClientRect();
+          const isInView = (
+            linkRect.top >= navRect.top &&
+            linkRect.bottom <= navRect.bottom
+          );
+          
+          if (!isInView) {
+            activeLink.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+          activeLink.setAttribute("tabindex", "0");
+          activeLink.focus({ preventScroll: true });
+        }
+      }, 300);
+    }
       }
 
       // Add event listeners to various UI elements
@@ -285,6 +327,8 @@ document.addEventListener("DOMContentLoaded", function () {
       setTimeout(() => {
         navPopup.classList.remove("hidden");
         document.getElementById("sidebar").classList.remove("hidden");
+        console.log("DOMContentLoaded - Actual scroll position:", navList.scrollTop);
+
       }, 100); // Adjust the timeout duration as needed
 
       // Add click handler specifically for eli5-content area
@@ -1028,8 +1072,12 @@ function toggleNav() {
   }
 
   const isNavOpen = !navList.hasAttribute("hidden");
+  const currentPath = window.location.pathname.split("/").pop() || "index.html";
+  console.log("toggleNav - Nav is open:", isNavOpen);
 
   if (isNavOpen) {
+    const scrollPosition = navList.scrollTop;
+    setCookie("navScrollPosition", scrollPosition, 7, basePath);
     navToggle.setAttribute("aria-expanded", "false");
     navList.setAttribute("hidden", "true");
     setCookie("navState", "closed", 7, basePath);
@@ -1037,8 +1085,36 @@ function toggleNav() {
     navToggle.setAttribute("aria-expanded", "true");
     navList.removeAttribute("hidden");
     setCookie("navState", "open", 7, basePath);
-    // Set focus on first link
-    navLinks[0].focus();
+
+    // First restore the saved position immediately
+    const savedPosition = getCookie("navScrollPosition");
+    if (savedPosition) {
+      navList.scrollTop = parseInt(savedPosition);
+    }
+
+    // Find the active link
+    const activeLink = Array.from(navLinks).find(
+      link => link.getAttribute("href") === currentPath
+    );
+
+    if (activeLink) {
+      // Make the active link focusable and give it focus for keyboard navigation
+      activeLink.setAttribute("tabindex", "0");
+      
+      setTimeout(() => {
+        const linkRect = activeLink.getBoundingClientRect();
+        const navRect = navList.getBoundingClientRect();
+        const isInView = (
+          linkRect.top >= navRect.top &&
+          linkRect.bottom <= navRect.bottom
+        );
+        
+        if (!isInView) {
+          activeLink.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+        activeLink.focus({ preventScroll: true });
+      }, 100);
+    }
   }
 
   navPopup.classList.toggle("-translate-x-full");
@@ -1053,13 +1129,19 @@ function toggleNav() {
 function previousPage() {
   const currentHref = window.location.href.split("/").pop() || "index.html";
   const navItems = document.querySelectorAll(".nav__list-link");
+  const navList = document.querySelector(".nav__list");
+
+  // // Save current scroll position before navigation
+  // if (navList) {
+  //   const scrollPosition = navList.scrollTop;
+  //   setCookie("navScrollPosition", scrollPosition, 7, basePath);
+  // }
+  
   for (let i = 0; i < navItems.length; i++) {
-    if (navItems[i].getAttribute("href") === currentHref) {
-      if (i > 0) {
-        const prevItem = navItems[i - 1];
-        window.location.href = prevItem.getAttribute("href");
-        document.getElementById("page-number").innerText = prevItem.innerText;
-      }
+    if (navItems[i].getAttribute("href") === currentHref && i > 0) {
+      const scrollPosition = navList?.scrollTop || 0;
+      setCookie("navScrollPosition", scrollPosition, 7, basePath);
+      window.location.href = navItems[i - 1].getAttribute("href");
       break;
     }
   }
@@ -1068,13 +1150,13 @@ function previousPage() {
 function nextPage() {
   const currentHref = window.location.href.split("/").pop() || "index.html";
   const navItems = document.querySelectorAll(".nav__list-link");
+  const navList = document.querySelector(".nav__list");
+
   for (let i = 0; i < navItems.length; i++) {
-    if (navItems[i].getAttribute("href") === currentHref) {
-      if (i < navItems.length - 1) {
-        const nextItem = navItems[i + 1];
-        window.location.href = nextItem.getAttribute("href");
-        document.getElementById("page-number").innerText = nextItem.innerText;
-      }
+    if (navItems[i].getAttribute("href") === currentHref && i < navItems.length - 1) {
+      const scrollPosition = navList?.scrollTop || 0;
+      setCookie("navScrollPosition", scrollPosition, 7, basePath);
+      window.location.href = navItems[i + 1].getAttribute("href");
       break;
     }
   }
