@@ -28,6 +28,20 @@
             class="text-2xl px-4 py-2 bg-white border-gray-200 border-2 p-5 text-black rounded-lg shadow-md hover:bg-blue-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
             <i id="toggle-read-aloud-icon" class="text-3xl fas fa-toggle-off"></i></button>
     </div>
+    <div id="autoplay-container" class="flex justify-between items-left mb-4 hidden">
+        <h3 class="text-xl text-left m-4 sidebar-item" id="autoplay-label" data-id="autoplay-label">Autoplay</h3>
+        <button id="toggle-autoplay" aria-labelledby="autoplay-label" aria-pressed="true" type="button"
+            class="text-2xl px-4 py-2 bg-white border-gray-200 border-2 p-5 text-black rounded-lg shadow-md hover:bg-blue-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+            <i id="toggle-autoplay-icon" class="text-3xl fas fa-toggle-on"></i>
+        </button>
+    </div>
+    <div id="describe-images-container" class="flex justify-between items-left mb-4 hidden">
+        <h3 class="text-xl text-left m-4 sidebar-item" id="describe-images-label" data-id="describe-images-label">Describe Images</h3>
+        <button id="toggle-describe-images" aria-labelledby="describe-images-label" aria-pressed="false" type="button"
+            class="text-2xl px-4 py-2 bg-white border-gray-200 border-2 p-5 text-black rounded-lg shadow-md hover:bg-blue-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+            <i id="toggle-describe-images-icon" class="text-3xl fas fa-toggle-off"></i>
+        </button>
+    </div>    
     <div class="flex justify-between items-left mb-4">
         <h3 class="text-xl text-left m-4 sidebar-item" id="eli5-label" data-id="eli5-label">Explain to me</h3>
         <button id="toggle-eli5-mode-button" aria-labelledby="eli5-label" aria-pressed="false"

@@ -10,6 +10,82 @@ document.addEventListener("DOMContentLoaded", function () {
     currentLanguage = languageCookie;
   }
 
+  //save function 
+  function saveActivities() {
+    const activities = document.querySelectorAll("input[type='text'], textarea, .word-card")
+
+    const submitButton = document.getElementById("submit-button")
+
+    const dropzones = document.querySelectorAll(".dropzone");
+
+    const activityId = location.pathname.substring(location.pathname.lastIndexOf("/") + 1).split(".")[0];
+
+    // Add event listeners to dropzones
+    dropzones.forEach((dropzone) => {
+      const dropzonesData = JSON.parse(localStorage.getItem(activityId)) || {}
+
+      const dropzoneRegion = dropzone.querySelector("div[role='region']");
+
+      const dropzoneId = dropzoneRegion.getAttribute("id")
+
+      if (dropzoneId in dropzonesData) {
+        const { itemId } = dropzonesData[dropzoneId]
+
+        const wordElement = document.querySelector(
+          `.activity-item[data-activity-item='${itemId}']`
+        );
+
+        dropzoneRegion.appendChild(wordElement)
+      }
+
+
+      dropzone.addEventListener("drop", (event) => {
+        event.preventDefault()
+
+        const itemId = event.dataTransfer.getData("text")
+
+        const regexItem = /^item-/;
+
+        if (!regexItem.test(itemId)) {
+          return
+        }
+
+        if (!itemId || itemId === "null") {
+          return
+        }
+
+        let dataActivity = JSON.parse(localStorage.getItem(activityId)) || {};
+
+        if (dataActivity[dropzoneId] && dataActivity[dropzoneId].itemId === itemId) {
+          console.log("El elemento ya está presente en esta zona");
+          return;
+        }
+
+        dataActivity[dropzoneId] = { itemId }
+
+        localStorage.setItem(activityId, JSON.stringify(dataActivity))
+
+      });
+    });
+
+    // Add event listeners to other activities
+    activities.forEach((nodo) => {
+      const id = nodo.getAttribute("data-aria-id")
+      const localStorageNodeId = `${activityId}_${id}`
+      nodo.value = localStorage.getItem(localStorageNodeId)
+
+      nodo.addEventListener("input", (event) => {
+        const value = event.target.value
+        localStorage.setItem(localStorageNodeId, value)
+      })
+    })
+
+    /* submitButton.addEventListener("click", ()=> {
+      localStorage.setItem(`${activityId}_success`, "true")
+    }) */
+  }
+
+
   // Fetch interface.html and nav.html, and activity.js concurrently
   Promise.all([
     fetch("assets/interface.html").then((response) => response.text()),
@@ -94,6 +170,68 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
 
+      saveActivities()
+
+      // Initialize left nav bar state from cookie
+      const navState = getCookie("navState") || "closed";
+      const navPopup = document.getElementById("navPopup");
+      const navToggle = document.querySelector(".nav__toggle");
+      const navList = document.querySelector(".nav__list");
+      const savedPosition = getCookie("navScrollPosition");
+
+      if (navState === "open") {
+        navPopup.classList.remove("-translate-x-full");
+        navPopup.classList.add("left-2");
+        navPopup.setAttribute("aria-hidden", "false");
+        if (navList) {
+          navList.removeAttribute("hidden");
+          // Wait for nav list to be visible before setting scroll
+          setTimeout(() => {
+            if (savedPosition) {
+              console.log("Setting scroll after delay to:", savedPosition);
+              navList.scrollTop = parseInt(savedPosition);
+              console.log("Actual scroll position:", navList.scrollTop);
+            }
+          }, 300); // Increased delay
+        }
+        if (navToggle) {
+          navToggle.setAttribute("aria-expanded", "true");
+        }
+      }
+
+      // Restore nav scroll position
+      //navList = document.querySelector(".nav__list");
+      console.log("DOMContentLoaded - Retrieved saved position:", savedPosition);
+      console.log("DOMContentLoaded - Current navList:", navList);
+      if (navList && savedPosition) {
+        navList.scrollTop = parseInt(savedPosition);
+        
+        // Only handle focus if nav is open
+    if (navState === "open") {
+      setTimeout(() => {
+        const currentPath = window.location.pathname.split("/").pop() || "index.html";
+        const activeLink = Array.from(document.querySelectorAll(".nav__list-link")).find(
+          link => link.getAttribute("href") === currentPath
+        );
+        
+        if (activeLink) {
+          const linkRect = activeLink.getBoundingClientRect();
+          const navRect = navList.getBoundingClientRect();
+          const isInView = (
+            linkRect.top >= navRect.top &&
+            linkRect.bottom <= navRect.bottom
+          );
+          
+          if (!isInView) {
+            activeLink.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+          activeLink.setAttribute("tabindex", "0");
+          activeLink.focus({ preventScroll: true });
+        }
+      }, 300);
+    }
+      }
+
       // Add event listeners to various UI elements
       prepareActivity();
       // right side bar
@@ -149,16 +287,13 @@ document.addEventListener("DOMContentLoaded", function () {
       document
         .getElementById("forward-button")
         .addEventListener("click", nextPage);
-      // document
-      //   .getElementById("submit-button")
-      //   .addEventListener("click", validateInputs);
 
       // left nav bar
       document.getElementById("nav-popup").addEventListener("click", toggleNav);
       document.getElementById("nav-close").addEventListener("click", toggleNav);
-      const navToggle = document.querySelector(".nav__toggle");
+      //const navToggle = document.querySelector(".nav__toggle");
       const navLinks = document.querySelectorAll(".nav__list-link");
-      const navPopup = document.getElementById("navPopup");
+      //const navPopup = document.getElementById("navPopup");
 
       if (navToggle) {
         navToggle.addEventListener("click", toggleNav);
@@ -189,16 +324,29 @@ document.addEventListener("DOMContentLoaded", function () {
         if (index === 0) {
           item.classList.add("border-t");
         }
+        let itemIcon = "";
+        let itemSubtitle = "";
+        if (item.classList.contains("activity")) {
+          itemIcon = '<i class="fas fa-pen-to-square"></i>';
+          itemSubtitle = "<span data-id='activity-to-do'></span>";
+        }
 
         const href = link.getAttribute("href");
         const pageSectionMatch = href.match(/(\d+)_(\d+)/);
+        const activityId = href.split(".")[0];
+        
+        const textId = link.getAttribute("data-text-id");
 
         if (pageSectionMatch) {
           const [_, pageNumber, sectionNumber] = pageSectionMatch.map(Number);
           link.innerHTML =
-            "<div class='whitespace-normal'><span class='inline' data-id='page'></span><span class='inline'> " +
-            `${pageNumber + 1}.${sectionNumber + 1}: ${link.innerText}` +
-            "</span></div>";
+            "<div class='flex items-center space-x-2'>" +
+            itemIcon +
+            "<div>" +
+            `<div>${pageNumber + 1}.${sectionNumber + 1}: </span><span class='inline' data-id='${textId}'></div>` +
+            "<div class='text-sm text-gray-500'>" +
+            itemSubtitle +
+            "</div></div></div>";
         }
 
         if (href === window.location.pathname.split("/").pop()) {
@@ -208,6 +356,19 @@ document.addEventListener("DOMContentLoaded", function () {
             "border-blue-500",
             "bg-blue-50",
             "p-2"
+          );
+        }
+
+        const success = JSON.parse(localStorage.getItem(`${activityId}_success`)) || false
+
+        if(success){
+          item.classList.add("min-h-[3rem]");
+          link.classList.add(
+            "border-l-4",
+            "border-green-500",
+            "bg-green-100",
+            "p-2",
+            "text-green-700"
           );
         }
       });
@@ -253,11 +414,18 @@ document.addEventListener("DOMContentLoaded", function () {
       initializeAudioSpeed();
       loadToggleButtonState();
       loadEasyReadMode();
+      loadAutoplayState();
+      document.getElementById("toggle-autoplay").addEventListener("click", toggleAutoplay);
+      window.addEventListener("load", initializeAutoplay);
+      document.getElementById("toggle-describe-images").addEventListener("click", toggleDescribeImages);
+      loadDescribeImagesState();
 
       // Unhide navigation and sidebar after a short delay to allow animations
       setTimeout(() => {
         navPopup.classList.remove("hidden");
         document.getElementById("sidebar").classList.remove("hidden");
+        console.log("DOMContentLoaded - Actual scroll position:", navList.scrollTop);
+
       }, 100); // Adjust the timeout duration as needed
 
       // Add click handler specifically for eli5-content area
@@ -372,6 +540,54 @@ let readAloudMode = false;
 let sideBarActive = false;
 let easyReadMode = false;
 let audioSpeed = 1;
+let autoplayMode = true;
+let describeImagesMode = false;
+
+// Add this function to handle loading the autoplay state
+function loadAutoplayState() {
+  const autoplayModeCookie = getCookie("autoplayMode");
+  if (autoplayModeCookie !== null) {
+    autoplayMode = autoplayModeCookie === "true";
+    const autoplayIcon = document.getElementById("toggle-autoplay-icon");
+    if (autoplayIcon) {
+      autoplayIcon.classList.toggle("fa-toggle-on", autoplayMode);
+      autoplayIcon.classList.toggle("fa-toggle-off", !autoplayMode);
+    }
+  }
+}
+
+function toggleDescribeImages() {
+  describeImagesMode = !describeImagesMode;
+  const describeImagesIcon = document.getElementById("toggle-describe-images-icon");
+  
+  describeImagesIcon.classList.toggle("fa-toggle-on", describeImagesMode);
+  describeImagesIcon.classList.toggle("fa-toggle-off", !describeImagesMode);
+  
+  setCookie("describeImagesMode", describeImagesMode, 7);
+
+  // Regather audio elements to update the sequence with or without images
+  if (readAloudMode) {
+      gatherAudioElements();
+      if (isPlaying) {
+          stopAudio();
+          currentIndex = 0;
+          playAudioSequentially();
+      }
+  }
+}
+
+// Add function to load the describe images state
+function loadDescribeImagesState() {
+  const describeImagesModeCookie = getCookie("describeImagesMode");
+  if (describeImagesModeCookie !== null) {
+      describeImagesMode = describeImagesModeCookie === "true";
+      const describeImagesIcon = document.getElementById("toggle-describe-images-icon");
+      if (describeImagesIcon) {
+          describeImagesIcon.classList.toggle("fa-toggle-on", describeImagesMode);
+          describeImagesIcon.classList.toggle("fa-toggle-off", !describeImagesMode);
+      }
+  }
+}
 
 // Get the base path of the current URL
 const currentPath = window.location.pathname;
@@ -507,6 +723,16 @@ function applyTranslations() {
         }
       }
     });
+    const placeholderElements = document.querySelectorAll(
+      `[data-placeholder-id="${key}"]`
+    );
+    placeholderElements.forEach((element) => {
+      if (element) {
+        if (element.tagName === "INPUT" || element.tagName === "TEXTAREA") {
+          element.setAttribute("placeholder", translations[translationKey]); // Set the placeholder text for input elements
+        }
+      }
+    });
   }
 
   // Update eli5 content if eli5 mode is active
@@ -541,30 +767,77 @@ function translateText(textToTranslate, variables = {}) {
   return newText.replace(/\${(.*?)}/g, (match, p1) => variables[p1] || "");
 }
 
+// Add this new function
+function initializeAutoplay() {
+  if (readAloudMode && autoplayMode) {
+    gatherAudioElements();
+    currentIndex = 0;
+    isPlaying = true;
+    setPlayPauseIcon();
+    playAudioSequentially();
+  }
+}
+
+// Add this new function to toggle autoplay
+function toggleAutoplay() {
+  autoplayMode = !autoplayMode;
+  const autoplayIcon = document.getElementById("toggle-autoplay-icon");
+  
+  autoplayIcon.classList.toggle("fa-toggle-on", autoplayMode);
+  autoplayIcon.classList.toggle("fa-toggle-off", !autoplayMode);
+  
+  setCookie("autoplayMode", autoplayMode, 7);
+
+  if (readAloudMode && autoplayMode && !isPlaying) {
+    currentIndex = 0;
+    isPlaying = true;
+    setPlayPauseIcon();
+    playAudioSequentially();
+  }
+}
+
 // Audio functionality
 function gatherAudioElements() {
   audioElements = Array.from(document.querySelectorAll("[data-id]"))
-    .map((el) => {
-      const id = el.getAttribute("data-id");
-      if (id.startsWith("sectioneli5")) return null; // Skip elements with data-id starting with sectioneli5
+      .filter(el => {
+          // Filter out navigation elements
+          const isNavElement = el.closest('.nav__list') !== null;
+          
+          // Skip images if describe images mode is off
+          const isImage = el.tagName.toLowerCase() === 'img';
+          if (isImage && !describeImagesMode) {
+              return false;
+          }
+          
+          return !isNavElement && !el.getAttribute("data-id").startsWith("sectioneli5");
+      })
+      .map(el => {
+          const id = el.getAttribute("data-id");
+          let audioSrc = audioFiles[id];
 
-      let audioSrc = audioFiles[id]; // Default audio source
+          // If it's an image, try to get its aria description audio
+          if (el.tagName.toLowerCase() === 'img') {
+              const ariaId = el.getAttribute("data-aria-id");
+              if (ariaId && audioFiles[ariaId]) {
+                  audioSrc = audioFiles[ariaId];
+              }
+          }
 
-      // Check if Easy-Read mode is enabled and if an easy-read version exists
-      if (easyReadMode) {
-        const easyReadAudioId = `easyread-${id}`;
-        if (audioFiles.hasOwnProperty(easyReadAudioId)) {
-          audioSrc = audioFiles[easyReadAudioId]; // Use easy-read audio source if available
-        }
-      }
+          // Check if Easy-Read mode is enabled and if an easy-read version exists
+          if (easyReadMode) {
+              const easyReadAudioId = `easyread-${id}`;
+              if (audioFiles.hasOwnProperty(easyReadAudioId)) {
+                  audioSrc = audioFiles[easyReadAudioId];
+              }
+          }
 
-      return {
-        element: el,
-        id: id,
-        audioSrc: audioSrc,
-      };
-    })
-    .filter((item) => item && item.audioSrc); // Filter out null values
+          return {
+              element: el,
+              id: id,
+              audioSrc: audioSrc,
+          };
+      })
+      .filter(item => item && item.audioSrc);
 }
 
 function playAudioSequentially() {
@@ -639,13 +912,44 @@ function togglePlayPause() {
 function toggleReadAloud() {
   readAloudMode = !readAloudMode;
   setCookie("readAloudMode", readAloudMode);
-  document
-    .getElementById("toggle-read-aloud-icon")
-    .classList.toggle("fa-toggle-on", readAloudMode);
-  document
-    .getElementById("toggle-read-aloud-icon")
-    .classList.toggle("fa-toggle-off", !readAloudMode);
+  
+  const readAloudIcon = document.getElementById("toggle-read-aloud-icon");
+  const autoplayContainer = document.getElementById("autoplay-container");
+  const describeImagesContainer = document.getElementById("describe-images-container");
+  const sidebar = document.getElementById("sidebar");
+  
+  readAloudIcon.classList.toggle("fa-toggle-on", readAloudMode);
+  readAloudIcon.classList.toggle("fa-toggle-off", !readAloudMode);
+  
+  if (autoplayContainer && describeImagesContainer) {
+    if (readAloudMode) {
+      autoplayContainer.classList.remove("hidden");
+      describeImagesContainer.classList.remove("hidden");
+      sidebar.setAttribute("aria-hidden", "false");
+    } else {
+      autoplayContainer.classList.add("hidden");
+      describeImagesContainer.classList.add("hidden");
+      // Only set aria-hidden if no elements in the sidebar have focus
+      if (!sidebar.contains(document.activeElement)) {
+        sidebar.setAttribute("aria-hidden", "true");
+      }
+    }
+  }
+  
   togglePlayBar();
+
+  if (readAloudMode) {
+    gatherAudioElements();
+    if (autoplayMode) {
+      currentIndex = 0;
+      isPlaying = true;
+      setPlayPauseIcon();
+      playAudioSequentially();
+    }
+  } else {
+    stopAudio();
+    unhighlightAllElements();
+  }
 }
 
 function loadToggleButtonState() {
@@ -653,6 +957,8 @@ function loadToggleButtonState() {
   const readAloudIcon = document.getElementById("toggle-read-aloud-icon");
   const eli5Icon = document.getElementById("toggle-eli5-icon");
   const eli5Content = document.getElementById("eli5-content");
+  const autoplayContainer = document.getElementById("autoplay-container");
+  const describeImagesContainer = document.getElementById("describe-images-container");
 
   if (!readAloudIcon || !eli5Icon || !eli5Content) {
     // If elements aren't ready, retry after a short delay
@@ -665,22 +971,36 @@ function loadToggleButtonState() {
 
   if (readAloudModeCookie) {
     readAloudMode = readAloudModeCookie === "true";
-    document
-      .getElementById("toggle-read-aloud-icon")
-      .classList.toggle("fa-toggle-on", readAloudMode);
-    document
-      .getElementById("toggle-read-aloud-icon")
-      .classList.toggle("fa-toggle-off", !readAloudMode);
+    readAloudIcon.classList.toggle("fa-toggle-on", readAloudMode);
+    readAloudIcon.classList.toggle("fa-toggle-off", !readAloudMode);
+    
+    // Show/hide autoplay container based on readAloudMode
+    if (autoplayContainer) {
+      if (readAloudMode) {
+        autoplayContainer.classList.remove("hidden");
+        describeImagesContainer.classList.remove("hidden");
+      } else {
+        autoplayContainer.classList.add("hidden");
+        describeImagesContainer.classList.add("hidden");
+      }
+    }
   }
+
+  // Initialize autoplay after a brief delay to ensure everything is loaded
+  setTimeout(() => {
+    if (readAloudMode && autoplayMode) {
+      gatherAudioElements();
+      currentIndex = 0;
+      isPlaying = true;
+      setPlayPauseIcon();
+      playAudioSequentially();
+    }
+  }, 500);
 
   if (eli5ModeCookie) {
     eli5Mode = eli5ModeCookie === "true";
-    document
-      .getElementById("toggle-eli5-icon")
-      .classList.toggle("fa-toggle-on", eli5Mode);
-    document
-      .getElementById("toggle-eli5-icon")
-      .classList.toggle("fa-toggle-off", !eli5Mode);
+    eli5Icon.classList.toggle("fa-toggle-on", eli5Mode);
+    eli5Icon.classList.toggle("fa-toggle-off", !eli5Mode);
 
     // Automatically display ELI5 content if mode is enabled
     if (eli5Mode && translations) {
@@ -770,6 +1090,16 @@ function initializePlayBar() {
     document.getElementById("play-bar").classList.remove("hidden");
   } else {
     document.getElementById("play-bar").classList.add("hidden");
+  }
+}
+
+function initializeAutoplay() {
+  if (readAloudMode && autoplayMode) {
+    gatherAudioElements();
+    currentIndex = 0;
+    isPlaying = true;
+    setPlayPauseIcon();
+    playAudioSequentially();
   }
 }
 
@@ -990,16 +1320,52 @@ function toggleNav() {
     return; // Exit if elements are not found
   }
 
-  if (!navList.hasAttribute("hidden")) {
+  const isNavOpen = !navList.hasAttribute("hidden");
+  const currentPath = window.location.pathname.split("/").pop() || "index.html";
+  console.log("toggleNav - Nav is open:", isNavOpen);
+
+  if (isNavOpen) {
+    const scrollPosition = navList.scrollTop;
+    setCookie("navScrollPosition", scrollPosition, 7, basePath);
     navToggle.setAttribute("aria-expanded", "false");
     navList.setAttribute("hidden", "true");
+    setCookie("navState", "closed", 7, basePath);
   } else {
     navToggle.setAttribute("aria-expanded", "true");
     navList.removeAttribute("hidden");
+    setCookie("navState", "open", 7, basePath);
 
-    // Set focus on first link
-    navLinks[0].focus();
+    // First restore the saved position immediately
+    const savedPosition = getCookie("navScrollPosition");
+    if (savedPosition) {
+      navList.scrollTop = parseInt(savedPosition);
+    }
+
+    // Find the active link
+    const activeLink = Array.from(navLinks).find(
+      link => link.getAttribute("href") === currentPath
+    );
+
+    if (activeLink) {
+      // Make the active link focusable and give it focus for keyboard navigation
+      activeLink.setAttribute("tabindex", "0");
+      
+      setTimeout(() => {
+        const linkRect = activeLink.getBoundingClientRect();
+        const navRect = navList.getBoundingClientRect();
+        const isInView = (
+          linkRect.top >= navRect.top &&
+          linkRect.bottom <= navRect.bottom
+        );
+        
+        if (!isInView) {
+          activeLink.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+        activeLink.focus({ preventScroll: true });
+      }, 100);
+    }
   }
+
   navPopup.classList.toggle("-translate-x-full");
   navPopup.setAttribute(
     "aria-hidden",
@@ -1012,13 +1378,19 @@ function toggleNav() {
 function previousPage() {
   const currentHref = window.location.href.split("/").pop() || "index.html";
   const navItems = document.querySelectorAll(".nav__list-link");
+  const navList = document.querySelector(".nav__list");
+
+  // // Save current scroll position before navigation
+  // if (navList) {
+  //   const scrollPosition = navList.scrollTop;
+  //   setCookie("navScrollPosition", scrollPosition, 7, basePath);
+  // }
+  
   for (let i = 0; i < navItems.length; i++) {
-    if (navItems[i].getAttribute("href") === currentHref) {
-      if (i > 0) {
-        const prevItem = navItems[i - 1];
-        window.location.href = prevItem.getAttribute("href");
-        document.getElementById("page-number").innerText = prevItem.innerText;
-      }
+    if (navItems[i].getAttribute("href") === currentHref && i > 0) {
+      const scrollPosition = navList?.scrollTop || 0;
+      setCookie("navScrollPosition", scrollPosition, 7, basePath);
+      window.location.href = navItems[i - 1].getAttribute("href");
       break;
     }
   }
@@ -1027,13 +1399,13 @@ function previousPage() {
 function nextPage() {
   const currentHref = window.location.href.split("/").pop() || "index.html";
   const navItems = document.querySelectorAll(".nav__list-link");
+  const navList = document.querySelector(".nav__list");
+
   for (let i = 0; i < navItems.length; i++) {
-    if (navItems[i].getAttribute("href") === currentHref) {
-      if (i < navItems.length - 1) {
-        const nextItem = navItems[i + 1];
-        window.location.href = nextItem.getAttribute("href");
-        document.getElementById("page-number").innerText = nextItem.innerText;
-      }
+    if (navItems[i].getAttribute("href") === currentHref && i < navItems.length - 1) {
+      const scrollPosition = navList?.scrollTop || 0;
+      setCookie("navScrollPosition", scrollPosition, 7, basePath);
+      window.location.href = navItems[i + 1].getAttribute("href");
       break;
     }
   }
