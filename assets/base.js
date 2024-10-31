@@ -333,8 +333,10 @@ document.addEventListener("DOMContentLoaded", function () {
           const success = JSON.parse(localStorage.getItem(`${activityId}_success`)) || false;
           itemIcon = '<i class="fas fa-pen-to-square"></i>';
           if (success) {
+            itemIcon = '<i class="fas fa-check text-green-500"></i>';
             itemSubtitle = "<span data-id='activity-completed'></span>";
           } else {
+            itemIcon = '<i class="fas fa-pen-to-square"></i>';
             itemSubtitle = "<span data-id='activity-to-do'></span>";
           }
         }
