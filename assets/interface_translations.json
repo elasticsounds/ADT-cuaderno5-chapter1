@@ -517,6 +517,7 @@
         "page": "Página",
         "text-read-aloud-speed": "Velocidad",
         "activity-to-do": "Por hacer",
+        "activity-completed": "Completado",
         "autoplay-label": "Reproducción automática",
         "describe-images-label": "Describir imágenes"
     },
