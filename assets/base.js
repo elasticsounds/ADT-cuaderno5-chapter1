@@ -12,59 +12,46 @@ document.addEventListener("DOMContentLoaded", function () {
 
   //save function 
   function saveActivities() {
-    const activities = document.querySelectorAll("input[type='text'], textarea, .word-card")
-
-    const submitButton = document.getElementById("submit-button")
-
+    const activities = document.querySelectorAll(
+      "input[type='text'], textarea, .word-card"
+    );
+    const submitButton = document.getElementById("submit-button");
     const dropzones = document.querySelectorAll(".dropzone");
-
-    const activityId = location.pathname.substring(location.pathname.lastIndexOf("/") + 1).split(".")[0];
-
+    const activityId = location.pathname
+      .substring(location.pathname.lastIndexOf("/") + 1)
+      .split(".")[0];
     // Add event listeners to dropzones
     dropzones.forEach((dropzone) => {
-      const dropzonesData = JSON.parse(localStorage.getItem(activityId)) || {}
-
+      const dropzonesData = JSON.parse(localStorage.getItem(activityId)) || {};
       const dropzoneRegion = dropzone.querySelector("div[role='region']");
-
-      const dropzoneId = dropzoneRegion.getAttribute("id")
-
+      const dropzoneId = dropzoneRegion.getAttribute("id");
       if (dropzoneId in dropzonesData) {
-        const { itemId } = dropzonesData[dropzoneId]
-
+        const { itemId } = dropzonesData[dropzoneId];
         const wordElement = document.querySelector(
           `.activity-item[data-activity-item='${itemId}']`
         );
-
-        dropzoneRegion.appendChild(wordElement)
+        dropzoneRegion.appendChild(wordElement);
       }
-
-
       dropzone.addEventListener("drop", (event) => {
-        event.preventDefault()
-
-        const itemId = event.dataTransfer.getData("text")
-
+        event.preventDefault();
+        const itemId = event.dataTransfer.getData("text");
         const regexItem = /^item-/;
-
         if (!regexItem.test(itemId)) {
-          return
+          return;
         }
-
         if (!itemId || itemId === "null") {
-          return
+          return;
         }
-
         let dataActivity = JSON.parse(localStorage.getItem(activityId)) || {};
-
-        if (dataActivity[dropzoneId] && dataActivity[dropzoneId].itemId === itemId) {
+        if (
+          dataActivity[dropzoneId] &&
+          dataActivity[dropzoneId].itemId === itemId
+        ) {
           console.log("El elemento ya está presente en esta zona");
           return;
         }
-
-        dataActivity[dropzoneId] = { itemId }
-
-        localStorage.setItem(activityId, JSON.stringify(dataActivity))
-
+        dataActivity[dropzoneId] = { itemId };
+        localStorage.setItem(activityId, JSON.stringify(dataActivity));
       });
     });
 
@@ -156,6 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "close-sidebar",
         "language-dropdown",
         "toggle-eli5-mode-button",
+        "sidebar",
       ];
       elements.forEach((id) => {
         const element = document.getElementById(id);
@@ -170,7 +158,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
 
-      saveActivities()
+      //saveActivities()
 
       // Initialize left nav bar state from cookie
       const navState = getCookie("navState") || "closed";
@@ -244,20 +232,19 @@ document.addEventListener("DOMContentLoaded", function () {
         .getElementById("close-sidebar")
         .addEventListener("click", toggleSidebar);
       document
-        .getElementById("toggle-eli5-mode-button")
+        .getElementById("toggle-eli5")
         .addEventListener("click", toggleEli5Mode);
       document
         .getElementById("language-dropdown")
         .addEventListener("change", switchLanguage);
       document
-        .getElementById("toggle-easy-read-button")
+        .getElementById("toggle-easy")
         .addEventListener("click", toggleEasyReadMode);
-
       document
         .getElementById("play-pause-button")
         .addEventListener("click", togglePlayPause);
       document
-        .getElementById("toggle-read-aloud")
+        .getElementById("toggle-tts")
         .addEventListener("click", toggleReadAloud);
       document
         .getElementById("audio-previous")
@@ -338,13 +325,22 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         let itemIcon = "";
         let itemSubtitle = "";
-        if (item.classList.contains("activity")) {
-          itemIcon = '<i class="fas fa-pen-to-square"></i>';
-          itemSubtitle = "<span data-id='activity-to-do'></span>";
-        }
-
         const href = link.getAttribute("href");
         const pageSectionMatch = href.match(/(\d+)_(\d+)/);
+        
+        if (item.classList.contains("activity")) {
+          const activityId = href.split(".")[0];
+          const success = JSON.parse(localStorage.getItem(`${activityId}_success`)) || false;
+          itemIcon = '<i class="fas fa-pen-to-square"></i>';
+          if (success) {
+            itemIcon = '<i class="fas fa-check-square text-green-500 mt-1"></i>';
+            itemSubtitle = "<span data-id='activity-completed'></span>";
+          } else {
+            itemIcon = '<i class="fas fa-pen-to-square mt-1"></i>';
+            itemSubtitle = "<span data-id='activity-to-do'></span>";
+          }
+        }
+
         const activityId = href.split(".")[0];
         
         const textId = link.getAttribute("data-text-id");
@@ -352,7 +348,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (pageSectionMatch) {
           const [_, pageNumber, sectionNumber] = pageSectionMatch.map(Number);
           link.innerHTML =
-            "<div class='flex items-center space-x-2'>" +
+            "<div class='flex items-top space-x-2'>" +
             itemIcon +
             "<div>" +
             `<div>${pageNumber + 1}.${sectionNumber + 1}: </span><span class='inline' data-id='${textId}'></div>` +
@@ -368,19 +364,6 @@ document.addEventListener("DOMContentLoaded", function () {
             "border-blue-500",
             "bg-blue-50",
             "p-2"
-          );
-        }
-
-        const success = JSON.parse(localStorage.getItem(`${activityId}_success`)) || false
-
-        if(success){
-          item.classList.add("min-h-[3rem]");
-          link.classList.add(
-            "border-l-4",
-            "border-green-500",
-            "bg-green-100",
-            "p-2",
-            "text-green-700"
           );
         }
       });
@@ -421,6 +404,30 @@ document.addEventListener("DOMContentLoaded", function () {
       // Add keyboard event listeners for navigation
       document.addEventListener("keydown", handleKeyboardShortcuts);
 
+      console.log('Setting up toggle button keyboard handlers');
+      const toggleButtons = document.querySelectorAll('[id^="toggle-"]');
+      console.log('Found toggle buttons:', toggleButtons.length);
+
+      toggleButtons.forEach(button => {
+        button.addEventListener('keydown', function(event) {
+          console.log('Toggle button keydown event:', event.key, 'on button:', this.id);
+          
+          // Allow ArrowRight and ArrowLeft to propagate for navigation
+          if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+            console.log('Navigation key detected on toggle button - allowing propagation');
+            return true;
+          }
+          
+          // Handle space and enter normally for toggle buttons
+          if (event.key === ' ' || event.key === 'Enter') {
+            console.log('Space/Enter key on toggle button - triggering click');
+            event.preventDefault();
+            this.click();
+          }
+        });
+        console.log('Added keydown listener to button:', button.id);
+      });
+
       //Load status of AI controls in right sidebar on load from cookie.
       initializePlayBar();
       initializeAudioSpeed();
@@ -428,10 +435,8 @@ document.addEventListener("DOMContentLoaded", function () {
       loadEasyReadMode();
       loadAutoplayState();
       document.getElementById("toggle-autoplay").addEventListener("click", toggleAutoplay);
-      window.addEventListener("load", initializeAutoplay);
       document.getElementById("toggle-describe-images").addEventListener("click", toggleDescribeImages);
       loadDescribeImagesState();
-
 
       // Unhide navigation and sidebar after a short delay to allow animations
       setTimeout(() => {
@@ -492,52 +497,89 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // Handle keyboard events for navigation
+// Updated handleKeyboardShortcuts function with better input detection
 function handleKeyboardShortcuts(event) {
+  console.log('handleKeyboardShortcuts called with key:', event.key);
+  
   const activeElement = document.activeElement;
-  const isInTextBox =
-    activeElement.tagName === "INPUT" || activeElement.tagName === "TEXTAREA";
+  console.log('Active element:', activeElement.tagName, 'ID:', activeElement.id);
+  
+  // More specific check for text input elements
+  const isInTextBox = (activeElement.tagName === "INPUT" && 
+                       activeElement.type !== "checkbox" && 
+                       activeElement.type !== "radio") || 
+                      activeElement.tagName === "TEXTAREA" ||
+                      activeElement.isContentEditable;
+  
+  // Check if any modifier keys are pressed (except Alt+Shift)
+  const hasModifiers = event.ctrlKey || event.metaKey || 
+                      (event.altKey && !event.shiftKey);
+  
+  console.log('isInTextBox:', isInTextBox, 'hasModifiers:', hasModifiers);
+  
+  // Exit if in text input (but not checkbox/radio) or if unwanted modifier keys are pressed
+  if ((isInTextBox && !activeElement.id.startsWith('toggle-')) || hasModifiers) {
+    console.log('Exiting early due to text input or modifiers');
+    return;
+  }
 
-  // disable shortcut keys if user is in a textbox
-  if (isInTextBox) {
-    return; // Exit if the user is inside a text box
+  // Get toggle states
+  const readAloudMode = getCookie("readAloudMode") === "true";
+  const easyReadMode = getCookie("easyReadMode") === "true";
+  const eli5Mode = getCookie("eli5Mode") === "true";
+  
+  console.log('Current modes - readAloud:', readAloudMode, 'easyRead:', easyReadMode, 'eli5:', eli5Mode);
+
+  // Handle navigation keys
+  if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
+    console.log(`${event.key} pressed - handling navigation`);
+    event.preventDefault();
+    if (event.key === "ArrowRight") {
+      nextPage();
+    } else {
+      previousPage();
+    }
+    return;
   }
 
   switch (event.key) {
     case "x":
+      console.log('X key pressed - toggling nav');
+      event.preventDefault();
       toggleNav();
       break;
     case "a":
+      console.log('A key pressed - toggling sidebar');
+      event.preventDefault();
       toggleSidebar();
-      break;
-    case "ArrowRight":
-      nextPage();
-      break;
-    case "ArrowLeft":
-      previousPage();
       break;
   }
 
-  const isAltShift = event.altKey && event.shiftKey;
-
-  // Additional shortcuts for screen reader users (Alt + Shift + key)
-  if (isAltShift) {
+  // Handle Alt+Shift shortcuts separately
+  if (event.altKey && event.shiftKey) {
+    console.log('Alt+Shift modifier detected');
     switch (event.key) {
       case "x":
+        console.log('Alt+Shift+X pressed - toggling nav');
+        event.preventDefault();
         toggleNav();
         break;
       case "a":
+        console.log('Alt+Shift+A pressed - toggling sidebar');
+        event.preventDefault();
         toggleSidebar();
         break;
-      case "ArrowRight":
-        nextPage();
-        break;
-      case "ArrowLeft":
-        previousPage();
-        break;
-    } // end switch
-  } // end if
+    }
+  }
 }
 
+// Helper function to check if an element is a toggle button
+function isToggleButton(element) {
+  const isToggle = element.matches('[id^="toggle-"]') || 
+                   element.closest('[id^="toggle-"]') !== null;
+  console.log('isToggleButton check for element:', element.id, 'Result:', isToggle);
+  return isToggle;
+}
 let translations = {};
 let audioFiles = {};
 let currentAudio = null;
@@ -561,21 +603,13 @@ function loadAutoplayState() {
   const autoplayModeCookie = getCookie("autoplayMode");
   if (autoplayModeCookie !== null) {
     autoplayMode = autoplayModeCookie === "true";
-    const autoplayIcon = document.getElementById("toggle-autoplay-icon");
-    if (autoplayIcon) {
-      autoplayIcon.classList.toggle("fa-toggle-on", autoplayMode);
-      autoplayIcon.classList.toggle("fa-toggle-off", !autoplayMode);
-    }
+    toggleCheckboxState("toggle-autoplay", autoplayMode);
   }
 }
 
 function toggleDescribeImages() {
   describeImagesMode = !describeImagesMode;
-  const describeImagesIcon = document.getElementById("toggle-describe-images-icon");
-  
-  describeImagesIcon.classList.toggle("fa-toggle-on", describeImagesMode);
-  describeImagesIcon.classList.toggle("fa-toggle-off", !describeImagesMode);
-  
+  toggleCheckboxState("toggle-describe-images", describeImagesMode);
   setCookie("describeImagesMode", describeImagesMode, 7);
 
   // Regather audio elements to update the sequence with or without images
@@ -594,11 +628,8 @@ function loadDescribeImagesState() {
   const describeImagesModeCookie = getCookie("describeImagesMode");
   if (describeImagesModeCookie !== null) {
       describeImagesMode = describeImagesModeCookie === "true";
-      const describeImagesIcon = document.getElementById("toggle-describe-images-icon");
-      if (describeImagesIcon) {
-          describeImagesIcon.classList.toggle("fa-toggle-on", describeImagesMode);
-          describeImagesIcon.classList.toggle("fa-toggle-off", !describeImagesMode);
-      }
+      toggleCheckboxState("toggle-describe-images", describeImagesMode);
+      
   }
 }
 
@@ -640,7 +671,7 @@ function toggleSidebar() {
   const elements = [
     "close-sidebar",
     "language-dropdown",
-    "toggle-eli5-mode-button",
+    "sidebar",
   ];
   elements.forEach((id) => {
     const element = document.getElementById(id);
@@ -780,25 +811,10 @@ function translateText(textToTranslate, variables = {}) {
   return newText.replace(/\${(.*?)}/g, (match, p1) => variables[p1] || "");
 }
 
-// Add this new function
-function initializeAutoplay() {
-  if (readAloudMode && autoplayMode) {
-    gatherAudioElements();
-    currentIndex = 0;
-    isPlaying = true;
-    setPlayPauseIcon();
-    playAudioSequentially();
-  }
-}
-
 // Add this new function to toggle autoplay
 function toggleAutoplay() {
-  autoplayMode = !autoplayMode;
-  const autoplayIcon = document.getElementById("toggle-autoplay-icon");
-  
-  autoplayIcon.classList.toggle("fa-toggle-on", autoplayMode);
-  autoplayIcon.classList.toggle("fa-toggle-off", !autoplayMode);
-  
+  autoplayMode = !autoplayMode;  
+  toggleCheckboxState("toggle-autoplay", autoplayMode);
   setCookie("autoplayMode", autoplayMode, 7);
 
   if (readAloudMode && autoplayMode && !isPlaying) {
@@ -922,17 +938,28 @@ function togglePlayPause() {
   setPlayPauseIcon();
 }
 
+function toggleCheckboxState(inputId, toState = null) {
+  const checkbox = document.getElementById(inputId);
+  if (checkbox) {
+    if (toState !== null) {
+      checkbox.checked = toState;
+    } else {
+      checkbox.checked = !checkbox.checked;
+    }
+  } else {
+      console.error(`No element found with ID: ${inputId}`);
+  }
+}
+
 function toggleReadAloud() {
   readAloudMode = !readAloudMode;
   setCookie("readAloudMode", readAloudMode);
-  
-  const readAloudIcon = document.getElementById("toggle-read-aloud-icon");
+
   const autoplayContainer = document.getElementById("autoplay-container");
   const describeImagesContainer = document.getElementById("describe-images-container");
   const sidebar = document.getElementById("sidebar");
   
-  readAloudIcon.classList.toggle("fa-toggle-on", readAloudMode);
-  readAloudIcon.classList.toggle("fa-toggle-off", !readAloudMode);
+  toggleCheckboxState("toggle-tts", readAloudMode);
   
   if (autoplayContainer && describeImagesContainer) {
     if (readAloudMode) {
@@ -954,6 +981,7 @@ function toggleReadAloud() {
   if (readAloudMode) {
     gatherAudioElements();
     if (autoplayMode) {
+      stopAudio();
       currentIndex = 0;
       isPlaying = true;
       setPlayPauseIcon();
@@ -967,13 +995,12 @@ function toggleReadAloud() {
 
 function loadToggleButtonState() {
   // Ensure all required elements exist before proceeding
-  const readAloudIcon = document.getElementById("toggle-read-aloud-icon");
-  const eli5Icon = document.getElementById("toggle-eli5-icon");
-  const eli5Content = document.getElementById("eli5-content");
+  const readAloudItem = document.getElementById("toggle-easy");
+  const eli5Item = document.getElementById("toggle-eli5");
   const autoplayContainer = document.getElementById("autoplay-container");
   const describeImagesContainer = document.getElementById("describe-images-container");
 
-  if (!readAloudIcon || !eli5Icon || !eli5Content) {
+  if (!readAloudItem || !eli5Item) {
     // If elements aren't ready, retry after a short delay
     setTimeout(loadToggleButtonState, 100);
     return;
@@ -984,8 +1011,7 @@ function loadToggleButtonState() {
 
   if (readAloudModeCookie) {
     readAloudMode = readAloudModeCookie === "true";
-    readAloudIcon.classList.toggle("fa-toggle-on", readAloudMode);
-    readAloudIcon.classList.toggle("fa-toggle-off", !readAloudMode);
+    toggleCheckboxState("toggle-tts", readAloudMode);
     
     // Show/hide autoplay container based on readAloudMode
     if (autoplayContainer) {
@@ -1002,6 +1028,7 @@ function loadToggleButtonState() {
   // Initialize autoplay after a brief delay to ensure everything is loaded
   setTimeout(() => {
     if (readAloudMode && autoplayMode) {
+      stopAudio();
       gatherAudioElements();
       currentIndex = 0;
       isPlaying = true;
@@ -1012,8 +1039,7 @@ function loadToggleButtonState() {
 
   if (eli5ModeCookie) {
     eli5Mode = eli5ModeCookie === "true";
-    eli5Icon.classList.toggle("fa-toggle-on", eli5Mode);
-    eli5Icon.classList.toggle("fa-toggle-off", !eli5Mode);
+    toggleCheckboxState("toggle-eli5", eli5Mode);
 
     // Automatically display ELI5 content if mode is enabled
     if (eli5Mode && translations) {
@@ -1036,12 +1062,8 @@ function loadToggleButtonState() {
 
 function toggleEli5Mode() {
   eli5Mode = !eli5Mode;
-  document
-    .getElementById("toggle-eli5-icon")
-    .classList.toggle("fa-toggle-on", eli5Mode);
-  document
-    .getElementById("toggle-eli5-icon")
-    .classList.toggle("fa-toggle-off", !eli5Mode);
+  setCookie("eli5Mode", eli5Mode, 7);
+  toggleCheckboxState("toggle-eli5", eli5Mode);
 
   if (isPlaying) stopAudio();
   unhighlightAllElements();
@@ -1094,7 +1116,6 @@ function toggleEli5Mode() {
     document.getElementById("eli5-content").textContent = "";
     document.getElementById("eli5-content").classList.add("hidden");
   }
-  setCookie("eli5Mode", eli5Mode, 7); // Save state in cookie
 }
 
 function initializePlayBar() {
@@ -1108,6 +1129,7 @@ function initializePlayBar() {
 
 function initializeAutoplay() {
   if (readAloudMode && autoplayMode) {
+    stopAudio();
     gatherAudioElements();
     currentIndex = 0;
     isPlaying = true;
@@ -1429,41 +1451,30 @@ function nextPage() {
 // Function to toggle Easy-Read mode
 function toggleEasyReadMode() {
   easyReadMode = !easyReadMode;
-
-  const toggleButton = document.getElementById("toggle-easy-read-button");
-  const toggleIcon = document.getElementById("toggle-easy-read-icon");
-
-  // Toggle the icon classes
-  toggleIcon.classList.toggle("fa-toggle-on", easyReadMode);
-  toggleIcon.classList.toggle("fa-toggle-off", !easyReadMode);
+  setCookie("easyReadMode", easyReadMode, 7);
+  toggleCheckboxState("toggle-easy", easyReadMode);
 
   // Update the aria-pressed attribute
-  toggleButton.setAttribute("aria-pressed", easyReadMode);
+  // toggleButton.setAttribute("aria-pressed", easyReadMode);
 
   stopAudio();
   currentLanguage = document.getElementById("language-dropdown").value;
   fetchTranslations();
   gatherAudioElements(); // Call this after fetching translations to update audio elements
-
-  // Save the Easy-Read mode state to a cookie
-  setCookie("easyReadMode", easyReadMode, 7);
 }
 
 // Function to load Easy-Read mode state from the cookie
 function loadEasyReadMode() {
   const easyReadModeCookie = getCookie("easyReadMode");
-  const toggleButton = document.getElementById("toggle-easy-read-button");
-  const toggleIcon = document.getElementById("toggle-easy-read-icon");
+  
 
   if (easyReadModeCookie !== "") {
     easyReadMode = easyReadModeCookie === "true";
 
-    // Toggle the icon classes
-    toggleIcon.classList.toggle("fa-toggle-on", easyReadMode);
-    toggleIcon.classList.toggle("fa-toggle-off", !easyReadMode);
+    toggleCheckboxState("toggle-easy", easyReadMode);
 
     // Update the aria-pressed attribute
-    toggleButton.setAttribute("aria-pressed", easyReadMode);
+    //toggleButton.setAttribute("aria-pressed", easyReadMode);
 
     stopAudio();
     currentLanguage = document.getElementById("language-dropdown").value;

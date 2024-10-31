@@ -79,12 +79,12 @@
                                 <!-- Toggle -->
                                 <div class="relative">
                                     <!-- Input -->
-                                    <input type="checkbox" id="toggleEasy" class="sr-only">
+                                    <input type="checkbox" id="toggleEasy" class="sr-only peer">
                                     <!-- Slider -->
-                                    <div class="block bg-gray-400 w-12 h-7 rounded-full transition"></div>
+                                    <div class="block bg-gray-400 w-12 h-7 rounded-full transition peer-checked:bg-indigo-600"></div>
                                     <!-- Circle -->
                                     <div
-                                        class="dot absolute left-1 top-1 bg-white w-5 h-5 rounded-full transition transform">
+                                        class="dot absolute left-1 top-1 bg-white w-5 h-5 rounded-full transition transform peer-checked:translate-x-5">
                                     </div>
                                 </div>
                                 <!-- Label -->
@@ -96,12 +96,12 @@
                                 <!-- Toggle -->
                                 <div class="relative">
                                     <!-- Input -->
-                                    <input type="checkbox" id="toggleExplain" class="sr-only">
+                                    <input type="checkbox" id="toggleExplain" class="sr-only peer">
                                     <!-- Slider -->
-                                    <div class="block bg-gray-400 w-12 h-7 rounded-full transition"></div>
+                                    <div class="block bg-gray-400 w-12 h-7 rounded-full transition peer-checked:bg-indigo-600"></div>
                                     <!-- Circle -->
                                     <div
-                                        class="dot absolute left-1 top-1 bg-white w-5 h-5 rounded-full transition transform">
+                                        class="dot absolute left-1 top-1 bg-white w-5 h-5 rounded-full transition transform peer-checked:translate-x-5">
                                     </div>
                                 </div>
                                 <!-- Label -->
@@ -130,19 +130,7 @@
 <img alt="Logotipo de la Administración Nacional de Educación Pública." aria-label="Logotipo de la Administración Nacional de Educación Pública." class="h-8" data-id="img-0-2" src="images/0_img-0-2.png"/>
 <img alt="Logotipo del Consejo de Educación Inicial y Primaria (CEIP)." aria-label="Logotipo del Consejo de Educación Inicial y Primaria (CEIP)." class="h-8" data-id="img-0-3" src="images/0_img-0-3.png"/>
 </div> -->
-
     <script src="assets/base.js"></script>
-    <style>
-        input:checked+.block {
-            background-color: rgb(29 78 216);
-            /* Indigo-600 */
-        }
-
-        input:checked+.block+.dot {
-            transform: translateX(1.3rem);
-            /* Move the dot */
-        }
-    </style>
 </body>
 
 </html>
