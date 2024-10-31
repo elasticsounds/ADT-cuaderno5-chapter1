@@ -544,10 +544,7 @@ function loadAutoplayState() {
   const autoplayModeCookie = getCookie("autoplayMode");
   if (autoplayModeCookie !== null) {
     autoplayMode = autoplayModeCookie === "true";
-    const autoplayIcon = document.getElementById("toggle-autoplay-icon");
-    if (autoplayIcon) {
-      toggleCheckboxState("toggle-autoplay", autoplayMode);
-    }
+    toggleCheckboxState("toggle-autoplay", autoplayMode);
   }
 }
 
@@ -755,25 +752,10 @@ function translateText(textToTranslate, variables = {}) {
   return newText.replace(/\${(.*?)}/g, (match, p1) => variables[p1] || "");
 }
 
-// Add this new function
-function initializeAutoplay() {
-  if (readAloudMode && autoplayMode) {
-    gatherAudioElements();
-    currentIndex = 0;
-    isPlaying = true;
-    setPlayPauseIcon();
-    playAudioSequentially();
-  }
-}
-
 // Add this new function to toggle autoplay
 function toggleAutoplay() {
-  autoplayMode = !autoplayMode;
-  const autoplayIcon = document.getElementById("toggle-autoplay-icon");
-  
-  autoplayIcon.classList.toggle("fa-toggle-on", autoplayMode);
-  autoplayIcon.classList.toggle("fa-toggle-off", !autoplayMode);
-  
+  autoplayMode = !autoplayMode;  
+  toggleCheckboxState("toggle-autoplay", autoplayMode);
   setCookie("autoplayMode", autoplayMode, 7);
 
   if (readAloudMode && autoplayMode && !isPlaying) {
@@ -913,8 +895,7 @@ function toggleCheckboxState(inputId, toState = null) {
 function toggleReadAloud() {
   readAloudMode = !readAloudMode;
   setCookie("readAloudMode", readAloudMode);
-  
-  const readAloudIcon = document.getElementById("toggle-read-aloud-icon");
+
   const autoplayContainer = document.getElementById("autoplay-container");
   const describeImagesContainer = document.getElementById("describe-images-container");
   const sidebar = document.getElementById("sidebar");
