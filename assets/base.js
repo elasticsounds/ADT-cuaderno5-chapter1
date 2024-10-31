@@ -411,7 +411,6 @@ document.addEventListener("DOMContentLoaded", function () {
       loadEasyReadMode();
       loadAutoplayState();
       document.getElementById("toggle-autoplay").addEventListener("click", toggleAutoplay);
-      window.addEventListener("load", initializeAutoplay);
       document.getElementById("toggle-describe-images").addEventListener("click", toggleDescribeImages);
       loadDescribeImagesState();
 
@@ -922,6 +921,7 @@ function toggleReadAloud() {
   if (readAloudMode) {
     gatherAudioElements();
     if (autoplayMode) {
+      stopAudio();
       currentIndex = 0;
       isPlaying = true;
       setPlayPauseIcon();
@@ -968,6 +968,7 @@ function loadToggleButtonState() {
   // Initialize autoplay after a brief delay to ensure everything is loaded
   setTimeout(() => {
     if (readAloudMode && autoplayMode) {
+      stopAudio();
       gatherAudioElements();
       currentIndex = 0;
       isPlaying = true;
@@ -1068,6 +1069,7 @@ function initializePlayBar() {
 
 function initializeAutoplay() {
   if (readAloudMode && autoplayMode) {
+    stopAudio();
     gatherAudioElements();
     currentIndex = 0;
     isPlaying = true;
