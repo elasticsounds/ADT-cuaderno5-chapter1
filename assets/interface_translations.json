@@ -516,7 +516,9 @@
         "matching-correct-answers-count": "Tienes ${correctCount} respuestas correctas. Inténtalo de nuevo.",
         "page": "Página",
         "text-read-aloud-speed": "Velocidad",
-        "activity-to-do": "Por hacer"
+        "activity-to-do": "Por hacer",
+        "autoplay-label": "Reproducción automática",
+        "describe-images-label": "Describir imágenes"
     },
   "et": {
     "toc-title": "Sisukord",
