@@ -333,7 +333,7 @@ document.addEventListener("DOMContentLoaded", function () {
           const success = JSON.parse(localStorage.getItem(`${activityId}_success`)) || false;
           itemIcon = '<i class="fas fa-pen-to-square"></i>';
           if (success) {
-            itemIcon = '<i class="fas fa-check text-green-500"></i>';
+            itemIcon = '<i class="fas fa-check-square text-green-500"></i>';
             itemSubtitle = "<span data-id='activity-completed'></span>";
           } else {
             itemIcon = '<i class="fas fa-pen-to-square"></i>';
@@ -546,19 +546,14 @@ function loadAutoplayState() {
     autoplayMode = autoplayModeCookie === "true";
     const autoplayIcon = document.getElementById("toggle-autoplay-icon");
     if (autoplayIcon) {
-      autoplayIcon.classList.toggle("fa-toggle-on", autoplayMode);
-      autoplayIcon.classList.toggle("fa-toggle-off", !autoplayMode);
+      toggleCheckboxState("toggle-autoplay", autoplayMode);
     }
   }
 }
 
 function toggleDescribeImages() {
   describeImagesMode = !describeImagesMode;
-  const describeImagesIcon = document.getElementById("toggle-describe-images-icon");
-  
-  describeImagesIcon.classList.toggle("fa-toggle-on", describeImagesMode);
-  describeImagesIcon.classList.toggle("fa-toggle-off", !describeImagesMode);
-  
+  toggleCheckboxState("toggle-describe-images", describeImagesMode);
   setCookie("describeImagesMode", describeImagesMode, 7);
 
   // Regather audio elements to update the sequence with or without images
@@ -577,11 +572,8 @@ function loadDescribeImagesState() {
   const describeImagesModeCookie = getCookie("describeImagesMode");
   if (describeImagesModeCookie !== null) {
       describeImagesMode = describeImagesModeCookie === "true";
-      const describeImagesIcon = document.getElementById("toggle-describe-images-icon");
-      if (describeImagesIcon) {
-          describeImagesIcon.classList.toggle("fa-toggle-on", describeImagesMode);
-          describeImagesIcon.classList.toggle("fa-toggle-off", !describeImagesMode);
-      }
+      toggleCheckboxState("toggle-describe-images", describeImagesMode);
+      
   }
 }
 
@@ -962,13 +954,12 @@ function toggleReadAloud() {
 
 function loadToggleButtonState() {
   // Ensure all required elements exist before proceeding
-  const readAloudIcon = document.getElementById("toggle-read-aloud-icon");
-  const eli5Icon = document.getElementById("toggle-eli5-icon");
-  const eli5Content = document.getElementById("eli5-content");
+  const readAloudItem = document.getElementById("toggle-easy");
+  const eli5Item = document.getElementById("toggle-eli5");
   const autoplayContainer = document.getElementById("autoplay-container");
   const describeImagesContainer = document.getElementById("describe-images-container");
 
-  if (!readAloudIcon || !eli5Icon || !eli5Content) {
+  if (!readAloudItem || !eli5Item) {
     // If elements aren't ready, retry after a short delay
     setTimeout(loadToggleButtonState, 100);
     return;
