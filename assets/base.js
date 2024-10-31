@@ -158,7 +158,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
 
-      //saveActivities()
+      saveActivities()
 
       // Initialize left nav bar state from cookie
       const navState = getCookie("navState") || "closed";
