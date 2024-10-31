@@ -333,10 +333,10 @@ document.addEventListener("DOMContentLoaded", function () {
           const success = JSON.parse(localStorage.getItem(`${activityId}_success`)) || false;
           itemIcon = '<i class="fas fa-pen-to-square"></i>';
           if (success) {
-            itemIcon = '<i class="fas fa-check-square text-green-500"></i>';
+            itemIcon = '<i class="fas fa-check-square text-green-500 mt-1"></i>';
             itemSubtitle = "<span data-id='activity-completed'></span>";
           } else {
-            itemIcon = '<i class="fas fa-pen-to-square"></i>';
+            itemIcon = '<i class="fas fa-pen-to-square mt-1"></i>';
             itemSubtitle = "<span data-id='activity-to-do'></span>";
           }
         }
@@ -404,6 +404,30 @@ document.addEventListener("DOMContentLoaded", function () {
       // Add keyboard event listeners for navigation
       document.addEventListener("keydown", handleKeyboardShortcuts);
 
+      console.log('Setting up toggle button keyboard handlers');
+      const toggleButtons = document.querySelectorAll('[id^="toggle-"]');
+      console.log('Found toggle buttons:', toggleButtons.length);
+
+      toggleButtons.forEach(button => {
+        button.addEventListener('keydown', function(event) {
+          console.log('Toggle button keydown event:', event.key, 'on button:', this.id);
+          
+          // Allow ArrowRight and ArrowLeft to propagate for navigation
+          if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+            console.log('Navigation key detected on toggle button - allowing propagation');
+            return true;
+          }
+          
+          // Handle space and enter normally for toggle buttons
+          if (event.key === ' ' || event.key === 'Enter') {
+            console.log('Space/Enter key on toggle button - triggering click');
+            event.preventDefault();
+            this.click();
+          }
+        });
+        console.log('Added keydown listener to button:', button.id);
+      });
+
       //Load status of AI controls in right sidebar on load from cookie.
       initializePlayBar();
       initializeAudioSpeed();
@@ -413,7 +437,6 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("toggle-autoplay").addEventListener("click", toggleAutoplay);
       document.getElementById("toggle-describe-images").addEventListener("click", toggleDescribeImages);
       loadDescribeImagesState();
-
 
       // Unhide navigation and sidebar after a short delay to allow animations
       setTimeout(() => {
@@ -474,52 +497,89 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // Handle keyboard events for navigation
+// Updated handleKeyboardShortcuts function with better input detection
 function handleKeyboardShortcuts(event) {
+  console.log('handleKeyboardShortcuts called with key:', event.key);
+  
   const activeElement = document.activeElement;
-  const isInTextBox =
-    activeElement.tagName === "INPUT" || activeElement.tagName === "TEXTAREA";
+  console.log('Active element:', activeElement.tagName, 'ID:', activeElement.id);
+  
+  // More specific check for text input elements
+  const isInTextBox = (activeElement.tagName === "INPUT" && 
+                       activeElement.type !== "checkbox" && 
+                       activeElement.type !== "radio") || 
+                      activeElement.tagName === "TEXTAREA" ||
+                      activeElement.isContentEditable;
+  
+  // Check if any modifier keys are pressed (except Alt+Shift)
+  const hasModifiers = event.ctrlKey || event.metaKey || 
+                      (event.altKey && !event.shiftKey);
+  
+  console.log('isInTextBox:', isInTextBox, 'hasModifiers:', hasModifiers);
+  
+  // Exit if in text input (but not checkbox/radio) or if unwanted modifier keys are pressed
+  if ((isInTextBox && !activeElement.id.startsWith('toggle-')) || hasModifiers) {
+    console.log('Exiting early due to text input or modifiers');
+    return;
+  }
 
-  // disable shortcut keys if user is in a textbox
-  if (isInTextBox) {
-    return; // Exit if the user is inside a text box
+  // Get toggle states
+  const readAloudMode = getCookie("readAloudMode") === "true";
+  const easyReadMode = getCookie("easyReadMode") === "true";
+  const eli5Mode = getCookie("eli5Mode") === "true";
+  
+  console.log('Current modes - readAloud:', readAloudMode, 'easyRead:', easyReadMode, 'eli5:', eli5Mode);
+
+  // Handle navigation keys
+  if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
+    console.log(`${event.key} pressed - handling navigation`);
+    event.preventDefault();
+    if (event.key === "ArrowRight") {
+      nextPage();
+    } else {
+      previousPage();
+    }
+    return;
   }
 
   switch (event.key) {
     case "x":
+      console.log('X key pressed - toggling nav');
+      event.preventDefault();
       toggleNav();
       break;
     case "a":
+      console.log('A key pressed - toggling sidebar');
+      event.preventDefault();
       toggleSidebar();
-      break;
-    case "ArrowRight":
-      nextPage();
-      break;
-    case "ArrowLeft":
-      previousPage();
       break;
   }
 
-  const isAltShift = event.altKey && event.shiftKey;
-
-  // Additional shortcuts for screen reader users (Alt + Shift + key)
-  if (isAltShift) {
+  // Handle Alt+Shift shortcuts separately
+  if (event.altKey && event.shiftKey) {
+    console.log('Alt+Shift modifier detected');
     switch (event.key) {
       case "x":
+        console.log('Alt+Shift+X pressed - toggling nav');
+        event.preventDefault();
         toggleNav();
         break;
       case "a":
+        console.log('Alt+Shift+A pressed - toggling sidebar');
+        event.preventDefault();
         toggleSidebar();
         break;
-      case "ArrowRight":
-        nextPage();
-        break;
-      case "ArrowLeft":
-        previousPage();
-        break;
-    } // end switch
-  } // end if
+    }
+  }
 }
 
+// Helper function to check if an element is a toggle button
+function isToggleButton(element) {
+  const isToggle = element.matches('[id^="toggle-"]') || 
+                   element.closest('[id^="toggle-"]') !== null;
+  console.log('isToggleButton check for element:', element.id, 'Result:', isToggle);
+  return isToggle;
+}
 let translations = {};
 let audioFiles = {};
 let currentAudio = null;
