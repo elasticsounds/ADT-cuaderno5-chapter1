@@ -177,6 +177,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const navPopup = document.getElementById("navPopup");
       const navToggle = document.querySelector(".nav__toggle");
       const navList = document.querySelector(".nav__list");
+      const navLinks = document.querySelectorAll(".nav__list-link");
       const savedPosition = getCookie("navScrollPosition");
 
       if (navState === "open") {
@@ -198,38 +199,39 @@ document.addEventListener("DOMContentLoaded", function () {
           navToggle.setAttribute("aria-expanded", "true");
         }
       }
-
+      
       // Restore nav scroll position
       //navList = document.querySelector(".nav__list");
       console.log("DOMContentLoaded - Retrieved saved position:", savedPosition);
       console.log("DOMContentLoaded - Current navList:", navList);
+      
       if (navList && savedPosition) {
         navList.scrollTop = parseInt(savedPosition);
         
         // Only handle focus if nav is open
-    if (navState === "open") {
-      setTimeout(() => {
-        const currentPath = window.location.pathname.split("/").pop() || "index.html";
-        const activeLink = Array.from(document.querySelectorAll(".nav__list-link")).find(
-          link => link.getAttribute("href") === currentPath
-        );
-        
-        if (activeLink) {
-          const linkRect = activeLink.getBoundingClientRect();
-          const navRect = navList.getBoundingClientRect();
-          const isInView = (
-            linkRect.top >= navRect.top &&
-            linkRect.bottom <= navRect.bottom
-          );
-          
-          if (!isInView) {
-            activeLink.scrollIntoView({ behavior: "smooth", block: "center" });
-          }
-          activeLink.setAttribute("tabindex", "0");
-          activeLink.focus({ preventScroll: true });
+        if (navState === "open") {
+          setTimeout(() => {
+            const currentPath = window.location.pathname.split("/").pop() || "index.html";
+            const activeLink = Array.from(document.querySelectorAll(".nav__list-link")).find(
+              link => link.getAttribute("href") === currentPath
+            );
+            
+            if (activeLink) {
+              const linkRect = activeLink.getBoundingClientRect();
+              const navRect = navList.getBoundingClientRect();
+              const isInView = (
+                linkRect.top >= navRect.top &&
+                linkRect.bottom <= navRect.bottom
+              );
+              
+              if (!isInView) {
+                activeLink.scrollIntoView({ behavior: "smooth", block: "center" });
+              }
+              activeLink.setAttribute("tabindex", "0");
+              activeLink.focus({ preventScroll: true });
+            }
+          }, 300);
         }
-      }, 300);
-    }
       }
 
       // Add event listeners to various UI elements
@@ -292,8 +294,18 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("nav-popup").addEventListener("click", toggleNav);
       document.getElementById("nav-close").addEventListener("click", toggleNav);
       //const navToggle = document.querySelector(".nav__toggle");
-      const navLinks = document.querySelectorAll(".nav__list-link");
+      //const navLinks = document.querySelectorAll(".nav__list-link");
       //const navPopup = document.getElementById("navPopup");
+
+      navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          // Save the current scroll position before navigation
+          if (navList) {
+            const scrollPosition = navList.scrollTop;
+            setCookie("navScrollPosition", scrollPosition, 7, basePath);
+          }
+        });
+      });
 
       if (navToggle) {
         navToggle.addEventListener("click", toggleNav);
@@ -306,9 +318,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const link = item.querySelector(".nav__list-link");
         item.classList.add(
           "border-b",
-          "border-gray-300",
-          "pt-2",
-          "pb-2",
+          "border-gray-300",          
           "flex",
           "items-center"
         );
@@ -318,6 +328,7 @@ document.addEventListener("DOMContentLoaded", function () {
           "items-center",
           "w-full",
           "h-full",
+          "py-2",
           "space-x-2"
         );
 
@@ -355,7 +366,7 @@ document.addEventListener("DOMContentLoaded", function () {
           link.classList.add(
             "border-l-4",
             "border-blue-500",
-            "bg-blue-100",
+            "bg-blue-50",
             "p-2"
           );
         }
@@ -420,6 +431,7 @@ document.addEventListener("DOMContentLoaded", function () {
       window.addEventListener("load", initializeAutoplay);
       document.getElementById("toggle-describe-images").addEventListener("click", toggleDescribeImages);
       loadDescribeImagesState();
+
 
       // Unhide navigation and sidebar after a short delay to allow animations
       setTimeout(() => {

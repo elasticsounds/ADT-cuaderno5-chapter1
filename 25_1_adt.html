@@ -1,82 +1,107 @@
 <!DOCTYPE html>
 
 <html lang="es">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<!-- CAN BE EDITED, make this the title of the page's contents -->
-<title>Sumapalabras</title>
-<!-- DO NOT EDIT OR REMOVE the <script> tags -->
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"></script>
-<!-- Mathjax script to use for rendering math. -->
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<meta content="25_1" name="page-section-id"/>
-</head>
-<body class="bg-gray-100 lg:p-5 md:p-5 sm:p-0 mb-12 font-sans text-lg">
-<!-- The main interface components -->
-<!-- DO NOT EDIT Contains the bottom bar, next back buttons, submit button, right sidebar, ai language, eli5 and tts toggles -->
-<div id="interface-container"></div>
-<!-- DO NOT EDIT Contains the left nav bar, html page list -->
-<div id="nav-container"></div>
-<!-- The main content container, EVERYTHING CAN BE EDITED, DELETED, OR ADDITIONAL ELEMENTS ADDED AS REQUIRED -->
-<main class="container interactive content border-t-4 border-blue-700 mx-auto bg-white mt-auto max-w-5xl p-5 rounded-lg shadow-lg lg:px-24 md:px-12 sm:px-6" id="content">
-<section data-id="sectioneli5-25-1" data-section-type="activity_fill_in_a_table" role="activity">
-<h1 class="text-2xl font-bold text-gray-800 mb-4" data-id="text-25-27">Sumapalabras</h1>
-<p class="mb-4 text-gray-700"><i class="fas fa-pen-to-square mr-2 text-blue-700"></i><span data-id="text-25-27">Escribe una palabra que se relacione con las otras dos.</span></p>
-<div class="max-w-full overflow-x-auto">
-<form>
-<table class="min-w-full bg-white border border-gray-300 mb-6">
-<thead>
-<tr class="bg-green-200">
-<th class="border px-4 py-2">Palabra 1</th>
-<th class="border px-4 py-2">Palabra 2</th>
-<th class="border px-4 py-2">Palabra Relacionada</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="border px-4 py-2" data-id="text-25-28">líquida</td>
-<td class="border px-4 py-2" data-id="text-25-29">gaseosa</td>
-<td class="border px-4 py-2">
-<input aria-label="Campo de texto para palabras relacionadas con líquida y gaseosa" class="w-full px-2 py-1 border rounded" data-aria-id="aria-25-1-0" data-placeholder-id="placeholder-25-1-0" placeholder="Respuesta" tabindex="0" type="text"/>
-</td>
-</tr>
-<tr>
-<td class="border px-4 py-2" data-id="text-25-30">enredadas</td>
-<td class="border px-4 py-2" data-id="text-25-31">enmarañadas</td>
-<td class="border px-4 py-2">
-<input aria-label="Campo de texto para palabras relacionadas con enredadas y enmarañadas" class="w-full px-2 py-1 border rounded" data-aria-id="aria-25-1-1" data-placeholder-id="placeholder-25-1-1" placeholder="Respuesta" tabindex="0" type="text"/>
-</td>
-</tr>
-<tr>
-<td class="border px-4 py-2" data-id="text-25-32">árboles</td>
-<td class="border px-4 py-2" data-id="text-25-33">araucarias</td>
-<td class="border px-4 py-2">
-<input aria-label="Campo de texto para palabras relacionadas con árboles y araucarias" class="w-full px-2 py-1 border rounded" data-aria-id="aria-25-1-2" data-placeholder-id="placeholder-25-1-2" placeholder="Respuesta" tabindex="0" type="text"/>
-</td>
-</tr>
-<tr>
-<td class="border px-4 py-2" data-id="text-25-34">modificado</td>
-<td class="border px-4 py-2" data-id="text-25-35">transformado</td>
-<td class="border px-4 py-2">
-<input aria-label="Campo de texto para palabras relacionadas con modificado y transformado" class="w-full px-2 py-1 border rounded" data-aria-id="aria-25-1-3" data-placeholder-id="placeholder-25-1-3" placeholder="Respuesta" tabindex="0" type="text"/>
-</td>
-</tr>
-<tr>
-<td class="border px-4 py-2" data-id="text-25-36">indiscriminado</td>
-<td class="border px-4 py-2" data-id="text-25-37">exagerado</td>
-<td class="border px-4 py-2">
-<input aria-label="Campo de texto para palabras relacionadas con indiscriminado y exagerado" class="w-full px-2 py-1 border rounded" data-aria-id="aria-25-1-4" data-placeholder-id="placeholder-25-1-4" placeholder="Respuesta" tabindex="0" type="text"/>
-</td>
-</tr>
-</tbody>
-</table>
-</form>
-</div>
-</section>
-</main>
 
-<script src="assets/base.js"></script>
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <!-- CAN BE EDITED, make this the title of the page's contents -->
+    <title>Sumapalabras</title>
+    <!-- DO NOT EDIT OR REMOVE the <script> tags -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"></script>
+    <!-- Mathjax script to use for rendering math. -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <meta content="25_1" name="page-section-id" />
+</head>
+
+<body class="bg-gray-100 lg:p-5 p-3 mb-12 font-sans text-lg">
+    <!-- The main interface components -->
+    <!-- DO NOT EDIT Contains the bottom bar, next back buttons, submit button, right sidebar, ai language, eli5 and tts toggles -->
+    <div id="interface-container"></div>
+    <!-- DO NOT EDIT Contains the left nav bar, html page list -->
+    <div id="nav-container"></div>
+    <!-- The main content container, EVERYTHING CAN BE EDITED, DELETED, OR ADDITIONAL ELEMENTS ADDED AS REQUIRED -->
+    <main
+        class="container content mx-auto bg-white mt-auto max-w-5xl p-5 rounded-lg border-gray-200 border lg:px-16 md:px-12 sm:px-6 sm:py-6 md:py-10 mb-5 border-t-8 border-t-blue-700"
+        id="content">
+        <section data-id="sectioneli5-25-1" data-section-type="activity_fill_in_a_table" role="activity">
+            <h1 class="font-bold text-4xl text-center mb-4" data-id="text-25-26">Sumapalabras</h1>
+            <p class="mb-4 text-gray-700 text-center mb-8 md:w-4/5 mx-auto"><i class="fas fa-pen-to-square mr-2 text-blue-700"></i><span
+                    data-id="text-25-27">Escribe una palabra que se relacione con las otras dos.</span></p>
+            <div class="max-w-full overflow-x-auto">
+                <form>
+                    <table class="min-w-full bg-white border border-gray-300 mb-6">
+                        <thead>
+                            <tr class="bg-green-200">
+                                <th class="border px-4 py-2">Palabra 1</th>
+                                <th class="border px-4 py-2">Palabra 2</th>
+                                <th class="border px-4 py-2">Palabra Relacionada</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border px-4 py-2" data-id="text-25-28">líquida</td>
+                                <td class="border px-4 py-2" data-id="text-25-29">gaseosa</td>
+                                <td class="border px-4 py-2">
+                                    <input aria-label="Campo de texto para palabras relacionadas con líquida y gaseosa"
+                                        class="w-full px-2 py-1 border rounded" data-aria-id="aria-25-1-0"
+                                        data-placeholder-id="placeholder-25-1-0" placeholder="Respuesta" tabindex="0"
+                                        type="text" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="border px-4 py-2" data-id="text-25-30">enredadas</td>
+                                <td class="border px-4 py-2" data-id="text-25-31">enmarañadas</td>
+                                <td class="border px-4 py-2">
+                                    <input
+                                        aria-label="Campo de texto para palabras relacionadas con enredadas y enmarañadas"
+                                        class="w-full px-2 py-1 border rounded" data-aria-id="aria-25-1-1"
+                                        data-placeholder-id="placeholder-25-1-1" placeholder="Respuesta" tabindex="0"
+                                        type="text" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="border px-4 py-2" data-id="text-25-32">árboles</td>
+                                <td class="border px-4 py-2" data-id="text-25-33">araucarias</td>
+                                <td class="border px-4 py-2">
+                                    <input
+                                        aria-label="Campo de texto para palabras relacionadas con árboles y araucarias"
+                                        class="w-full px-2 py-1 border rounded" data-aria-id="aria-25-1-2"
+                                        data-placeholder-id="placeholder-25-1-2" placeholder="Respuesta" tabindex="0"
+                                        type="text" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="border px-4 py-2" data-id="text-25-34">modificado</td>
+                                <td class="border px-4 py-2" data-id="text-25-35">transformado</td>
+                                <td class="border px-4 py-2">
+                                    <input
+                                        aria-label="Campo de texto para palabras relacionadas con modificado y transformado"
+                                        class="w-full px-2 py-1 border rounded" data-aria-id="aria-25-1-3"
+                                        data-placeholder-id="placeholder-25-1-3" placeholder="Respuesta" tabindex="0"
+                                        type="text" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="border px-4 py-2" data-id="text-25-36">indiscriminado</td>
+                                <td class="border px-4 py-2" data-id="text-25-37">exagerado</td>
+                                <td class="border px-4 py-2">
+                                    <input
+                                        aria-label="Campo de texto para palabras relacionadas con indiscriminado y exagerado"
+                                        class="w-full px-2 py-1 border rounded" data-aria-id="aria-25-1-4"
+                                        data-placeholder-id="placeholder-25-1-4" placeholder="Respuesta" tabindex="0"
+                                        type="text" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <script src="assets/base.js"></script>
 </body>
+
 </html>
