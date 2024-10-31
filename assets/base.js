@@ -171,9 +171,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const link = item.querySelector(".nav__list-link");
         item.classList.add(
           "border-b",
-          "border-gray-300",
-          "pt-2",
-          "pb-2",
+          "border-gray-300",          
           "flex",
           "items-center"
         );
@@ -183,6 +181,7 @@ document.addEventListener("DOMContentLoaded", function () {
           "items-center",
           "w-full",
           "h-full",
+          "py-2",
           "space-x-2"
         );
 
@@ -207,7 +206,7 @@ document.addEventListener("DOMContentLoaded", function () {
           link.classList.add(
             "border-l-4",
             "border-blue-500",
-            "bg-blue-100",
+            "bg-blue-50",
             "p-2"
           );
         }
