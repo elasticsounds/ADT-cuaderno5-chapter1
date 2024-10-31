@@ -1550,14 +1550,17 @@ function dropWord(dropzoneId) {
   selectedWord = null;
 }
 
-// Adding event listeners to existing words after being added to a dropzone
-document.addEventListener("click", (event) => {
-  if (event.target.classList.contains("activity-item")) {
+// Select all elements with the class 'activity-item'
+const activityItems = document.querySelectorAll(".activity-item");
+
+// Add event listeners to each 'activity-item'
+activityItems.forEach(item => {
+  item.addEventListener("click", (event) => {
     const dropzone = event.target.closest(".dropzone");
     if (dropzone) {
       dropWord(dropzone.id);
     }
-  }
+  });
 });
 
 function checkMatching() {

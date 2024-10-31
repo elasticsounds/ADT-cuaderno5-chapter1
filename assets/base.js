@@ -12,59 +12,46 @@ document.addEventListener("DOMContentLoaded", function () {
 
   //save function 
   function saveActivities() {
-    const activities = document.querySelectorAll("input[type='text'], textarea, .word-card")
-
-    const submitButton = document.getElementById("submit-button")
-
+    const activities = document.querySelectorAll(
+      "input[type='text'], textarea, .word-card"
+    );
+    const submitButton = document.getElementById("submit-button");
     const dropzones = document.querySelectorAll(".dropzone");
-
-    const activityId = location.pathname.substring(location.pathname.lastIndexOf("/") + 1).split(".")[0];
-
+    const activityId = location.pathname
+      .substring(location.pathname.lastIndexOf("/") + 1)
+      .split(".")[0];
     // Add event listeners to dropzones
     dropzones.forEach((dropzone) => {
-      const dropzonesData = JSON.parse(localStorage.getItem(activityId)) || {}
-
+      const dropzonesData = JSON.parse(localStorage.getItem(activityId)) || {};
       const dropzoneRegion = dropzone.querySelector("div[role='region']");
-
-      const dropzoneId = dropzoneRegion.getAttribute("id")
-
+      const dropzoneId = dropzoneRegion.getAttribute("id");
       if (dropzoneId in dropzonesData) {
-        const { itemId } = dropzonesData[dropzoneId]
-
+        const { itemId } = dropzonesData[dropzoneId];
         const wordElement = document.querySelector(
           `.activity-item[data-activity-item='${itemId}']`
         );
-
-        dropzoneRegion.appendChild(wordElement)
+        dropzoneRegion.appendChild(wordElement);
       }
-
-
       dropzone.addEventListener("drop", (event) => {
-        event.preventDefault()
-
-        const itemId = event.dataTransfer.getData("text")
-
+        event.preventDefault();
+        const itemId = event.dataTransfer.getData("text");
         const regexItem = /^item-/;
-
         if (!regexItem.test(itemId)) {
-          return
+          return;
         }
-
         if (!itemId || itemId === "null") {
-          return
+          return;
         }
-
         let dataActivity = JSON.parse(localStorage.getItem(activityId)) || {};
-
-        if (dataActivity[dropzoneId] && dataActivity[dropzoneId].itemId === itemId) {
+        if (
+          dataActivity[dropzoneId] &&
+          dataActivity[dropzoneId].itemId === itemId
+        ) {
           console.log("El elemento ya está presente en esta zona");
           return;
         }
-
-        dataActivity[dropzoneId] = { itemId }
-
-        localStorage.setItem(activityId, JSON.stringify(dataActivity))
-
+        dataActivity[dropzoneId] = { itemId };
+        localStorage.setItem(activityId, JSON.stringify(dataActivity));
       });
     });
 
@@ -156,6 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "close-sidebar",
         "language-dropdown",
         "toggle-eli5-mode-button",
+        "sidebar",
       ];
       elements.forEach((id) => {
         const element = document.getElementById(id);
@@ -244,20 +232,19 @@ document.addEventListener("DOMContentLoaded", function () {
         .getElementById("close-sidebar")
         .addEventListener("click", toggleSidebar);
       document
-        .getElementById("toggle-eli5-mode-button")
+        .getElementById("toggle-eli5")
         .addEventListener("click", toggleEli5Mode);
       document
         .getElementById("language-dropdown")
         .addEventListener("change", switchLanguage);
       document
-        .getElementById("toggle-easy-read-button")
+        .getElementById("toggle-easy")
         .addEventListener("click", toggleEasyReadMode);
-
       document
         .getElementById("play-pause-button")
         .addEventListener("click", togglePlayPause);
       document
-        .getElementById("toggle-read-aloud")
+        .getElementById("toggle-tts")
         .addEventListener("click", toggleReadAloud);
       document
         .getElementById("audio-previous")
@@ -338,13 +325,20 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         let itemIcon = "";
         let itemSubtitle = "";
-        if (item.classList.contains("activity")) {
-          itemIcon = '<i class="fas fa-pen-to-square"></i>';
-          itemSubtitle = "<span data-id='activity-to-do'></span>";
-        }
-
         const href = link.getAttribute("href");
         const pageSectionMatch = href.match(/(\d+)_(\d+)/);
+        
+        if (item.classList.contains("activity")) {
+          const activityId = href.split(".")[0];
+          const success = JSON.parse(localStorage.getItem(`${activityId}_success`)) || false;
+          itemIcon = '<i class="fas fa-pen-to-square"></i>';
+          if (success) {
+            itemSubtitle = "<span data-id='activity-completed'></span>";
+          } else {
+            itemSubtitle = "<span data-id='activity-to-do'></span>";
+          }
+        }
+
         const activityId = href.split(".")[0];
         
         const textId = link.getAttribute("data-text-id");
@@ -352,7 +346,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (pageSectionMatch) {
           const [_, pageNumber, sectionNumber] = pageSectionMatch.map(Number);
           link.innerHTML =
-            "<div class='flex items-center space-x-2'>" +
+            "<div class='flex items-top space-x-2'>" +
             itemIcon +
             "<div>" +
             `<div>${pageNumber + 1}.${sectionNumber + 1}: </span><span class='inline' data-id='${textId}'></div>` +
@@ -368,19 +362,6 @@ document.addEventListener("DOMContentLoaded", function () {
             "border-blue-500",
             "bg-blue-50",
             "p-2"
-          );
-        }
-
-        const success = JSON.parse(localStorage.getItem(`${activityId}_success`)) || false
-
-        if(success){
-          item.classList.add("min-h-[3rem]");
-          link.classList.add(
-            "border-l-4",
-            "border-green-500",
-            "bg-green-100",
-            "p-2",
-            "text-green-700"
           );
         }
       });
@@ -640,7 +621,7 @@ function toggleSidebar() {
   const elements = [
     "close-sidebar",
     "language-dropdown",
-    "toggle-eli5-mode-button",
+    "sidebar",
   ];
   elements.forEach((id) => {
     const element = document.getElementById(id);
