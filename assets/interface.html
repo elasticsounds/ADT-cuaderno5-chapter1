@@ -225,7 +225,7 @@
         </button>
 
         <!-- Container for centered content -->
-        <div class="container mx-auto max-w-5xl relative flex items-center justify-center flex-1">
+        <div class="container mx-auto max-w-5xl relative flex items-center justify-center flex-1 transition-all duration-300">
             <!-- Centered navigation buttons (back, forward, and page number) -->
             <div aria-label="page-navigation" class="flex items-center gap-4 -ml-14">
                 <button id="back-button" aria-label="Previous page" class="text-2xl no-underline text-gray-600 p-1"
@@ -237,8 +237,8 @@
                 </button>
             </div>
 
-            <!-- Submit button - only render when needed -->
-            <div class="absolute right-7">
+            <!-- Submit button -->
+            <div class="absolute lg:right-6 right-0 transition-all duration-300">
                 <button aria-label="Submit"
                     class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
                     id="submit-button" type="button" data-id="submit-text">Submit
