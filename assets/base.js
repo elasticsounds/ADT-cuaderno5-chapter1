@@ -1270,7 +1270,7 @@ function stopAudio() {
 
 function changeAudioSpeed(event) {
   // Get the button that was clicked
-  let button = event.target;
+  const button = event.target.closest('.read-aloud-change-speed');
 
   // Extract the speed value from the class
   let speedClass = Array.from(button.classList).find((cls) =>
@@ -1296,11 +1296,11 @@ function changeAudioSpeed(event) {
   // Update button styles
   document.querySelectorAll(".read-aloud-change-speed").forEach((btn) => {
     if (btn === button) {
-      btn.classList.remove("bg-black", "text-gray-300");
       btn.classList.add("bg-white", "text-black");
+      btn.classList.remove("bg-black", "text-white");
     } else {
       btn.classList.remove("bg-white", "text-black");
-      btn.classList.add("bg-black", "text-gray-300");
+      btn.classList.add("bg-black", "text-white");
     }
   });
 }
