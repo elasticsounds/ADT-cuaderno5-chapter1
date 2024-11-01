@@ -631,6 +631,13 @@ function checkFillInTheBlank() {
     firstIncorrectInput.focus();
   }
 
+  // Play appropriate sound based on correctness
+  if (allCorrect) {
+    playActivitySound('success');
+  } else {
+    playActivitySound('error');
+  }
+
   // Use the countUnfilledInputs function here
   let unfilledCount = countUnfilledInputs(inputs);
 
@@ -651,6 +658,13 @@ function checkTextInputs() {
   // Determine whether all inputs are filled
   const allFilled = unfilledCount === 0;
 
+  // Play appropriate sound based on whether all inputs are filled
+  if (allFilled) {
+    playActivitySound('success');
+  } else {
+    playActivitySound('error');
+  }
+
   updateSubmitButtonAndToast(
     allFilled,
     translateText("next-activity"),
@@ -667,6 +681,13 @@ function checkTableInputs() {
 
   // Determine whether all inputs are filled
   const allFilled = unfilledCount === 0;
+
+  // Play appropriate sound based on whether all inputs are filled
+  if (allFilled) {
+    playActivitySound('success');
+  } else {
+    playActivitySound('error');
+  }
 
   updateSubmitButtonAndToast(
     allFilled,
@@ -1601,6 +1622,23 @@ function checkMatching() {
 
   // Update feedback
   const feedback = document.getElementById("feedback");
+  const isAllCorrect = correctCount === Object.keys(correctAnswers).length;
+
+  // Play appropriate sound based on correctness
+  if (isAllCorrect) {
+    playActivitySound('success');
+    feedback.textContent = translateText("matching-correct-answers");
+    feedback.classList.remove("text-red-500");
+    feedback.classList.add("text-green-500");
+  } else {
+    playActivitySound('error');
+    feedback.textContent = translateText("matching-correct-answers-count", {
+      correctCount: correctCount,
+    });
+    feedback.classList.remove("text-green-500");
+    feedback.classList.add("text-red-500");
+  }
+
   if (correctCount === Object.keys(correctAnswers).length) {
     feedback.textContent = translateText("matching-correct-answers");
     feedback.classList.remove("text-red-500");
