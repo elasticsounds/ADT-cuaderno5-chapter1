@@ -215,8 +215,8 @@
 </div>
 
 <!-- The Content Index menu bar -->
-<footer class="fixed bottom-0 left-0 right-0 bg-white shadow-lg py-3 px-5 border-t border-gray-300 z-50">
-    <div class="flex items-center">
+<footer class="fixed bottom-0 left-0 right-0 bg-white shadow-lg py-3 border-t border-gray-300 z-50">
+    <div class="flex items-center px-5">
         <!-- Left button (hamburger menu) - outside container -->
         <button id="nav-popup" aria-controls="navPopup" aria-expanded="false" aria-label="Content Index Menu"
             class="nav__toggle px-4 py-2 bg-white text-gray-800 rounded-lg shadow-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-50 aria-expanded:bg-blue-700 aria-expanded:text-white"
@@ -224,10 +224,10 @@
             <i aria-hidden="true" class="fas fa-list"></i>
         </button>
 
-        <!-- Container for centered content and submit button -->
-        <div class="container mx-auto max-w-5xl relative flex items-center">
+        <!-- Container for centered content -->
+        <div class="container mx-auto max-w-5xl relative flex items-center justify-center flex-1">
             <!-- Centered navigation buttons (back, forward, and page number) -->
-            <div aria-label="page-navigation" class="flex justify-center items-center gap-4 flex-1 text-center">
+            <div aria-label="page-navigation" class="flex items-center gap-4 -ml-14">
                 <button id="back-button" aria-label="Previous page" class="text-2xl no-underline text-gray-600 p-1"
                     type="button"><i class="fas fa-arrow-left"></i>
                 </button>
@@ -237,8 +237,8 @@
                 </button>
             </div>
 
-            <!-- Submit button -->
-            <div class="absolute right-0">
+            <!-- Submit button - only render when needed -->
+            <div class="absolute right-7">
                 <button aria-label="Submit"
                     class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
                     id="submit-button" type="button" data-id="submit-text">Submit
