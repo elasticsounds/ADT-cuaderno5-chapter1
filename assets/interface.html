@@ -1,102 +1,137 @@
 <!-- Smart Utility Sidebar -->
 
 <aside id="sidebar" aria-hidden="true" role="complementary"
-    class="w-96 bg-white shadow-lg border-l border-gray-300 p-4 fixed right-0 top-0 bottom-0 transition-transform transform translate-x-full hidden">
-    <div class="flex justify-between items-center mb-4">
-        <h2 class="text-xl font-bold mb-4" data-id="sidebar-title"><i class="fas fa-universal-access mr-2"></i>Universal
-            AI</h2>
-        <button id="close-sidebar" aria-label="Close the sidebar" type="button" class="text-gray-700 text-xl"><i
-                class="fas fa-close"></i></button>
-    </div>
-    <div class="flex justify-between items-left mb-4">
-        <h3 class="text-xl text-left m-4 sidebar-item" id="language-label" data-id="language-label">Language</h3>
-        <select data-id="language-dropdown" id="language-dropdown" aria-labelledby="language-label"
-            class="ml-4 px-4 py-2 bg-white text-gray-800 border-gray-200 border-2 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-50 text-lg">
-        </select>
-    </div>
+   class="w-96 bg-white shadow-lg border-l border-gray-300 fixed right-0 top-0 bottom-0 transition-transform transform translate-x-full hidden rounded-lg top-2 right-0 bottom-2 h-[calc(100vh-5rem)] flex flex-col">
+   <!-- Fixed Header -->
+   <div class="p-4 border-b border-gray-300">
+       <div class="flex justify-between items-center">
+           <h2 class="text-xl font-bold" data-id="sidebar-title"><i class="fas fa-universal-access mr-2"></i>Universal AI</h2>
+           <button id="close-sidebar" aria-label="Close the sidebar" type="button" class="text-gray-700 text-xl"><i class="fas fa-close"></i></button>
+       </div>
+   </div>
 
-    <div class="flex justify-between items-left mb-4">
-        <label for="toggle-easy" class="flex items-center cursor-pointer mb-4 md:mb-0 w-full" id="toggle-easy-read-button" aria-pressed="false" aria-labelledby="easy-read-label">
-            <span class="text-xl text-left m-4 sidebar-item flex-grow" id="easy-read-label" data-id="easy-read-label">Easy Read</span>
-            <!-- Toggle -->
-            <div class="relative">
-                <!-- Input -->
-                <input type="checkbox" id="toggle-easy" class="sr-only peer">
-                <!-- Slider -->
-                <div class="block bg-gray-400 w-12 h-7 rounded-full transition peer-checked:bg-blue-700"></div>
-                <!-- Circle -->
-                <div class="dot absolute left-1 top-1 bg-white w-5 h-5 rounded-full transition transform peer-checked:translate-x-5"></div>
-            </div>
-        </label>
-    </div>
-    
-    
-    <div class="flex justify-between items-left mb-4">
-        <label for="toggle-tts" class="flex items-center cursor-pointer mb-4 md:mb-0 w-full" id="toggle-read-aloud" aria-pressed="false" aria-labelledby="tts-label">
-            <span class="text-xl text-left m-4 sidebar-item flex-grow" id="tts-label" data-id="tts-label">Text to speech</span>
-            <!-- Toggle -->
-            <div class="relative">
-                <!-- Input -->
-                <input type="checkbox" id="toggle-tts" class="sr-only peer">
-                <!-- Slider -->
-                <div class="block bg-gray-400 w-12 h-7 rounded-full transition peer-checked:bg-blue-700"></div>
-                <!-- Circle -->
-                <div class="dot absolute left-1 top-1 bg-white w-5 h-5 rounded-full transition transform peer-checked:translate-x-5"></div>
-            </div>
-        </label>
-    </div>
-    <div id="autoplay-container" class="flex justify-between items-left mb-4 hidden">
-        <label for="toggle-autoplay" class="flex items-center cursor-pointer mb-4 md:mb-0 w-full" aria-pressed="true" aria-labelledby="autoplay-label">
-            <span class="text-xl text-left m-4 sidebar-item flex-grow" id="autoplay-label" data-id="autoplay-label">Autoplay</span>
-            <!-- Toggle -->
-            <div class="relative">
-                <!-- Input -->
-                <input type="checkbox" id="toggle-autoplay" class="sr-only peer" checked>
-                <!-- Slider -->
-                <div class="block bg-gray-400 w-12 h-7 rounded-full transition peer-checked:bg-blue-700"></div>
-                <!-- Circle -->
-                <div class="dot absolute left-1 top-1 bg-white w-5 h-5 rounded-full transition transform peer-checked:translate-x-5"></div>
-            </div>
-        </label>
-    </div>
-    <div id="describe-images-container" class="flex justify-between items-left mb-4 hidden">
-        <label for="toggle-describe-images" class="flex items-center cursor-pointer mb-4 md:mb-0 w-full" aria-pressed="false" aria-labelledby="describe-images-label">
-            <span class="text-xl text-left m-4 sidebar-item flex-grow" id="describe-images-label" data-id="describe-images-label">Describe images</span>
-            <!-- Toggle -->
-            <div class="relative">
-                <!-- Input -->
-                <input type="checkbox" id="toggle-describe-images" class="sr-only peer">
-                <!-- Slider -->
-                <div class="block bg-gray-400 w-12 h-7 rounded-full transition peer-checked:bg-blue-700"></div>
-                <!-- Circle -->
-                <div class="dot absolute left-1 top-1 bg-white w-5 h-5 rounded-full transition transform peer-checked:translate-x-5"></div>
-            </div>
-        </label>
-    </div>     
-    <div class="flex justify-between items-left mb-4">
-        <label for="toggle-eli5" class="flex items-center cursor-pointer mb-4 md:mb-0 w-full" id="toggle-eli5-mode-button" aria-pressed="false" aria-labelledby="eli5-label">
-            <span class="text-xl text-left m-4 sidebar-item flex-grow" id="eli5-label" data-id="eli5-label">Explain to me</span>
-            <!-- Toggle -->
-            <div class="relative">
-                <!-- Input -->
-                <input type="checkbox" id="toggle-eli5" class="sr-only peer">
-                <!-- Slider -->
-                <div class="block bg-gray-400 w-12 h-7 rounded-full transition peer-checked:bg-blue-700"></div>
-                <!-- Circle -->
-                <div class="dot absolute left-1 top-1 bg-white w-5 h-5 rounded-full transition transform peer-checked:translate-x-5"></div>
-            </div>
-        </label>
-    </div>
-    <div class="text-left m-4 text-lg" id="eli5-content"></div>
+   <!-- Scrollable Content -->
+   <div class="flex-1 overflow-y-auto p-4 ml-4">
+       <div class="flex justify-between items-center">
+           <h3 class="text-xl text-left m-4 ml-0 sidebar-item" id="language-label" data-id="language-label">Language</h3>
+           <select data-id="language-dropdown" id="language-dropdown" aria-labelledby="language-label"
+               class="ml-4 px-4 py-2 bg-white text-gray-800 border-gray-200 border-2 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-50 text-lg">
+           </select>
+       </div>
+       <div class="flex justify-between items-left border-t border-gray-300">
+           <label for="toggle-easy" class="flex items-center cursor-pointer mb-4 md:mb-0 w-full" id="toggle-easy-read-button" aria-pressed="false" aria-labelledby="easy-read-label">
+               <span class="text-xl text-left m-4 ml-0 sidebar-item flex-grow" id="easy-read-label" data-id="easy-read-label">Easy Read</span>
+               <div class="relative">
+                   <input type="checkbox" id="toggle-easy" class="sr-only peer">
+                   <div class="block bg-gray-400 w-12 h-7 rounded-full transition peer-checked:bg-blue-700"></div>
+                   <div class="dot absolute left-1 top-1 bg-white w-5 h-5 rounded-full transition transform peer-checked:translate-x-5"></div>
+               </div>
+           </label>
+       </div>
+       <div class="flex justify-between items-left border-t border-gray-300">
+           <label for="toggle-tts" class="flex items-center cursor-pointer mb-4 md:mb-0 w-full" id="toggle-read-aloud" aria-pressed="false" aria-labelledby="tts-label">
+               <span class="text-xl text-left m-4 ml-0 sidebar-item flex-grow" id="tts-label" data-id="tts-label">Text to speech</span>
+               <div class="relative">
+                   <input type="checkbox" id="toggle-tts" class="sr-only peer">
+                   <div class="block bg-gray-400 w-12 h-7 rounded-full transition peer-checked:bg-blue-700"></div>
+                   <div class="dot absolute left-1 top-1 bg-white w-5 h-5 rounded-full transition transform peer-checked:translate-x-5"></div>
+               </div>
+           </label>
+       </div>
+       <div id="autoplay-container" class="flex justify-between items-left border-t border-gray-300 hidden">
+           <label for="toggle-autoplay" class="flex items-center cursor-pointer mb-4 md:mb-0 w-full" aria-pressed="true" aria-labelledby="autoplay-label">
+               <span class="text-xl text-left m-4 ml-0 sidebar-item flex-grow" id="autoplay-label" data-id="autoplay-label">Autoplay</span>
+               <div class="relative">
+                   <input type="checkbox" id="toggle-autoplay" class="sr-only peer" checked>
+                   <div class="block bg-gray-400 w-12 h-7 rounded-full transition peer-checked:bg-blue-700"></div>
+                   <div class="dot absolute left-1 top-1 bg-white w-5 h-5 rounded-full transition transform peer-checked:translate-x-5"></div>
+               </div>
+           </label>
+       </div>
+       <div id="describe-images-container" class="flex justify-between items-left border-t border-gray-300 hidden">
+           <label for="toggle-describe-images" class="flex items-center cursor-pointer mb-4 md:mb-0 w-full" aria-pressed="false" aria-labelledby="describe-images-label">
+               <span class="text-xl text-left m-4 ml-0 sidebar-item flex-grow" id="describe-images-label" data-id="describe-images-label">Describe images</span>
+               <div class="relative">
+                   <input type="checkbox" id="toggle-describe-images" class="sr-only peer">
+                   <div class="block bg-gray-400 w-12 h-7 rounded-full transition peer-checked:bg-blue-700"></div>
+                   <div class="dot absolute left-1 top-1 bg-white w-5 h-5 rounded-full transition transform peer-checked:translate-x-5"></div>
+               </div>
+           </label>
+       </div>     
+       <div class="flex justify-between items-left border-t border-gray-300">
+           <label for="toggle-eli5" class="flex items-center cursor-pointer mb-4 md:mb-0 w-full" id="toggle-eli5-mode-button" aria-pressed="false" aria-labelledby="eli5-label">
+               <span class="text-xl text-left m-4 ml-0 sidebar-item flex-grow" id="eli5-label" data-id="eli5-label">Explain to me</span>
+               <div class="relative">
+                   <input type="checkbox" id="toggle-eli5" class="sr-only peer">
+                   <div class="block bg-gray-400 w-12 h-7 rounded-full transition peer-checked:bg-blue-700"></div>
+                   <div class="dot absolute left-1 top-1 bg-white w-5 h-5 rounded-full transition transform peer-checked:translate-x-5"></div>
+               </div>
+           </label>
+       </div>
+       <div class="text-left m-4 text-lg" id="eli5-content"></div>
+   </div>
 </aside>
 
-<!-- Floating Button to open AI Sidebar -->
-<button id="open-sidebar" aria-label="Smart Utility Sidebar" aria-expanded="false"
-    class="fixed bottom-20 right-4 bg-black text-white p-1 rounded-full shadow-md">
-    <i class="fas fa-universal-access text-3xl"></i>
+<!-- Floating AI sidebar toggle button -->
+<button 
+  id="open-sidebar" 
+  aria-label="Smart Utility Sidebar" 
+  aria-expanded="false"
+  class="fixed bottom-20 right-4 w-12 h-12 flex items-center justify-center rounded-full bg-white hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-blue-500 shadow-lg transition-all duration-200"
+>
+  <i class="fa fa-universal-access text-4xl text-gray-800"></i>
 </button>
 
+<!-- New floating play bar -->
+<div class="fixed bottom-20 right-20 bg-gray-100 rounded-lg shadow-lg py-2 px-6 flex items-center space-x-6 border border-gray-200 hidden" id="play-bar">
+    <!-- Settings Panel (hidden by default) -->
+    <div class="opacity-0 h-0 pointer-events-none absolute bottom-full right-0 bg-[#083149] rounded-lg mb-2 w-32" id="read-aloud-settings">
+        <ul class="flex flex-col items-stretch p-1">
+            <li class="w-full">
+                <button type="button" class="text-white rounded text-sm py-2 px-4 w-full hover:bg-[#1a3952] hover:text-white text-left read-aloud-change-speed speed-0-5">
+                    <span data-id="read-aloud-speed-slow">Slow</span>
+                </button>
+            </li>
+            <li class="w-full">
+                <button type="button" class="text-white rounded text-sm py-2 px-4 w-full hover:bg-[#1a3952] hover:text-white text-left read-aloud-change-speed speed-1">
+                    <span data-id="read-aloud-speed-normal">Normal</span>
+                </button>
+            </li>
+            <li class="w-full">
+                <button type="button" class="text-white rounded text-sm py-2 px-4 w-full hover:bg-[#1a3952] hover:text-white text-left read-aloud-change-speed speed-1-5">
+                    <span data-id="read-aloud-speed-fast">Fast</span>
+                </button>
+            </li>
+            <li class="w-full">
+                <button type="button" class="text-white rounded text-sm py-2 px-4 w-full hover:bg-[#1a3952] text-left read-aloud-change-speed speed-2">
+                    <span data-id="read-aloud-speed-very-fast">Very Fast</span>
+                </button>
+            </li>
+         </ul>
+    </div>
+
+    <!-- Controls -->
+    <button type="button" id="audio-previous" class="text-gray-700 hover:text-gray-900" aria-label="Go to previous audio">
+        <i class="fas fa-backward-step text-lg"></i>
+    </button>
+
+    <!-- Play/Pause button with circle -->
+    <button id="play-pause-button" class="bg-white rounded-full p-3 shadow-md w-12 h-12 flex items-center justify-center text-gray-700 hover:text-gray-900" aria-label="Play audio of page text">
+        <i class="fas fa-play text-xl ml-1" id="read-aloud-play-icon"></i>
+        <i class="fas fa-pause text-xl hidden" id="read-aloud-pause-icon"></i>
+    </button>
+
+    <button type="button" id="audio-next" class="text-gray-700 hover:text-gray-900" aria-label="Go to next audio">
+        <i class="fas fa-forward-step text-lg"></i>
+    </button>
+
+    <button type="button" id="read-aloud-speed" class="text-gray-700 hover:text-gray-900 text-sm font-medium border border-gray-300 rounded px-2">
+        <span data-id="read-aloud-speed-normal">Normal</span>
+    </button>
+</div>
+
 <!-- Floating play bar -->
+ <!--
 <div class="fixed bottom-20 right-20 bg-black text-white p-1 rounded-lg shadow-md hidden" id="play-bar">
     <div class="flex-col pointer-events-auto">
         <div class="opacity-0 h-0 pointer-events-none" id="read-aloud-settings">
@@ -171,7 +206,7 @@
         </div>
     </div>
 </div>
-
+-->
 
 <!-- Pop-up toast -->
 <div id="toast" class="fixed bottom-20 right-5 bg-green-500 text-white px-4 py-2 rounded-md shadow-lg hidden"
@@ -180,33 +215,36 @@
 </div>
 
 <!-- The Content Index menu bar -->
-<footer class="fixed bottom-0 left-0 right-0 bg-white shadow-lg py-3 flex items-center px-5 border-t border-gray-300 z-50">
-    <!-- Left button (hamburger menu) -->
-    <div class="flex-1">
+<footer class="fixed bottom-0 left-0 right-0 bg-white shadow-lg py-3 border-t border-gray-300 z-50">
+    <div class="flex items-center px-5">
+        <!-- Left button (hamburger menu) - outside container -->
         <button id="nav-popup" aria-controls="navPopup" aria-expanded="false" aria-label="Content Index Menu"
             class="nav__toggle px-4 py-2 bg-white text-gray-800 rounded-lg shadow-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-50 aria-expanded:bg-blue-700 aria-expanded:text-white"
             type="button">
             <i aria-hidden="true" class="fas fa-list"></i>
         </button>
-    </div>
 
-    <!-- Centered navigation buttons (back, forward, and page number) -->
-    <div aria-label="page-navigation" class="flex justify-center items-center gap-4 flex-1 text-center">
-        <button id="back-button" aria-label="Previous page" class="text-2xl no-underline text-gray-600 p-1"
-            type="button"><i class="fas fa-arrow-left"></i>
-        </button>
-        <span id="page-section-id" class="align-text-bottom no-underline text-gray-600 p-1 text-2xl">Page Number</span>
-        <button id="forward-button" aria-label="Next page" class="text-2xl no-underline text-gray-600 p-1"
-            type="button"><i class="fas fa-arrow-right"></i>
-        </button>
-    </div>
+        <!-- Container for centered content -->
+        <div class="container mx-auto max-w-5xl relative flex items-center justify-center flex-1 transition-all duration-300">
+            <!-- Centered navigation buttons (back, forward, and page number) -->
+            <div aria-label="page-navigation" class="flex items-center gap-4 -ml-14">
+                <button id="back-button" aria-label="Previous page" class="text-2xl no-underline text-gray-600 p-1"
+                    type="button"><i class="fas fa-arrow-left"></i>
+                </button>
+                <span id="page-section-id" class="align-text-bottom no-underline text-gray-600 p-1 text-2xl">Page Number</span>
+                <button id="forward-button" aria-label="Next page" class="text-2xl no-underline text-gray-600 p-1"
+                    type="button"><i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
 
-    <!-- Right button (submit) -->
-    <div class="flex-1 text-right">
-        <button aria-label="Submit"
-            class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-            id="submit-button" type="button" data-id="submit-text">Submit
-        </button>
+            <!-- Submit button -->
+            <div class="absolute lg:right-6 right-0 transition-all duration-300">
+                <button aria-label="Submit"
+                    class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                    id="submit-button" type="button" data-id="submit-text">Submit
+                </button>
+            </div>
+        </div>
     </div>
 </footer>
 

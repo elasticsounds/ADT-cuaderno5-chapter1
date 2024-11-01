@@ -255,9 +255,6 @@ document.addEventListener("DOMContentLoaded", function () {
         .getElementById("audio-next")
         .addEventListener("click", playNextAudio);
       document
-        .getElementById("play-bar-settings-toggle")
-        .addEventListener("click", togglePlayBarSettings);
-      document
         .getElementById("read-aloud-speed")
         .addEventListener("click", togglePlayBarSettings);
 
@@ -634,6 +631,12 @@ let easyReadMode = false;
 let audioSpeed = 1;
 let autoplayMode = true;
 let describeImagesMode = false;
+const speedMapping = {
+  'speed-0-5': "0.5",
+  'speed-1': "1",
+  'speed-1-5': "1.5",
+  'speed-2': "2"
+};
 
 // Add this function to handle loading the autoplay state
 function loadAutoplayState() {
@@ -1179,7 +1182,8 @@ function initializeAudioSpeed() {
   let savedAudioSpeed = getCookie("audioSpeed");
   if (savedAudioSpeed) {
     audioSpeed = savedAudioSpeed;
-    document.getElementById("read-aloud-speed").textContent = audioSpeed + "x";
+    const speedClass = Object.entries(speedMapping).find(([key, value]) => value === audioSpeed)?.[0] || 'speed-1';
+    document.getElementById("read-aloud-speed").innerHTML = document.getElementsByClassName(speedClass)[0].innerHTML;
 
     // Set the playback rate for currentAudio and eli5Audio if they exist
     if (currentAudio) {
@@ -1266,14 +1270,14 @@ function stopAudio() {
 
 function changeAudioSpeed(event) {
   // Get the button that was clicked
-  let button = event.target;
+  const button = event.target.closest('.read-aloud-change-speed');
 
   // Extract the speed value from the class
   let speedClass = Array.from(button.classList).find((cls) =>
     cls.startsWith("speed-")
   );
-  audioSpeed = speedClass.split("-").slice(1).join(".");
-  document.getElementById("read-aloud-speed").textContent = audioSpeed + "x";
+  audioSpeed = speedMapping[speedClass];
+  document.getElementById("read-aloud-speed").innerHTML = button.innerHTML;
 
   // Save the audio speed to a cookie
   setCookie("audioSpeed", audioSpeed, 7);
@@ -1292,11 +1296,11 @@ function changeAudioSpeed(event) {
   // Update button styles
   document.querySelectorAll(".read-aloud-change-speed").forEach((btn) => {
     if (btn === button) {
-      btn.classList.remove("bg-black", "text-gray-300");
       btn.classList.add("bg-white", "text-black");
+      btn.classList.remove("bg-black", "text-white");
     } else {
       btn.classList.remove("bg-white", "text-black");
-      btn.classList.add("bg-black", "text-gray-300");
+      btn.classList.add("bg-black", "text-white");
     }
   });
 }
