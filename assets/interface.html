@@ -11,16 +11,16 @@
    </div>
 
    <!-- Scrollable Content -->
-   <div class="flex-1 overflow-y-auto p-4">
-       <div class="flex justify-between items-center border-t border-gray-300">
-           <h3 class="text-xl text-left m-4 sidebar-item" id="language-label" data-id="language-label">Language</h3>
+   <div class="flex-1 overflow-y-auto p-4 ml-4">
+       <div class="flex justify-between items-center">
+           <h3 class="text-xl text-left m-4 ml-0 sidebar-item" id="language-label" data-id="language-label">Language</h3>
            <select data-id="language-dropdown" id="language-dropdown" aria-labelledby="language-label"
-               class="ml-4 px-2 py-1 bg-white text-gray-800 border-gray-200 border-2 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-50 text-lg">
+               class="ml-4 px-4 py-2 bg-white text-gray-800 border-gray-200 border-2 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-50 text-lg">
            </select>
        </div>
        <div class="flex justify-between items-left border-t border-gray-300">
            <label for="toggle-easy" class="flex items-center cursor-pointer mb-4 md:mb-0 w-full" id="toggle-easy-read-button" aria-pressed="false" aria-labelledby="easy-read-label">
-               <span class="text-xl text-left m-4 sidebar-item flex-grow" id="easy-read-label" data-id="easy-read-label">Easy Read</span>
+               <span class="text-xl text-left m-4 ml-0 sidebar-item flex-grow" id="easy-read-label" data-id="easy-read-label">Easy Read</span>
                <div class="relative">
                    <input type="checkbox" id="toggle-easy" class="sr-only peer">
                    <div class="block bg-gray-400 w-12 h-7 rounded-full transition peer-checked:bg-blue-700"></div>
@@ -30,7 +30,7 @@
        </div>
        <div class="flex justify-between items-left border-t border-gray-300">
            <label for="toggle-tts" class="flex items-center cursor-pointer mb-4 md:mb-0 w-full" id="toggle-read-aloud" aria-pressed="false" aria-labelledby="tts-label">
-               <span class="text-xl text-left m-4 sidebar-item flex-grow" id="tts-label" data-id="tts-label">Text to speech</span>
+               <span class="text-xl text-left m-4 ml-0 sidebar-item flex-grow" id="tts-label" data-id="tts-label">Text to speech</span>
                <div class="relative">
                    <input type="checkbox" id="toggle-tts" class="sr-only peer">
                    <div class="block bg-gray-400 w-12 h-7 rounded-full transition peer-checked:bg-blue-700"></div>
@@ -40,7 +40,7 @@
        </div>
        <div id="autoplay-container" class="flex justify-between items-left border-t border-gray-300 hidden">
            <label for="toggle-autoplay" class="flex items-center cursor-pointer mb-4 md:mb-0 w-full" aria-pressed="true" aria-labelledby="autoplay-label">
-               <span class="text-xl text-left m-4 sidebar-item flex-grow" id="autoplay-label" data-id="autoplay-label">Autoplay</span>
+               <span class="text-xl text-left m-4 ml-0 sidebar-item flex-grow" id="autoplay-label" data-id="autoplay-label">Autoplay</span>
                <div class="relative">
                    <input type="checkbox" id="toggle-autoplay" class="sr-only peer" checked>
                    <div class="block bg-gray-400 w-12 h-7 rounded-full transition peer-checked:bg-blue-700"></div>
@@ -50,7 +50,7 @@
        </div>
        <div id="describe-images-container" class="flex justify-between items-left border-t border-gray-300 hidden">
            <label for="toggle-describe-images" class="flex items-center cursor-pointer mb-4 md:mb-0 w-full" aria-pressed="false" aria-labelledby="describe-images-label">
-               <span class="text-xl text-left m-4 sidebar-item flex-grow" id="describe-images-label" data-id="describe-images-label">Describe images</span>
+               <span class="text-xl text-left m-4 ml-0 sidebar-item flex-grow" id="describe-images-label" data-id="describe-images-label">Describe images</span>
                <div class="relative">
                    <input type="checkbox" id="toggle-describe-images" class="sr-only peer">
                    <div class="block bg-gray-400 w-12 h-7 rounded-full transition peer-checked:bg-blue-700"></div>
@@ -60,7 +60,7 @@
        </div>     
        <div class="flex justify-between items-left border-t border-gray-300">
            <label for="toggle-eli5" class="flex items-center cursor-pointer mb-4 md:mb-0 w-full" id="toggle-eli5-mode-button" aria-pressed="false" aria-labelledby="eli5-label">
-               <span class="text-xl text-left m-4 sidebar-item flex-grow" id="eli5-label" data-id="eli5-label">Explain to me</span>
+               <span class="text-xl text-left m-4 ml-0 sidebar-item flex-grow" id="eli5-label" data-id="eli5-label">Explain to me</span>
                <div class="relative">
                    <input type="checkbox" id="toggle-eli5" class="sr-only peer">
                    <div class="block bg-gray-400 w-12 h-7 rounded-full transition peer-checked:bg-blue-700"></div>
