@@ -1,53 +1,68 @@
 <!DOCTYPE html>
 
 <html lang="es">
+
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<!-- CAN BE EDITED, make this the title of the page's contents -->
-<title>Think about the written language</title>
-<!-- DO NOT EDIT OR REMOVE the <script> tags -->
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"></script>
-<!-- Mathjax script to use for rendering math. -->
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<meta content="28_3" name="page-section-id"/>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <!-- CAN BE EDITED, make this the title of the page's contents -->
+    <title>Think about the written language</title>
+    <!-- DO NOT EDIT OR REMOVE the <script> tags -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"></script>
+    <!-- Mathjax script to use for rendering math. -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <meta content="28_3" name="page-section-id" />
 </head>
-<body class="bg-gray-100 lg:p-5 md:p-5 sm:p-0 mb-12 font-sans text-lg">
-<!-- The main interface components -->
-<!-- DO NOT EDIT Contains the bottom bar, next back buttons, submit button, right sidebar, ai language, eli5 and tts toggles -->
-<div id="interface-container"></div>
-<!-- DO NOT EDIT Contains the left nav bar, html page list -->
-<div id="nav-container"></div>
-<!-- The main content container, EVERYTHING CAN BE EDITED, DELETED, OR ADDITIONAL ELEMENTS ADDED AS REQUIRED but there must always be a section tag -->
-<main class="container content mx-auto bg-white mt-auto max-w-5xl p-5 rounded-lg shadow-lg lg:px-24 md:px-12 sm:px-6" id="content">
-<h1 class="text-2xl font-bold text-left mb-4">Pensar la lengua escrita</h1>
-<!-- THERE MUST ALWAYS BE A SECTION TAG -->
-<section data-id="sectioneli5-28-3" data-section-type="activity_fill_in_the_blank" role="activity">
-<p class="mb-2 text-lg font-semibold"><i class="fas fa-pen-to-square text-blue-700 mr-2"></i><span data-id="text-28-40">Busca en el afiche la forma conjugada de los siguientes verbos en
+
+<body class="bg-gray-100 lg:p-5 p-3 mb-12 font-sans text-lg">
+    <!-- The main interface components -->
+    <!-- DO NOT EDIT Contains the bottom bar, next back buttons, submit button, right sidebar, ai language, eli5 and tts toggles -->
+    <div id="interface-container"></div>
+    <!-- DO NOT EDIT Contains the left nav bar, html page list -->
+    <div id="nav-container"></div>
+    <!-- The main content container, EVERYTHING CAN BE EDITED, DELETED, OR ADDITIONAL ELEMENTS ADDED AS REQUIRED but there must always be a section tag -->
+    <main
+        class="container content mx-auto bg-white mt-auto max-w-5xl p-5 rounded-lg border-gray-200 border lg:px-16 md:px-12 sm:px-6 sm:py-6 md:py-10 mb-5 border-t-8 border-t-blue-700"
+        id="content">
+        <h1 class="font-bold text-4xl text-center mb-4">Pensar la lengua escrita</h1>
+        <!-- THERE MUST ALWAYS BE A SECTION TAG -->
+        <section data-id="sectioneli5-28-3" data-section-type="activity_fill_in_the_blank" role="activity">
+            <p class="mb-8 text-lg  text-center"><i class="fas fa-pen-to-square text-blue-700 mr-2"></i><span
+                    data-id="text-28-40">Busca en el afiche la forma conjugada de los siguientes verbos en
                     infinitivo:</span>
-</p>
-<div class="flex flex-col gap-2 mb-8">
-<div class="flex flex-wrap items-center mb-4">
-<span class="mr-4" data-id="text-28-41">respirar</span>
-<input aria-label="Conjugación de 'respirar'" class="w-full sm:w-1/2 p-2 border border-gray-300 rounded" data-activity-item="item-1" data-aria-id="aria-28-3-0" data-placeholder-id="placeholder-28-3-0" placeholder="Conjugación" tabindex="0" type="text"/>
-</div>
-<div class="flex flex-wrap items-center mb-4">
-<span class="mr-4" data-id="text-28-42">sumar</span>
-<input aria-label="Conjugación de 'sumar'" class="w-full sm:w-1/2 p-2 border border-gray-300 rounded" data-activity-item="item-2" data-aria-id="aria-28-3-1" data-placeholder-id="placeholder-28-3-1" placeholder="Conjugación" tabindex="0" type="text"/>
-</div>
-<div class="flex flex-wrap items-center mb-4">
-<span class="mr-4" data-id="text-28-43">secuestrar</span>
-<input aria-label="Conjugación de 'secuestrar'" class="w-full sm:w-1/2 p-2 border border-gray-300 rounded" data-activity-item="item-3" data-aria-id="aria-28-3-2" data-placeholder-id="placeholder-28-3-2" placeholder="Conjugación" tabindex="0" type="text"/>
-</div>
-<div class="flex flex-wrap items-center mb-4">
-<span class="mr-4" data-id="text-28-44">absorber</span>
-<input aria-label="Conjugación de 'absorber'" class="w-full sm:w-1/2 p-2 border border-gray-300 rounded" data-activity-item="item-4" data-aria-id="aria-28-3-3" data-placeholder-id="placeholder-28-3-3" placeholder="Conjugación" tabindex="0" type="text"/>
-</div>
-</div>
-</section>
-</main>
-<script>const correctAnswers = {'item-1': 'respiran', 'item-2': 'sumate', 'item-3': 'generan', 'item-4': 'absorban'}</script>
-<script src="assets/base.js"></script>
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-4 sm:gap-4 mx-auto md:w-3/4 items-center">
+               
+                    <span class=" sm:text-right" data-id="text-28-41">respirar</span>
+                    <input aria-label="Conjugación de 'respirar'"
+                        class="sm:col-span-3 w-full p-2 mb-4 sm:mb-0 border border-gray-300 rounded" data-activity-item="item-1"
+                        data-aria-id="aria-28-3-0" data-placeholder-id="placeholder-28-3-0" placeholder="Conjugación"
+                        tabindex="0" type="text" />
+                
+                    <span class="sm:text-right" data-id="text-28-42">sumar</span>
+                    <input aria-label="Conjugación de 'sumar'"
+                        class="sm:col-span-3 w-full  p-2 mb-4 sm:mb-0 border border-gray-300 rounded" data-activity-item="item-2"
+                        data-aria-id="aria-28-3-1" data-placeholder-id="placeholder-28-3-1" placeholder="Conjugación"
+                        tabindex="0" type="text" />
+                
+                    <span class=" sm:text-right" data-id="text-28-43">secuestrar</span>
+                    <input aria-label="Conjugación de 'secuestrar'"
+                        class="sm:col-span-3 w-full p-2 mb-4 sm:mb-0 border border-gray-300 rounded" data-activity-item="item-3"
+                        data-aria-id="aria-28-3-2" data-placeholder-id="placeholder-28-3-2" placeholder="Conjugación"
+                        tabindex="0" type="text" />
+             
+                    <span class=" sm:text-right" data-id="text-28-44">absorber</span>
+                    <input aria-label="Conjugación de 'absorber'"
+                        class="sm:col-span-3 w-full  p-2 mb-4 sm:mb-0 border border-gray-300 rounded" data-activity-item="item-4"
+                        data-aria-id="aria-28-3-3" data-placeholder-id="placeholder-28-3-3" placeholder="Conjugación"
+                        tabindex="0" type="text" />
+                
+            </div>
+        </section>
+    </main>
+    <script>const correctAnswers = { 'item-1': 'respiran', 'item-2': 'sumate', 'item-3': 'generan', 'item-4': 'absorban' }</script>
+    <script src="assets/base.js"></script>
 </body>
+
 </html>
