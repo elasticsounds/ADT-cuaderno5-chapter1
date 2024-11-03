@@ -1,55 +1,77 @@
 <!DOCTYPE html>
 
 <html lang="es">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<!-- CAN BE EDITED -->
-<title>Pronombres Personales</title>
-<!-- DO NOT EDIT OR REMOVE the <script> tags -->
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"></script>
-<!-- Mathjax script to use for rendering math. -->
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<meta content="28_2" name="page-section-id"/>
-</head>
-<body class="bg-gray-100 lg:p-5 md:p-5 sm:p-0 mb-12 font-sans text-lg">
-<!-- The main interface components -->
-<!-- DO NOT EDIT Contains the bottom bar, next back buttons, submit button, right sidebar, ai language, eli5 and tts toggles -->
-<div id="interface-container"></div>
-<!-- DO NOT EDIT Contains the left nav bar, html page list -->
-<div id="nav-container"></div>
-<!-- The main content container -->
-<main class="container content mx-auto bg-white mt-auto max-w-4xl p-5 rounded-lg shadow-lg lg:px-24 md:px-12 sm:px-6" id="content">
-<h1 aria-label="Título: Pronombres Personales" class="text-3xl font-bold mb-5" data-aria-id="aria-28-2-0">Pronombres Personales</h1>
-<!-- Main section with pronouns -->
-<section aria-labelledby="section-title" class="p-5 border-t-4 border-green-500" data-id="sectioneli5-28-2" data-section-type="text_only" id="pronombres-personales" role="article">
-<p aria-label="Descripción: Este cuadro resume las distintas formas de los pronombres personales." class="text-lg" data-aria-id="aria-28-2-1" data-id="text-28-28">Este cuadro resume las distintas formas de los pronombres personales.</p>
-<div class="mt-4 mb-6">
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-<!-- Singular -->
-<div>
-<h2 aria-label="Subtítulo: Singular (si es una)" class="text-xl font-semibold" data-aria-id="aria-28-2-2" data-id="text-28-29">Singular (si es una)</h2>
-<ul class="list-disc pl-5">
-<li aria-label="Primera persona: YO" data-aria-id="aria-28-2-3"><span class="font-bold" data-id="text-28-31">1.ª persona: </span><span data-id="text-28-32">YO</span></li>
-<li aria-label="Segunda persona: TÚ / VOS / USTED" data-aria-id="aria-28-2-4"><span class="font-bold" data-id="text-28-34">2.ª persona: </span><span data-id="text-28-35">TÚ / VOS / USTED</span></li>
-<li aria-label="Tercera persona: ÉL / ELLA" data-aria-id="aria-28-2-5"><span class="font-bold" data-id="text-28-37">3.ª persona: </span><span data-id="text-28-38">ÉL / ELLA</span></li>
-</ul>
-</div>
-<!-- Plural -->
-<div>
-<h2 aria-label="Subtítulo: Plural (si son más de una)" class="text-xl font-semibold" data-aria-id="aria-28-2-6" data-id="text-28-30">Plural (si son más de una)</h2>
-<ul class="list-disc pl-5">
-<li aria-label="Primera persona: NOSOTROS / NOSOTRAS" data-aria-id="aria-28-2-7"><span class="font-bold" data-id="text-28-31">1.ª persona: </span><span data-id="text-28-33">NOSOTROS / NOSOTRAS</span></li>
-<li aria-label="Segunda persona: USTEDES / VOSOTROS / VOSOTRAS" data-aria-id="aria-28-2-8"><span class="font-bold" data-id="text-28-34">2.ª persona: </span><span data-id="text-28-36">USTEDES / VOSOTROS / VOSOTRAS</span></li>
-<li aria-label="Tercera persona: ELLOS / ELLAS" data-aria-id="aria-28-2-9"><span class="font-bold" data-id="text-28-37">3.ª persona: </span><span data-id="text-28-39">ELLOS / ELLAS</span></li>
-</ul>
-</div>
-</div>
-</div>
-</section>
-</main>
 
-<script src="assets/base.js"></script>
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <!-- CAN BE EDITED -->
+    <title>Pronombres Personales</title>
+    <!-- DO NOT EDIT OR REMOVE the <script> tags -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"></script>
+    <!-- Mathjax script to use for rendering math. -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <meta content="28_2" name="page-section-id" />
+</head>
+
+<body class="bg-gray-100 lg:p-5 p-3 mb-12 font-sans text-lg">
+    <!-- The main interface components -->
+    <!-- DO NOT EDIT Contains the bottom bar, next back buttons, submit button, right sidebar, ai language, eli5 and tts toggles -->
+    <div id="interface-container"></div>
+    <!-- DO NOT EDIT Contains the left nav bar, html page list -->
+    <div id="nav-container"></div>
+    <!-- The main content container -->
+    <main
+        class="container content mx-auto bg-white mt-auto max-w-5xl p-5 rounded-lg border-gray-200 border lg:px-16 md:px-12 sm:px-6 sm:py-6 md:py-10 mb-5"
+        id="content">
+        <h1 aria-label="Título: Pronombres Personales" class="font-bold text-4xl text-center mb-4" data-aria-id="aria-28-2-0">
+            Pronombres Personales</h1>
+        <!-- Main section with pronouns -->
+        <section aria-labelledby="section-title" data-id="sectioneli5-28-2"
+            data-section-type="text_only" id="pronombres-personales" role="article">
+            <p aria-label="Descripción: Este cuadro resume las distintas formas de los pronombres personales."
+                class="text-lg text-center mb-8" data-aria-id="aria-28-2-1" data-id="text-28-28">Este cuadro resume las distintas formas
+                de los pronombres personales.</p>
+            <div class="mt-4 mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Singular -->
+                    <div class="bg-blue-50 p-3 rounded-lg border border-blue-200">
+                        <h2 aria-label="Subtítulo: Singular (si es una)" class="text-xl font-semibold mb-4"
+                            data-aria-id="aria-28-2-2" data-id="text-28-29">Singular (si es una)</h2>
+                        <ul class="divide-y divide-blue-200">
+                            <li class="py-2" aria-label="Primera persona: YO" data-aria-id="aria-28-2-3"><span class="font-bold"
+                                    data-id="text-28-31">1.ª persona: </span><span data-id="text-28-32">YO</span></li>
+                            <li class="py-2" aria-label="Segunda persona: TÚ / VOS / USTED" data-aria-id="aria-28-2-4"><span
+                                    class="font-bold" data-id="text-28-34">2.ª persona: </span><span
+                                    data-id="text-28-35">TÚ / VOS / USTED</span></li>
+                            <li class="py-2" aria-label="Tercera persona: ÉL / ELLA" data-aria-id="aria-28-2-5"><span
+                                    class="font-bold" data-id="text-28-37">3.ª persona: </span><span
+                                    data-id="text-28-38">ÉL / ELLA</span></li>
+                        </ul>
+                    </div>
+                    <!-- Plural -->
+                    <div class="bg-green-50 p-3 rounded-lg border border-green-200">
+                        <h2 aria-label="Subtítulo: Plural (si son más de una)" class="text-xl font-semibold mb-4"
+                            data-aria-id="aria-28-2-6" data-id="text-28-30">Plural (si son más de una)</h2>
+                        <ul class="divide-y divide-green-200">
+                            <li class="py-2" aria-label="Primera persona: NOSOTROS / NOSOTRAS" data-aria-id="aria-28-2-7"><span
+                                    class="font-bold" data-id="text-28-31">1.ª persona: </span><span
+                                    data-id="text-28-33">NOSOTROS / NOSOTRAS</span></li>
+                            <li class="py-2" aria-label="Segunda persona: USTEDES / VOSOTROS / VOSOTRAS" data-aria-id="aria-28-2-8">
+                                <span class="font-bold" data-id="text-28-34">2.ª persona: </span><span
+                                    data-id="text-28-36">USTEDES / VOSOTROS / VOSOTRAS</span></li>
+                            <li class="py-2" aria-label="Tercera persona: ELLOS / ELLAS" data-aria-id="aria-28-2-9"><span
+                                    class="font-bold" data-id="text-28-37">3.ª persona: </span><span
+                                    data-id="text-28-39">ELLOS / ELLAS</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="assets/base.js"></script>
 </body>
+
 </html>

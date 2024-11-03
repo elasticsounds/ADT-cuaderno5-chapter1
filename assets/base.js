@@ -314,8 +314,12 @@ document.addEventListener("DOMContentLoaded", function () {
           "items-center",
           "w-full",
           "h-full",
-          "py-2",
-          "space-x-2"
+          "p-2",
+          "py-3",
+          "hover:bg-blue-50",
+          "transition",
+          "text-gray-500"
+          
         );
 
         // Add border top to the first element
@@ -335,7 +339,7 @@ document.addEventListener("DOMContentLoaded", function () {
             itemIcon = '<i class="fas fa-check-square text-green-500 mt-1"></i>';
             itemSubtitle = "<span data-id='activity-completed'></span>";
           } else {
-            itemIcon = '<i class="fas fa-pen-to-square mt-1"></i>';
+            itemIcon = '<i class="fas fa-pen-to-square mt-1 text-blue-700"></i>';
             itemSubtitle = "<span data-id='activity-to-do'></span>";
           }
         }
@@ -350,7 +354,7 @@ document.addEventListener("DOMContentLoaded", function () {
             "<div class='flex items-top space-x-2'>" +
             itemIcon +
             "<div>" +
-            `<div>${pageNumber + 1}.${sectionNumber + 1}: </span><span class='inline' data-id='${textId}'></div>` +
+            `<div>${pageNumber + 1}.${sectionNumber + 1}: </span><span class='inline text-gray-800' data-id='${textId}'></div>` +
             "<div class='text-sm text-gray-500'>" +
             itemSubtitle +
             "</div></div></div>";
@@ -361,7 +365,7 @@ document.addEventListener("DOMContentLoaded", function () {
           link.classList.add(
             "border-l-4",
             "border-blue-500",
-            "bg-blue-50",
+            "bg-blue-100",
             "p-2"
           );
         }
