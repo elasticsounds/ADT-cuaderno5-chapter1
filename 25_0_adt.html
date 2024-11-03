@@ -27,88 +27,146 @@
         <h1 class="font-bold text-4xl text-center mb-4" data-id="text-25-0">Sumapalabras</h1>
         <p class="text-center mb-4"><i class="fas fa-pen-to-square mr-2 text-blue-700"></i><span
                 data-id="text-25-1">Ubica cada una de estas palabras junto al par con el cual se relaciona.</span></p>
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <!-- Image with overlays -->
-            <div class="relative mb-6">
-                <img alt="Una página de un libro de texto que describe biomas y la acción del hombre sobre el medio ambiente."
-                    aria-label="Una página de un libro de texto que describe biomas y la acción del hombre sobre el medio ambiente."
-                    class="w-full h-auto rounded-lg shadow-lg" data-aria-id="aria-25-0-0" data-id="img-25-2"
-                    src="images/25_img-25-2.png" tabindex="0" />
-                <div aria-label="Esta palabra es relieve"
-                    class="absolute top-10 left-1/4 transform -translate-x-1/2 -translate-y-1/2 bg-white p-2 rounded shadow-lg"
-                    data-aria-id="aria-25-0-1" data-id="text-25-2" tabindex="0">relieve</div>
-                <div aria-label="Esta palabra es suelo"
-                    class="absolute bottom-10 left-0 transform -translate-x-1/2 -translate-y-1/2 bg-white p-2 rounded shadow-lg"
-                    data-aria-id="aria-25-0-2" data-id="text-25-3" tabindex="0">suelo</div>
-                <div aria-label="Esta palabra es pradera"
-                    class="absolute bottom-5 left-1/2 transform -translate-x-1/2 translate-y-1/2 bg-white p-2 rounded shadow-lg"
-                    data-aria-id="aria-25-0-3" data-id="text-25-4" tabindex="0">pradera</div>
-                <div aria-label="Esta palabra es Sudamérica"
-                    class="absolute top-1/4 left-0 transform -translate-x-1/2 translate-y-1/2 bg-white p-2 rounded shadow-lg"
-                    data-aria-id="aria-25-0-4" data-id="text-25-5" tabindex="0">Sudamérica</div>
-                <div aria-label="Esta palabra es follaje"
-                    class="absolute top-1/4 right-0 transform translate-x-1/2 -translate-y-1/2 bg-white p-2 rounded shadow-lg"
-                    data-aria-id="aria-25-0-5" data-id="text-25-6" tabindex="0">follaje</div>
-                <div aria-label="Esta palabra es húmedo"
-                    class="absolute bottom-0 right-1/4 transform translate-x-1/2 -translate-y-1/2 bg-white p-2 rounded shadow-lg"
-                    data-aria-id="aria-25-0-6" data-id="text-25-7" tabindex="0">húmedo</div>
-                <div aria-label="Esta palabra es arbustos"
-                    class="absolute top-10 right-1/4 transform translate-x-1/2 translate-y-1/2 bg-white p-2 rounded shadow-lg"
-                    data-aria-id="aria-25-0-7" data-id="text-25-8" tabindex="0">arbustos</div>
-                <div aria-label="Esta palabra es linces"
-                    class="absolute top-1/2 right-0 transform translate-x-1/2 translate-y-1/2 bg-white p-2 rounded shadow-lg"
-                    data-aria-id="aria-25-0-8" data-id="text-25-9" tabindex="0">linces</div>
-            </div>
-            <!-- Grid with words to pair -->
-            <section class="grid gap-4 px-4" data-id="sectioneli5-25-0" data-section-type="activity_matching"
-                role="activity">
-                <div class="grid grid-cols-4 gap-4">
-                    <div aria-label="Elemento interactivo que representa montaña"
-                        class="bg-white shadow-lg rounded-lg p-4 flex justify-center items-center activity-item"
-                        data-activity-item="mountain-pair" data-aria-id="aria-25-0-9" tabindex="0">
-                        <span data-id="text-25-10">montaña</span>
+        
+        <div class="flex justify-center">
+            <img src="images/25_img-25-2.jpg" alt="Página de libro de texto con anotaciones" class="w-full md:w-2/3 h-auto"/>
+        </div>
+
+        <!-- Activity matching section -->
+        <section data-section-type="activity_matching" role="activity">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+                <!-- Left side - Draggable words -->
+                <div class="space-y-3">
+                    <div class="activity-item bg-yellow-100 p-3 rounded-md shadow-sm" data-activity-item="relieve" draggable="true">
+                        relieve
                     </div>
-                    <div aria-label="Elemento interactivo que representa árboles"
-                        class="bg-white shadow-lg rounded-lg p-4 flex justify-center items-center activity-item"
-                        data-activity-item="forest-pair" data-aria-id="aria-25-0-10" tabindex="0">
-                        <span data-id="text-25-12">árboles</span>
+                    <div class="activity-item bg-teal-100 p-3 rounded-md shadow-sm" data-activity-item="suelo" draggable="true">
+                        suelo
                     </div>
-                    <div aria-label="Elemento interactivo que representa templado"
-                        class="bg-white shadow-lg rounded-lg p-4 flex justify-center items-center activity-item"
-                        data-activity-item="warm-pair" data-aria-id="aria-25-0-11" tabindex="0">
-                        <span data-id="text-25-14">templado</span>
+                    <div class="activity-item bg-pink-100 p-3 rounded-md shadow-sm" data-activity-item="pradera" draggable="true">
+                        pradera
                     </div>
-                    <div aria-label="Elemento interactivo que representa perenne"
-                        class="bg-white shadow-lg rounded-lg p-4 flex justify-center items-center activity-item"
-                        data-activity-item="perennial-pair" data-aria-id="aria-25-0-12" tabindex="0">
-                        <span data-id="text-25-16">perenne</span>
+                    <div class="activity-item bg-orange-100 p-3 rounded-md shadow-sm" data-activity-item="sudamerica" draggable="true">
+                        Sudamérica
                     </div>
-                    <div aria-label="Elemento interactivo que representa pumas"
-                        class="bg-white shadow-lg rounded-lg p-4 flex justify-center items-center activity-item"
-                        data-activity-item="puma-pair" data-aria-id="aria-25-0-13" tabindex="0">
-                        <span data-id="text-25-18">pumas</span>
+                    <div class="activity-item bg-blue-100 p-3 rounded-md shadow-sm" data-activity-item="follaje" draggable="true">
+                        follaje
                     </div>
-                    <div aria-label="Elemento interactivo que representa desiertos"
-                        class="bg-white shadow-lg rounded-lg p-4 flex justify-center items-center activity-item"
-                        data-activity-item="desert-pair" data-aria-id="aria-25-0-14" tabindex="0">
-                        <span data-id="text-25-20">desiertos</span>
+                    <div class="activity-item bg-green-100 p-3 rounded-md shadow-sm" data-activity-item="humedo" draggable="true">
+                        húmedo
                     </div>
-                    <div aria-label="Elemento interactivo que representa sol"
-                        class="bg-white shadow-lg rounded-lg p-4 flex justify-center items-center activity-item"
-                        data-activity-item="sun-pair" data-aria-id="aria-25-0-15" tabindex="0">
-                        <span data-id="text-25-22">sol</span>
+                    <div class="activity-item bg-purple-100 p-3 rounded-md shadow-sm" data-activity-item="arbustos" draggable="true">
+                        arbustos
                     </div>
-                    <div aria-label="Elemento interactivo que representa África"
-                        class="bg-white shadow-lg rounded-lg p-4 flex justify-center items-center activity-item"
-                        data-activity-item="africa-pair" data-aria-id="aria-25-0-16" tabindex="0">
-                        <span data-id="text-25-24">África</span>
+                    <div class="activity-item bg-red-100 p-3 rounded-md shadow-sm" data-activity-item="linces" draggable="true">
+                        linces
                     </div>
                 </div>
-            </section>
+
+                <!-- Right side - Dropzones with word pairs -->
+                <div class="grid grid-cols-2 gap-4">
+                    <!-- Montaña/Ladera dropzone -->
+                    <div class="dropzone border border-gray-300 p-4 rounded-lg text-center" id="target1">
+                        <div class="text-center mb-2 font-medium text-gray-700">
+                            <div>montaña</div>
+                            <div>ladera</div>
+                        </div>
+                        <div class="border-t border-gray-200 mt-4 p-2" id="dropzone-1" role="region"></div>
+                    </div>
+
+                    <!-- Árboles/Bosques dropzone -->
+                    <div class="dropzone border border-gray-300 p-4 rounded-lg text-center" id="target2">
+                        <div class="text-center mb-2 font-medium text-gray-700">
+                            <div>árboles</div>
+                            <div>bosques</div>
+                        </div>
+                        <div class="border-t border-gray-200 mt-4 p-2" id="dropzone-2" role="region"></div>
+                    </div>
+
+                    <!-- Templado/Frío dropzone -->
+                    <div class="dropzone border border-gray-300 p-4 rounded-lg text-center" id="target3">
+                        <div class="text-center mb-2 font-medium text-gray-700">
+                            <div>templado</div>
+                            <div>frío</div>
+                        </div>
+                        <div class="border-t border-gray-200 mt-4 p-2" id="dropzone-3" role="region"></div>
+                    </div>
+
+                    <!-- Perenne/Caduco dropzone -->
+                    <div class="dropzone border border-gray-300 p-4 rounded-lg text-center" id="target4">
+                        <div class="text-center mb-2 font-medium text-gray-700">
+                            <div>perenne</div>
+                            <div>caduco</div>
+                        </div>
+                        <div class="border-t border-gray-200 mt-4 p-2" id="dropzone-4" role="region"></div>
+                    </div>
+
+                    <!-- Pumas/Zorros dropzone -->
+                    <div class="dropzone border border-gray-300 p-4 rounded-lg text-center" id="target5">
+                        <div class="text-center mb-2 font-medium text-gray-700">
+                            <div>pumas</div>
+                            <div>zorros</div>
+                        </div>
+                        <div class="border-t border-gray-200 mt-4 p-2" id="dropzone-5" role="region"></div>
+                    </div>
+
+                    <!-- Desiertos/Selvas dropzone -->
+                    <div class="dropzone border border-gray-300 p-4 rounded-lg text-center" id="target6">
+                        <div class="text-center mb-2 font-medium text-gray-700">
+                            <div>desiertos</div>
+                            <div>selvas</div>
+                        </div>
+                        <div class="border-t border-gray-200 mt-4 p-2" id="dropzone-6" role="region"></div>
+                    </div>
+
+                    <!-- Sol/Agua dropzone -->
+                    <div class="dropzone border border-gray-300 p-4 rounded-lg text-center" id="target7">
+                        <div class="text-center mb-2 font-medium text-gray-700">
+                            <div>sol</div>
+                            <div>agua</div>
+                        </div>
+                        <div class="border-t border-gray-200 mt-4 p-2" id="dropzone-7" role="region"></div>
+                    </div>
+
+                    <!-- África/Asia dropzone -->
+                    <div class="dropzone border border-gray-300 p-4 rounded-lg text-center" id="target8">
+                        <div class="text-center mb-2 font-medium text-gray-700">
+                            <div>África</div>
+                            <div>Asia</div>
+                        </div>
+                        <div class="border-t border-gray-200 mt-4 p-2" id="dropzone-8" role="region"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feedback area -->
+            <div id="feedback" class="mt-6 text-center">
+                <p aria-live="polite" class="mt-4 text-xl font-semibold"></p>
+            </div>
+
+        </section>
+
+        <div class="mb-4 flex items-center">
+            <p class="bg-green-100 -mr-4 p-4 pr-8 rounded-lg text-green-800 font-semibold pr-8"
+                data-id="text-25-38">¿Cuál es la relación que encontraste en cada caso?</p>
+            <img src="images/20_img-20-2.png" alt="Cocodrilo" data-id="img-19-0" aria-hidden="true"
+                class="rounded-full">
         </div>
-    </main>
-    <script>const correctAnswers = { 'mountain-pair': 'ladera', 'forest-pair': 'bosques', 'warm-pair': 'frío', 'perennial-pair': 'caducuo', 'puma-pair': 'zorros', 'desert-pair': 'selvas', 'sun-pair': 'agua', 'africa-pair': 'Asia' }</script>
+    </div>
+
+    <script>
+        const correctAnswers = {
+            'relieve': 'dropzone-1',
+            'arbustos': 'dropzone-2',
+            'humedo': 'dropzone-3',
+            'follaje': 'dropzone-4',
+            'linces': 'dropzone-5',
+            'pradera': 'dropzone-6',
+            'suelo': 'dropzone-7',
+            'sudamerica': 'dropzone-8'
+        };
+    </script>
     <script src="assets/base.js"></script>
 </body>
-
 </html>
