@@ -22,51 +22,54 @@
     <!-- DO NOT EDIT Contains the left nav bar, html page list -->
     <div id="nav-container"></div>
     <!-- The main content container -->
-    <main
-        class="container content mx-auto bg-white mt-auto max-w-5xl p-5 rounded-lg border-gray-200 border lg:px-16 md:px-12 sm:px-6 sm:py-6 md:py-10 mb-5         border-t-8 border-t-blue-700"
-        id="content">
-        <h1 class="font-bold text-4xl text-center mb-4" data-id="text-28-10">Completa la siguiente historieta conjugando los verbos según corresponda.</h1>
-        <p class="mb-4 text-center"><i class="fas fa-pen-to-square text-blue-700 mr-2"></i><span data-id="text-28-11">En cada globo
-                de
-                diálogo, presta atención a los pronombres personales.</span></p>
-        <img alt="Un grupo de personas, incluidos niños y adultos, participan en actividades de jardinería delante de una casa."
-            aria-label="Un grupo de personas, incluidos niños y adultos, participan en actividades de jardinería delante de una casa."
-            class="w-full h-auto mb-4 shadow-md rounded-lg" data-id="img-28-11" src="images/28_img-28-11.png" />
-        <!-- Activity Section -->
-        <section data-id="sectioneli5-28-1" data-section-type="activity_fill_in_the_blank" role="activity">
-            <p class="bg-blue-100 p-4 rounded mb-2" data-id="text-28-13">¡Yo me encargo (encargarse) del pozo!</p>
-            <input aria-label="Complete con el verbo correcto: encargarse"
-                class="border border-gray-300 p-1 rounded mb-2 ml-2 inline-block w-44 text-center"
-                data-activity-item="item-1" data-aria-id="aria-28-1-0" data-placeholder-id="placeholder-28-1-0"
-                placeholder="me encargo" tabindex="0" type="text" />
-            <p class="mb-2 text-center" data-id="text-28-16">¿Ustedes qué hacen?</p>
-            <input aria-label="Complete con el verbo correcto: hacer"
-                class="border border-gray-300 p-1 rounded mb-2 inline-block w-44 text-center"
-                data-activity-item="item-2" data-aria-id="aria-28-1-1" data-placeholder-id="placeholder-28-1-1"
-                placeholder="hacer" tabindex="0" type="text" />
-            <p class="bg-green-100 p-4 rounded mb-2" data-id="text-28-19">¡Yo traigo agua!</p>
-            <input aria-label="Complete con el verbo correcto: traer"
-                class="border border-gray-300 p-1 rounded mb-2 ml-2 inline-block w-44 text-center"
-                data-activity-item="item-3" data-aria-id="aria-28-1-2" data-placeholder-id="placeholder-28-1-2"
-                placeholder="traer" tabindex="0" type="text" />
-            <p class="mb-2 text-center" data-id="text-28-20">¿Vos me ayudas?</p>
-            <input aria-label="Complete con el verbo correcto: ayudar"
-                class="border border-gray-300 p-1 rounded mb-2 inline-block w-44 text-center"
-                data-activity-item="item-4" data-aria-id="aria-28-1-3" data-placeholder-id="placeholder-28-1-3"
-                placeholder="ayudar" tabindex="0" type="text" />
-            <p class="bg-yellow-100 p-4 rounded mb-2" data-id="text-28-23">Dale, nosotros traemos el agua.</p>
-            <input aria-label="Complete con el verbo correcto: traer"
-                class="border border-gray-300 p-1 rounded mb-2 ml-2 inline-block w-44 text-center"
-                data-activity-item="item-5" data-aria-id="aria-28-1-4" data-placeholder-id="placeholder-28-1-4"
-                placeholder="traer" tabindex="0" type="text" />
-            <p class="mb-2 text-center" data-id="text-28-25">¡Ellos ya pueden solos!</p>
-            <input aria-label="Complete con el verbo correcto: poder"
-                class="border border-gray-300 p-1 rounded mb-2 inline-block w-44 text-center"
-                data-activity-item="item-6" data-aria-id="aria-28-1-5" data-placeholder-id="placeholder-28-1-5"
-                placeholder="poder" tabindex="0" type="text" />
+    <main class="container content mx-auto bg-white mt-auto max-w-5xl p-5 rounded-lg border-gray-200 border lg:px-16 md:px-12 sm:px-6 sm:py-6 md:py-10 mb-5 border-t-8 border-t-blue-700" id="content">
+        <h1 class="font-bold text-4xl text-center mb-4">Completa la siguiente historieta conjugando los verbos según corresponda.</h1>
+        <p class="mb-4 text-center"><i class="fas fa-pen-to-square text-blue-700 mr-2"></i>En cada globo de diálogo, presta atención a los pronombres personales.</p>
+        
+        <!-- Main Image Section -->
+        <div class="flex justify-center">
+            <img alt="Un grupo de personas, incluidos niños y adultos, participan en actividades de jardinería delante de una casa."
+                class="w-2/3 h-auto mb-4 shadow-md rounded-lg" src="images/28_img-28-11.png" />
+        </div>
+
+        <!-- Speech Bubble Activity Section -->
+        <section data-id="sectioneli5-28-1" class="flex flex-wrap justify-center gap-4">
+            <!-- Speech Bubble 1 -->
+            <div class="bg-blue-100 p-4 rounded-md relative w-64 text-center">
+                ¡Yo <input type="text" class="border border-gray-300 p-1 rounded w-24 text-center inline" placeholder="encargarme" /> del pozo! 
+                ¿Ustedes qué <input type="text" class="border border-gray-300 p-1 rounded w-24 text-center inline" placeholder="hacer" />?
+            </div>
+            
+            <!-- Speech Bubble 2 -->
+            <div class="bg-blue-100 p-4 rounded-md relative w-64 text-center">
+                ¡Yo <input type="text" class="border border-gray-300 p-1 rounded w-24 text-center inline" placeholder="traer" /> agua! 
+                ¿Vos me <input type="text" class="border border-gray-300 p-1 rounded w-24 text-center inline" placeholder="ayudar" />?
+            </div>
+            
+            <!-- Speech Bubble 3 -->
+            <div class="bg-blue-100 p-4 rounded-md relative w-64 text-center">
+                Dale, nosotros <input type="text" class="border border-gray-300 p-1 rounded w-24 text-center inline" placeholder="traer" /> el agua.
+            </div>
+
+            <!-- Speech Bubble 3 -->
+            <div class="bg-blue-100 p-4 rounded-md relative w-64 text-center">
+                ¡Ellos ya <input type="text" class="border border-gray-300 p-1 rounded w-24 text-center inline" placeholder="poder" /> solos!
+            </div>
+            
+            
         </section>
     </main>
-    <script>const correctAnswers = { 'item-1': 'me encargo', 'item-2': 'hacen', 'item-3': 'traigo', 'item-4': 'ayudas', 'item-5': 'traemos', 'item-6': 'pueden' }</script>
+
+    <script>
+    const correctAnswers = { 
+        'item-1': 'me encargo', 
+        'item-2': 'hacen', 
+        'item-3': 'traigo', 
+        'item-4': 'ayudas', 
+        'item-5': 'traemos', 
+        'item-6': 'pueden' 
+    }
+        </script>
     <script src="assets/base.js"></script>
 </body>
 
