@@ -334,12 +334,11 @@ document.addEventListener("DOMContentLoaded", function () {
         if (item.classList.contains("activity")) {
           const activityId = href.split(".")[0];
           const success = JSON.parse(localStorage.getItem(`${activityId}_success`)) || false;
-          itemIcon = '<i class="fas fa-pen-to-square"></i>';
           if (success) {
-            itemIcon = '<i class="fas fa-check-square text-green-500 mt-1"></i>';
+            itemIcon = `<i class="${activityId} fas fa-check-square text-green-500 mt-1"></i>`;
             itemSubtitle = "<span data-id='activity-completed'></span>";
           } else {
-            itemIcon = '<i class="fas fa-pen-to-square mt-1 text-blue-700"></i>';
+            itemIcon = `<i class="${activityId} fas fa-pen-to-square mt-1 text-blue-700"></i>`;
             itemSubtitle = "<span data-id='activity-to-do'></span>";
           }
         }
@@ -573,6 +572,18 @@ function handleKeyboardShortcuts(event) {
         toggleSidebar();
         break;
     }
+  }
+}
+
+function checkCurrentActivityCompletion(isCorrect){
+  const activityId = location.pathname.substring(location.pathname.lastIndexOf("/") + 1).split(".")[0];
+  const currentActivityIcon = document.querySelector(`[class*="${activityId}"]`);
+  if (isCorrect) {
+    currentActivityIcon.classList.replace("fa-pen-to-square", "fa-square-check");
+    currentActivityIcon.classList.replace("text-blue-700", "text-green-500");
+  } else {
+    currentActivityIcon.classList.replace("fa-square-check", "fa-pen-to-square");
+    currentActivityIcon.classList.replace("text-green-500", "text-blue-700");
   }
 }
 

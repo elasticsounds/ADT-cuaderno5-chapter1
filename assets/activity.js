@@ -709,9 +709,10 @@ function updateSubmitButtonAndToast(
   // Remove all existing event listeners before adding new ones
   submitButton.removeEventListener("click", validateHandler);
   submitButton.removeEventListener("click", retryHandler);
-
+  checkCurrentActivityCompletion(isCorrect);
   if (isCorrect) {
     submitButton.textContent = buttonText;
+    
     if (toast) {
       toast.classList.remove("hidden");
       toast.classList.remove("bg-red-200", "text-red-700");
