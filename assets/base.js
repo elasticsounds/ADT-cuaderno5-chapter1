@@ -1581,6 +1581,10 @@ function handleElementClick(event) {
   if (readAloudMode) {
     const element = event.currentTarget;
     const dataId = element.getAttribute("data-id");
+    
+    // Check if element or its parent is a word-card
+    const isWordCard = element.classList.contains('word-card') || 
+                      element.closest('.word-card') !== null;
 
     document.querySelectorAll(".outline-dotted").forEach((el) => {
       if (el !== element && !element.contains(el)) {
@@ -1601,16 +1605,26 @@ function handleElementClick(event) {
 
         currentAudio.onended = () => {
           unhighlightElement(element);
-          currentIndex =
-            audioElements.findIndex((item) => item.id === dataId) + 1;
-          playAudioSequentially();
+          // Only continue to next audio if not a word card
+          if (!isWordCard) {
+            currentIndex = audioElements.findIndex((item) => item.id === dataId) + 1;
+            playAudioSequentially();
+          } else {
+            isPlaying = false;
+            setPlayPauseIcon();
+          }
         };
 
         currentAudio.onerror = () => {
           unhighlightElement(element);
-          currentIndex =
-            audioElements.findIndex((item) => item.id === dataId) + 1;
-          playAudioSequentially();
+          // Only continue to next audio if not a word card
+          if (!isWordCard) {
+            currentIndex = audioElements.findIndex((item) => item.id === dataId) + 1;
+            playAudioSequentially();
+          } else {
+            isPlaying = false;
+            setPlayPauseIcon();
+          }
         };
 
         isPlaying = true;
