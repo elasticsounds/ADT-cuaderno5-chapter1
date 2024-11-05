@@ -1,60 +1,57 @@
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<!-- Title for the page's contents -->
 <title>Relaciones de Biomas</title>
-<!-- DO NOT EDIT OR REMOVE the <script> tags -->
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"></script>
-<!-- Mathjax script to use for rendering math. -->
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <meta content="18_1" name="page-section-id"/>
 </head>
-<body class="bg-gray-100 lg:p-5 p-3 mb-12 font-sans text-lg"><div id="interface-container"></div><div id="nav-container"></div>
-<!-- Main content container -->
+<body class="bg-gray-100 lg:p-5 p-3 mb-12 font-sans text-lg">
+<div id="interface-container"></div>
+<div id="nav-container"></div>
 <main class="container content mx-auto bg-white mt-auto max-w-5xl p-5 rounded-lg border-gray-200 border lg:px-16 md:px-12 sm:px-6 sm:py-6 md:py-10 mb-5 border-t-8 border-t-blue-700" id="content">
 <section data-id="sectioneli5-18-1" data-section-type="activity_sorting" role="activity">
 <h1 class="text-4xl text-center font-bold mb-4" data-id="text-18-0">
 ¿Cuáles son las relaciones?</h1>
-<p class="text-gray-700 mb-4 text-center"><i class="fas fa-pen-to-square mr-2 text-blue-700"></i><span data-id="text-18-15">Elige la posición correcta para estas opciones a la izquierda o a la derecha de
-                    la imagen.</span></p>
+<p class="text-gray-700 mb-4 text-center"><i class="fas fa-pen-to-square mr-2 text-blue-700"></i><span data-id="text-18-15">Arrastra cada opción a su posición correcta debajo de la imagen.</span></p>
 
-<div class="border p-4 rounded-lg shadow mb-2">
+<!-- Image container -->
+<div class="border p-4 rounded-lg shadow mb-6">
     <img alt="Diagrama que muestra la condensación y la dirección de los vientos cálidos, resultando en bosques húmedos y lluvia de un lado de la montaña, mientras que el otro lado es seco con vegetación de zonas áridas." aria-label="Diagrama que muestra la condensación y la dirección de los vientos cálidos, resultando en bosques húmedos y lluvia de un lado de la montaña, mientras que el otro lado es seco con vegetación de zonas áridas." class="w-full mb-2" data-aria-id="aria-18-0-0" data-id="img-18-2" src="images/18_img-18-2.png"/>
-        <div class="flex justify-between"></div>
-    </div>
+</div>
+
+<!-- Dropzone categories -->
 <div class="grid grid-cols-2 gap-4 mb-6">
-<!-- Ladera Húmeda -->
-<div aria-label="Opción Ladera Húmeda" class="bg-green-100 p-4 rounded-lg flex items-center justify-center border border-green-300" data-aria-id="aria-18-1-0" tabindex="0">
-<span class="font-bold text-center" data-activity-item="item-1" data-id="text-18-16">Ladera húmeda</span>
+    <div class="category h-32 bg-blue-50 rounded-lg border-2 border-dashed border-blue-300 flex items-center justify-center" data-activity-category="left">
+        <div class="word-list p-2 text-center"></div>
+    </div>
+    <div class="category h-32 bg-blue-50 rounded-lg border-2 border-dashed border-blue-300 flex items-center justify-center" data-activity-category="right">
+        <div class="word-list p-2 text-center"></div>
+    </div>
 </div>
-<!-- Ladera Árida -->
-<div aria-label="Opción Ladera Árida" class="bg-yellow-100 p-4 rounded-lg flex items-center justify-center border border-yellow-300" data-aria-id="aria-18-1-1" tabindex="0">
-<span class="font-bold text-center" data-activity-item="item-2" data-id="text-18-17">Ladera árida</span>
+
+<!-- Draggable words -->
+<div class="word-cards grid grid-cols-2 gap-4 mb-6">
+    <div class="word-card bg-green-100 p-4 rounded-lg flex items-center justify-center border border-green-300 cursor-pointer" data-activity-item="item-1" aria-label="Opción Ladera Húmeda" data-aria-id="aria-18-1-0" draggable="true">
+        <span class="font-bold text-center" data-id="text-18-16">Ladera húmeda</span>
+    </div>
+    <div class="word-card bg-yellow-100 p-4 rounded-lg flex items-center justify-center border border-yellow-300 cursor-pointer" data-activity-item="item-2" aria-label="Opción Ladera Árida" data-aria-id="aria-18-1-1" draggable="true">
+        <span class="font-bold text-center" data-id="text-18-17">Ladera árida</span>
+    </div>
 </div>
-</div>
-<!-- <div class="mt-8">
-<h2 class="text-xl font-bold mb-2">Justifica tu elección</h2>
-<form class="space-y-4">
-<div>
-<label class="block text-gray-700 mb-2" for="elegi-imagen">Elegí la imagen porque</label>
-<textarea aria-label="Explicación de la elección de la imagen" class="w-full p-3 border rounded" data-aria-id="aria-18-1-2" data-placeholder-id="placeholder-18-1-0" id="elegi-imagen" placeholder="Explica tu elección..." rows="3" tabindex="0"></textarea>
-</div>
-<div>
-<label class="block text-gray-700 mb-2" for="descarte-imagen">Descarté la imagen porque</label>
-<textarea aria-label="Explicación del descarte de la imagen" class="w-full p-3 border rounded" data-aria-id="aria-18-1-3" data-placeholder-id="placeholder-18-1-1" id="descarte-imagen" placeholder="Explica tu razón..." rows="3" tabindex="0"></textarea>
-</div>
-</form>
-</div> -->
-</section>
+
 <div id="feedback"></div>
+</section>
 </main>
 
 <script>
-const correctAnswers = {'item-1': 'Ladera húmeda', 'item-2': 'Ladera árida'}
+const correctAnswers = {
+    'item-1': 'left',  // Ladera húmeda goes on the left
+    'item-2': 'right'  // Ladera árida goes on the right
+};
 </script>
 <script src="assets/base.js"></script>
 

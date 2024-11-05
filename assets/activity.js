@@ -409,7 +409,7 @@ function provideFeedback(element, isCorrect, _correctAnswer, activityType) {
   ) {
     if (isCorrect) {
       feedback.classList.add("bg-green-200", "text-green-700");
-      feedback.innerText = translateText("well-done");
+      feedback.innerText = translateText("fill-in-the-blank-correct-answer");
     } else {
       feedback.innerText = translateText("fill-in-the-blank-try-again");
       feedback.classList.add("bg-red-200", "text-red-700");
