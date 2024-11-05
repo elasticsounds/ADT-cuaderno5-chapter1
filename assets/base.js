@@ -1186,22 +1186,50 @@ function toggleReadAloud() {
 
   const autoplayContainer = document.getElementById("autoplay-container");
   const describeImagesContainer = document.getElementById("describe-images-container");
+  const ttsOptionsContainer = document.getElementById("tts-options-container");
+  const eli5Container = document.querySelector(".flex.justify-between.items-left:has(#eli5-label)");
   const sidebar = document.getElementById("sidebar");
   
   toggleCheckboxState("toggle-tts", readAloudMode);
   
-  if (autoplayContainer && describeImagesContainer) {
+  // Show/hide TTS options container
+  if (ttsOptionsContainer && eli5Container) {
     if (readAloudMode) {
+      ttsOptionsContainer.classList.remove("hidden");
+      ttsOptionsContainer.setAttribute("aria-expanded", "true");
       autoplayContainer.classList.remove("hidden");
       describeImagesContainer.classList.remove("hidden");
       sidebar.setAttribute("aria-hidden", "false");
+
+      // Remove border from eli5 container when TTS options are visible
+      eli5Container.classList.remove("border-t", "border-gray-300");
+
+      // Add smooth transition classes
+      requestAnimationFrame(() => {
+        ttsOptionsContainer.classList.add("transition-all", "duration-300", "ease-in-out");
+        ttsOptionsContainer.style.maxHeight = `${ttsOptionsContainer.scrollHeight}px`;
+        ttsOptionsContainer.style.opacity = "1";
+      });
     } else {
-      autoplayContainer.classList.add("hidden");
-      describeImagesContainer.classList.add("hidden");
-      // Only set aria-hidden if no elements in the sidebar have focus
-      if (!sidebar.contains(document.activeElement)) {
-        sidebar.setAttribute("aria-hidden", "true");
-      }
+      // Animate out
+      ttsOptionsContainer.style.maxHeight = "0";
+      ttsOptionsContainer.style.opacity = "0";
+      
+      // Immediately restore border to eli5 container
+      eli5Container.classList.add("border-t", "border-gray-300");
+
+      // Wait for animation to complete before hiding
+      setTimeout(() => {
+        ttsOptionsContainer.classList.add("hidden");
+        ttsOptionsContainer.setAttribute("aria-expanded", "false");
+        autoplayContainer.classList.add("hidden");
+        describeImagesContainer.classList.add("hidden");
+        
+        // Only set aria-hidden if no elements in the sidebar have focus
+        if (!sidebar.contains(document.activeElement)) {
+          sidebar.setAttribute("aria-hidden", "true");
+        }
+      }, 300); // Match the transition duration
     }
   }
   
@@ -1223,14 +1251,14 @@ function toggleReadAloud() {
 }
 
 function loadToggleButtonState() {
-  // Ensure all required elements exist before proceeding
   const readAloudItem = document.getElementById("toggle-easy");
   const eli5Item = document.getElementById("toggle-eli5");
   const autoplayContainer = document.getElementById("autoplay-container");
   const describeImagesContainer = document.getElementById("describe-images-container");
+  const ttsOptionsContainer = document.getElementById("tts-options-container");
+  const eli5Container = document.querySelector("#eli5-label").closest('.flex.justify-between.items-left');
 
-  if (!readAloudItem || !eli5Item) {
-    // If elements aren't ready, retry after a short delay
+  if (!readAloudItem || !eli5Item || !ttsOptionsContainer) {
     setTimeout(loadToggleButtonState, 100);
     return;
   }
@@ -1242,18 +1270,36 @@ function loadToggleButtonState() {
     readAloudMode = readAloudModeCookie === "true";
     toggleCheckboxState("toggle-tts", readAloudMode);
     
-    // Show/hide autoplay container based on readAloudMode
-    if (autoplayContainer) {
+    // Show/hide containers based on readAloudMode
+    if (autoplayContainer && describeImagesContainer && ttsOptionsContainer) {
       if (readAloudMode) {
+        ttsOptionsContainer.classList.remove("hidden");
+        ttsOptionsContainer.setAttribute("aria-expanded", "true");
         autoplayContainer.classList.remove("hidden");
         describeImagesContainer.classList.remove("hidden");
+        
+        // Remove border when TTS options are visible
+        eli5Container.classList.remove("border-t", "border-gray-300");
+
+        // Set initial state for expanded container
+        requestAnimationFrame(() => {
+          ttsOptionsContainer.classList.add("transition-all", "duration-300", "ease-in-out");
+          ttsOptionsContainer.style.maxHeight = `${ttsOptionsContainer.scrollHeight}px`;
+          ttsOptionsContainer.style.opacity = "1";
+        });
       } else {
+        ttsOptionsContainer.classList.add("hidden");
+        ttsOptionsContainer.setAttribute("aria-expanded", "false");
+        ttsOptionsContainer.style.maxHeight = "0";
+        ttsOptionsContainer.style.opacity = "0";
         autoplayContainer.classList.add("hidden");
         describeImagesContainer.classList.add("hidden");
+
+        // Restore border when TTS options are hidden
+        eli5Container.classList.add("border-t", "border-gray-300");
       }
     }
   }
-
   // Initialize autoplay after a brief delay to ensure everything is loaded
   setTimeout(() => {
     if (readAloudMode && autoplayMode) {
