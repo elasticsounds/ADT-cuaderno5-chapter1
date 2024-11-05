@@ -4,23 +4,25 @@
    class="w-96 bg-white shadow-lg border-l border-gray-300 fixed right-0 top-0 bottom-0 transition-transform transform translate-x-full hidden rounded-lg top-2 right-0 bottom-2 h-[calc(100vh-5rem)] flex flex-col">
    <!-- Fixed Header -->
    <div class="p-4 border-b border-gray-300 relative z-50">
-       <div class="flex justify-between items-center">
-           <h2 class="text-xl font-bold" data-id="sidebar-title"><i class="fas fa-universal-access mr-2"></i>Universal AI</h2>
+       <div class="flex justify-between items-center mb-2">
+           <h3 class="text-xl font-bold"><i class="fas fa-universal-access mr-2 mt-2"></i><span data-id="sidebar-title">Universal AI</span></h3>
            <button id="close-sidebar" aria-label="Close the sidebar" type="button" class="text-gray-700 text-xl"><i class="fas fa-close"></i></button>
        </div>
    </div>
 
    <!-- Scrollable Content -->
    <div class="flex-1 overflow-y-auto p-4 ml-4 relative z-40">
-       <div class="flex items-center">
-        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-600 mr-1">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-            <path d="M2 12h20"/>
-          </svg>
+       <div class="flex items-center justify-between">
+            <div class="flex items-center">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-600 mr-1">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                    <path d="M2 12h20"/>
+                </svg>
           
-           <h3 class="text-xl text-left m-4 ml-0 sidebar-item" id="language-label" data-id="language-label">Language</h3>
-           <!-- <select data-id="language-dropdown" id="language-dropdown" aria-labelledby="language-label"
+                <h3 class="text-xl text-left m-4 ml-0 sidebar-item" id="language-label" data-id="language-label">Language</h3>
+            </div>
+                <!-- <select data-id="language-dropdown" id="language-dropdown" aria-labelledby="language-label"
                class="ml-4 px-4 py-2 bg-white text-gray-800 border-gray-200 border-2 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-50 text-lg">
            </select> -->
 
