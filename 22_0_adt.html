@@ -38,19 +38,9 @@
         <section class="space-y-8 items-start" data-id="sectioneli5-22-0" data-section-type="activity_fill_in_the_blank"
             role="activity">
 
-            <ul class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3" >
-                <li class="bg-green-100 p-2 rounded-lg border" data-id="text-22-5">relieve</li>
-                <li class="bg-green-100 p-2 rounded-lg border" data-id="text-22-6">vegetales</li>
-                <li class="bg-green-100 p-2 rounded-lg border" data-id="text-22-7">región</li>
-                <li class="bg-green-100 p-2 rounded-lg border" data-id="text-22-8">vegetación</li>
-                <li class="bg-green-100 p-2 rounded-lg border" data-id="text-22-11">seres vivos</li>
-                <li class="bg-green-100 p-2 rounded-lg border" data-id="text-22-12">animales</li>
-                <li class="bg-green-100 p-2 rounded-lg border" data-id="text-22-13">suelo</li>
-                <li class="bg-green-100 p-2 rounded-lg border" data-id="text-22-14">climáticos</li>
-                <li class="bg-green-100 p-2 rounded-lg border" data-id="text-22-15">biomas</li>
-                <li class="bg-green-100 p-2 rounded-lg border" data-id="text-22-17">geológicos</li>
-                <li class="bg-green-100 p-2 rounded-lg border" data-id="text-22-18">fauna</li>
-            </ul>
+            <div class="bg-blue-100 rounded-lg mb-6">
+                <p id="verbs-list" class="text-blue-600 text-center cursor-pointer p-2" aria-label="Verbos a utilizar">relieve, vegetales, vegetales, región, vegetación, seres vivos, animales, suelo, climáticos, biomas, geológicos, fauna</p>
+            </div>
             <!-- Definition 1 -->
 
             <div class="border rounded-lg p-4 bg-gray-50">
@@ -140,6 +130,21 @@
          'item-10': 'fauna', 
          'item-11': 'biomas', 
          'source-2': 'un diccionario' }
+
+         document.getElementById('verbs-list').addEventListener('click', function(event) {
+            if (event.target.tagName === 'SPAN') {
+                event.target.classList.toggle('line-through');
+            }
+        });
+
+        window.onload = () => {
+            const verbs = document.getElementById('verbs-list').innerText.split(', ');
+            const verbsHtml = verbs.map(verb => `<span class="mr-2 cursor-pointer">${verb}</span>`).join('');
+            document.getElementById('verbs-list').innerHTML = verbsHtml;
+        };
+
+
+
          </script>
     <script src="assets/base.js"></script>
 </body>
