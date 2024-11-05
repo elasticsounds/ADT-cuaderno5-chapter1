@@ -1,72 +1,130 @@
 <!DOCTYPE html>
 
 <html lang="es">
+
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<!-- CAN BE EDITED -->
-<title>La sopa de piedra</title>
-<!-- DO NOT EDIT OR REMOVE the <script> tags -->
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"></script>
-<!-- Mathjax script to use for rendering math. -->
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<meta content="30_2" name="page-section-id"/>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <!-- CAN BE EDITED -->
+    <title>La sopa de piedra</title>
+    <!-- DO NOT EDIT OR REMOVE the <script> tags -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"></script>
+    <!-- Mathjax script to use for rendering math. -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <meta content="30_2" name="page-section-id" />
 </head>
-<body class="bg-gray-100 lg:p-5 md:p-5 sm:p-0 mb-12 font-sans text-lg">
- <!-- The main interface components -->
+
+<body class="bg-gray-100 lg:p-5 p-3 mb-12 font-sans text-lg">
+    <!-- The main interface components -->
     <!-- DO NOT EDIT Contains the bottom bar, next back buttons, submit button, right sidebar, ai language, eli5 and tts toggles -->
-    <div id="interface-container" class="relative z-50"></div>
+    <div id="interface-container"></div>
     <!-- DO NOT EDIT Contains the left nav bar, html page list -->
-    <div id="nav-container" class="relative z-50"></div>
-<!-- The main content container, EVERYTHING CAN BE EDITED, DELETED, OR ADDITIONAL ELEMENTS ADDED AS REQUIRED but there must always be a section tag -->
-<main class="container content mx-auto bg-white mt-auto max-w-5xl p-5 rounded-lg shadow-lg lg:px-24 md:px-12 sm:px-6" id="content">
-<h1 class="text-2xl font-bold text-left mb-4" data-id="text-30-16">Une cada una de estas palabras con su dibujo.</h1>
-<!-- THERE MUST ALWAYS BE A SECTION TAG -->
-<section aria-labelledby="main-heading" data-id="sectioneli5-30-2" data-section-type="activity_matching" id="matching-main" role="activity">
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
-<div class="space-y-3">
-<div aria-label="Palabra bimotor" class="bg-yellow-100 p-3 rounded-md mb-2 shadow-sm activity-item" data-activity-item="item-1" data-aria-id="aria-30-2-0" data-id="text-30-17" draggable="true" id="bimotor" tabindex="0">bimotor</div>
-<div aria-label="Palabra bibliobús" class="bg-teal-100 p-3 rounded-md mb-2 shadow-sm activity-item" data-activity-item="item-2" data-aria-id="aria-30-2-1" data-id="text-30-18" draggable="true" id="bibliobus" tabindex="0">bibliobús</div>
-<div aria-label="Palabra bilingüe" class="bg-pink-100 p-3 rounded-md mb-2 shadow-sm activity-item" data-activity-item="item-3" data-aria-id="aria-30-2-2" data-id="text-30-19" draggable="true" id="bilingue" tabindex="0">bilingüe</div>
-<div aria-label="Palabra biblioteca" class="bg-orange-100 p-3 rounded-md mb-2 shadow-sm activity-item" data-activity-item="item-4" data-aria-id="aria-30-2-3" data-id="text-30-20" draggable="true" id="biblioteca" tabindex="0">biblioteca</div>
-<div aria-label="Palabra bicolor" class="bg-blue-100 p-3 rounded-md mb-2 shadow-sm activity-item" data-activity-item="item-5" data-aria-id="aria-30-2-4" data-id="text-30-21" draggable="true" id="bicolor" tabindex="0">bicolor</div>
-<div aria-label="Palabra bibliomanía" class="bg-green-100 p-3 rounded-md mb-2 shadow-sm activity-item" data-activity-item="item-6" data-aria-id="aria-30-2-5" data-id="text-30-22" draggable="true" id="bibliomania" tabindex="0">bibliomanía</div>
-</div>
-<!-- Images with Dropzones Below -->
-<div class="grid grid-cols-2 md:grid-cols-2 gap-8">
-<div aria-label="Zona para soltar imagen de bicolor" class="border border-gray-300 p-4 rounded-lg text-center dropzone" data-aria-id="aria-30-2-6" id="target1" tabindex="0">
-<img alt="Ilustración de una bandera de colores verde y rojo, usada en un ejercicio educativo." aria-label="Ilustración de una bandera de colores verde y rojo, usada en un ejercicio educativo." class="w-auto h-24" data-aria-id="aria-30-2-7" data-id="img-30-7" src="images/30_img-30-7.png"/>
-<div aria-live="polite" class="border-t border-gray-200 mt-4 p-2" id="dropzone-1" role="region"></div>
-</div>
-<div aria-label="Zona para soltar imagen de bimotor" class="border border-gray-300 p-4 rounded-lg text-center dropzone" data-aria-id="aria-30-2-8" id="target2" tabindex="0">
-<img alt="Ilustración de un avión bimotor, relacionado con el prefijo 'bi-'." aria-label="Ilustración de un avión bimotor, relacionado con el prefijo 'bi-'." class="w-auto h-24" data-aria-id="aria-30-2-9" data-id="img-30-8" src="images/30_img-30-8.png"/>
-<div aria-live="polite" class="border-t border-gray-200 mt-4 p-2" id="dropzone-2" role="region"></div>
-</div>
-<div aria-label="Zona para soltar imagen de bilingue" class="border border-gray-300 p-4 rounded-lg text-center dropzone" data-aria-id="aria-30-2-10" id="target3" tabindex="0">
-<img alt="Ilustración de una persona saludando en dos idiomas: 'Hola' y 'Bonjour'." aria-label="Ilustración de una persona saludando en dos idiomas: 'Hola' y 'Bonjour'." class="w-auto h-24" data-aria-id="aria-30-2-11" data-id="img-30-3" src="images/30_img-30-3.png"/>
-<div aria-live="polite" class="border-t border-gray-200 mt-4 p-2" id="dropzone-3" role="region"></div>
-</div>
-<div aria-label="Zona para soltar imagen de bibliobus" class="border border-gray-300 p-4 rounded-lg text-center dropzone" data-aria-id="aria-30-2-12" id="target4" tabindex="0">
-<img alt="Imagen de un bibliobús, un autobús lleno de libros que funciona como biblioteca móvil." aria-label="Imagen de un bibliobús, un autobús lleno de libros que funciona como biblioteca móvil." class="w-auto h-24" data-aria-id="aria-30-2-13" data-id="img-30-5" src="images/30_img-30-5.png"/>
-<div aria-live="polite" class="border-t border-gray-200 mt-4 p-2" id="dropzone-4" role="region"></div>
-</div>
-<div aria-label="Zona para soltar imagen de biblioteca" class="border border-gray-300 p-4 rounded-lg text-center dropzone" data-aria-id="aria-30-2-14" id="target5" tabindex="0">
-<img alt="Librero con libros, representando una biblioteca." aria-label="Librero con libros, representando una biblioteca." class="w-auto h-24" data-aria-id="aria-30-2-15" data-id="img-30-6" src="images/30_img-30-6.png"/>
-<div aria-live="polite" class="border-t border-gray-200 mt-4 p-2" id="dropzone-5" role="region"></div>
-</div>
-<div aria-label="Zona para soltar imagen de bibliomania" class="border border-gray-300 p-4 rounded-lg text-center dropzone" data-aria-id="aria-30-2-16" id="target6" tabindex="0">
-<img alt="Una persona examinando un libro con una lupa." aria-label="Una persona examinando un libro con una lupa." class="w-auto h-24" data-aria-id="aria-30-2-17" data-id="img-30-4" src="images/30_img-30-4.png"/>
-<div aria-live="polite" class="border-t border-gray-200 mt-4 p-2" id="dropzone-6" role="region"></div>
-</div>
-</div>
-</div>
-<div class="mt-6 text-center">
-<p aria-live="polite" class="mt-4 text-xl font-semibold" id="feedback"></p>
-</div>
-</section>
-</main>
-<script>const correctAnswers = {'item-1': 'dropzone-2', 'item-2': 'dropzone-4', 'item-3': 'dropzone-3', 'item-4': 'dropzone-5', 'item-5': 'dropzone-1', 'item-6': 'dropzone-6'}</script>
-<script src="assets/base.js"></script>
+    <div id="nav-container"></div>
+    <!-- The main content container, EVERYTHING CAN BE EDITED, DELETED, OR ADDITIONAL ELEMENTS ADDED AS REQUIRED but there must always be a section tag -->
+    <main
+        class="container content mx-auto bg-white mt-auto max-w-5xl p-5 rounded-lg border-gray-200 border lg:px-16 md:px-12 sm:px-6 sm:py-6 md:py-10 mb-5
+        border-t-8 border-t-blue-700"
+        id="content">
+        <h1 class="font-bold text-4xl text-center mb-4" data-id="text-30-0">Para escribir correctamente</h1>
+        
+        <p class="text-lg text-center mb-8" ><i class="fas fa-pen-to-square text-blue-700 mr-2"></i> 
+            <span data-id="text-30-16">Une cada una de estas palabras con su dibujo.</span>
+        </p>
+        <!-- THERE MUST ALWAYS BE A SECTION TAG -->
+        <section aria-labelledby="main-heading" data-id="sectioneli5-30-2" data-section-type="activity_matching"
+            id="matching-main" role="activity">
+            <div class="flex flex-col md:flex-row gap-4 mb-6 md:items-start ">
+                <div class="grow grid grid-cols-2 md:grid-cols-1 gap-4 text-center">
+                    <div aria-label="Palabra bimotor" class="bg-yellow-100 p-3 rounded-md  shadow-sm activity-item"
+                        data-activity-item="item-1" data-aria-id="aria-30-2-0" data-id="text-30-17" draggable="true"
+                        id="bimotor" tabindex="0">bimotor</div>
+                    <div aria-label="Palabra bibliobús" class="bg-teal-100 p-3 rounded-md  shadow-sm activity-item"
+                        data-activity-item="item-2" data-aria-id="aria-30-2-1" data-id="text-30-18" draggable="true"
+                        id="bibliobus" tabindex="0">bibliobús</div>
+                    <div aria-label="Palabra bilingüe" class="bg-pink-100 p-3 rounded-md  shadow-sm activity-item"
+                        data-activity-item="item-3" data-aria-id="aria-30-2-2" data-id="text-30-19" draggable="true"
+                        id="bilingue" tabindex="0">bilingüe</div>
+                    <div aria-label="Palabra biblioteca" class="bg-orange-100 p-3 rounded-md  shadow-sm activity-item" data-activity-item="item-4"
+                        data-aria-id="aria-30-2-3" data-id="text-30-20" draggable="true" id="biblioteca" tabindex="0">
+                        biblioteca</div>
+                    <div aria-label="Palabra bicolor" class="bg-blue-100 p-3 rounded-md  shadow-sm activity-item"
+                        data-activity-item="item-5" data-aria-id="aria-30-2-4" data-id="text-30-21" draggable="true"
+                        id="bicolor" tabindex="0">bicolor</div>
+                    <div aria-label="Palabra bibliomanía"
+                        class="bg-green-100 p-3 rounded-md  shadow-sm activity-item" data-activity-item="item-6"
+                        data-aria-id="aria-30-2-5" data-id="text-30-22" draggable="true" id="bibliomania" tabindex="0">
+                        bibliomanía</div>
+                </div>
+                <!-- Images with Dropzones Below -->
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div aria-label="Zona para soltar imagen de bicolor"
+                        class="border border-gray-300 p-4 rounded-lg text-center dropzone" data-aria-id="aria-30-2-6"
+                        id="target1" tabindex="0">
+                        <img alt="Ilustración de una bandera de colores verde y rojo, usada en un ejercicio educativo."
+                            aria-label="Ilustración de una bandera de colores verde y rojo, usada en un ejercicio educativo."
+                            class="w-auto h-24 mx-auto" data-aria-id="aria-30-2-7" data-id="img-30-7"
+                            src="images/30_img-30-7.png" />
+                        <div aria-live="polite" class="border-t border-gray-200 mt-4 pt-2" id="dropzone-1" role="region">
+                        </div>
+                    </div>
+                    <div aria-label="Zona para soltar imagen de bimotor"
+                        class="border border-gray-300 p-4 rounded-lg text-center dropzone" data-aria-id="aria-30-2-8"
+                        id="target2" tabindex="0">
+                        <img alt="Ilustración de un avión bimotor, relacionado con el prefijo 'bi-'."
+                            aria-label="Ilustración de un avión bimotor, relacionado con el prefijo 'bi-'."
+                            class="w-auto h-24 mx-auto" data-aria-id="aria-30-2-9" data-id="img-30-8"
+                            src="images/30_img-30-8.png" />
+                        <div aria-live="polite" class="border-t border-gray-200 mt-4 pt-2 " id="dropzone-2" role="region">
+                        </div>
+                    </div>
+                    <div aria-label="Zona para soltar imagen de bilingue"
+                        class="border border-gray-300 p-4 rounded-lg text-center dropzone" data-aria-id="aria-30-2-10"
+                        id="target3" tabindex="0">
+                        <img alt="Ilustración de una persona saludando en dos idiomas: 'Hola' y 'Bonjour'."
+                            aria-label="Ilustración de una persona saludando en dos idiomas: 'Hola' y 'Bonjour'."
+                            class="w-auto h-24 mx-auto" data-aria-id="aria-30-2-11" data-id="img-30-3"
+                            src="images/30_img-30-3.png" />
+                        <div aria-live="polite" class="border-t border-gray-200 mt-4 pt-2" id="dropzone-3" role="region">
+                        </div>
+                    </div>
+                    <div aria-label="Zona para soltar imagen de bibliobus"
+                        class="border border-gray-300 p-4 rounded-lg text-center dropzone" data-aria-id="aria-30-2-12"
+                        id="target4" tabindex="0">
+                        <img alt="Imagen de un bibliobús, un autobús lleno de libros que funciona como biblioteca móvil."
+                            aria-label="Imagen de un bibliobús, un autobús lleno de libros que funciona como biblioteca móvil."
+                            class="w-auto h-24 mx-auto" data-aria-id="aria-30-2-13" data-id="img-30-5"
+                            src="images/30_img-30-5.png" />
+                        <div aria-live="polite" class="border-t border-gray-200 mt-4 pt-2" id="dropzone-4" role="region">
+                        </div>
+                    </div>
+                    <div aria-label="Zona para soltar imagen de biblioteca"
+                        class="border border-gray-300 p-4 rounded-lg text-center dropzone" data-aria-id="aria-30-2-14"
+                        id="target5" tabindex="0">
+                        <img alt="Librero con libros, representando una biblioteca."
+                            aria-label="Librero con libros, representando una biblioteca." class="w-auto h-24 mx-auto"
+                            data-aria-id="aria-30-2-15" data-id="img-30-6" src="images/30_img-30-6.png" />
+                        <div aria-live="polite" class="border-t border-gray-200 mt-4 pt-2" id="dropzone-5" role="region">
+                        </div>
+                    </div>
+                    <div aria-label="Zona para soltar imagen de bibliomania"
+                        class="border border-gray-300 p-4 rounded-lg text-center dropzone" data-aria-id="aria-30-2-16"
+                        id="target6" tabindex="0">
+                        <img alt="Una persona examinando un libro con una lupa."
+                            aria-label="Una persona examinando un libro con una lupa." class="w-auto h-24 mx-auto"
+                            data-aria-id="aria-30-2-17" data-id="img-30-4" src="images/30_img-30-4.png" />
+                        <div aria-live="polite" class="border-t border-gray-200 mt-4 pt-2" id="dropzone-6" role="region">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6 text-center">
+                <p aria-live="polite" class="mt-4 text-xl font-semibold" id="feedback"></p>
+            </div>
+        </section>
+    </main>
+    <script>const correctAnswers = { 'item-1': 'dropzone-2', 'item-2': 'dropzone-4', 'item-3': 'dropzone-3', 'item-4': 'dropzone-5', 'item-5': 'dropzone-1', 'item-6': 'dropzone-6' }</script>
+    <script src="assets/base.js"></script>
 </body>
+
 </html>
