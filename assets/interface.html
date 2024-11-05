@@ -3,7 +3,7 @@
 <aside id="sidebar" aria-hidden="true" role="complementary"
    class="w-96 bg-white shadow-lg border-l border-gray-300 fixed right-0 top-0 bottom-0 transition-transform transform translate-x-full hidden rounded-lg top-2 right-0 bottom-2 h-[calc(100vh-5rem)] flex flex-col">
    <!-- Fixed Header -->
-   <div class="p-4 border-b border-gray-300">
+   <div class="p-4 border-b border-gray-300 relative z-50">
        <div class="flex justify-between items-center">
            <h2 class="text-xl font-bold" data-id="sidebar-title"><i class="fas fa-universal-access mr-2"></i>Universal AI</h2>
            <button id="close-sidebar" aria-label="Close the sidebar" type="button" class="text-gray-700 text-xl"><i class="fas fa-close"></i></button>
@@ -11,15 +11,28 @@
    </div>
 
    <!-- Scrollable Content -->
-   <div class="flex-1 overflow-y-auto p-4 ml-4">
-       <div class="flex justify-between items-center">
+   <div class="flex-1 overflow-y-auto p-4 ml-4 relative z-40">
+       <div class="flex items-center">
+        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-600 mr-1">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            <path d="M2 12h20"/>
+          </svg>
+          
            <h3 class="text-xl text-left m-4 ml-0 sidebar-item" id="language-label" data-id="language-label">Language</h3>
-           <select data-id="language-dropdown" id="language-dropdown" aria-labelledby="language-label"
+           <!-- <select data-id="language-dropdown" id="language-dropdown" aria-labelledby="language-label"
                class="ml-4 px-4 py-2 bg-white text-gray-800 border-gray-200 border-2 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-50 text-lg">
-           </select>
+           </select> -->
+
+           <select data-id="language-dropdown" id="language-dropdown" class="ml-4 p-2 border border-gray-300 rounded-md bg-white text-gray-700"></select>
        </div>
        <div class="flex justify-between items-left border-t border-gray-300">
            <label for="toggle-easy" class="flex items-center cursor-pointer mb-4 md:mb-0 w-full" id="toggle-easy-read-button" aria-pressed="false" aria-labelledby="easy-read-label">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-600 mr-1">
+                    <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>
+                    <path d="M8 7h6"/>
+                    <path d="M8 11h8"/>
+                </svg>
                <span class="text-xl text-left m-4 ml-0 sidebar-item flex-grow" id="easy-read-label" data-id="easy-read-label">Easy Read</span>
                <div class="relative">
                    <input type="checkbox" id="toggle-easy" class="sr-only peer">
@@ -28,9 +41,16 @@
                </div>
            </label>
        </div>
+
        <div class="flex justify-between items-left border-t border-gray-300">
            <label for="toggle-tts" class="flex items-center cursor-pointer mb-4 md:mb-0 w-full" id="toggle-read-aloud" aria-pressed="false" aria-labelledby="tts-label">
-               <span class="text-xl text-left m-4 ml-0 sidebar-item flex-grow" id="tts-label" data-id="tts-label">Text to speech</span>
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-600 mr-1">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+              </svg>   
+              
+            <span class="text-xl text-left m-4 ml-0 sidebar-item flex-grow" id="tts-label" data-id="tts-label">Text to speech</span>
                <div class="relative">
                    <input type="checkbox" id="toggle-tts" class="sr-only peer">
                    <div class="block bg-gray-400 w-12 h-7 rounded-full transition peer-checked:bg-blue-700"></div>
@@ -38,9 +58,14 @@
                </div>
            </label>
        </div>
-       <div id="autoplay-container" class="flex justify-between items-left border-t border-gray-300 hidden">
+       <div id="tts-options-container" class="pr-4 pl-4 bg-gray-50 rounded-lg border border-gray-200 hidden" aria-expanded="false">
+       <div id="autoplay-container" class="flex justify-between items-left hidden">
            <label for="toggle-autoplay" class="flex items-center cursor-pointer mb-4 md:mb-0 w-full" aria-pressed="true" aria-labelledby="autoplay-label">
-               <span class="text-xl text-left m-4 ml-0 sidebar-item flex-grow" id="autoplay-label" data-id="autoplay-label">Autoplay</span>
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-600 mr-1">
+                <polygon points="5 3 19 12 5 21 5 3"/>
+              </svg>   
+             
+            <span class="text-xl text-left m-4 ml-0 sidebar-item flex-grow" id="autoplay-label" data-id="autoplay-label">Autoplay</span>
                <div class="relative">
                    <input type="checkbox" id="toggle-autoplay" class="sr-only peer" checked>
                    <div class="block bg-gray-400 w-12 h-7 rounded-full transition peer-checked:bg-blue-700"></div>
@@ -50,17 +75,26 @@
        </div>
        <div id="describe-images-container" class="flex justify-between items-left border-t border-gray-300 hidden">
            <label for="toggle-describe-images" class="flex items-center cursor-pointer mb-4 md:mb-0 w-full" aria-pressed="false" aria-labelledby="describe-images-label">
-               <span class="text-xl text-left m-4 ml-0 sidebar-item flex-grow" id="describe-images-label" data-id="describe-images-label">Describe images</span>
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-600 mr-1">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21 15 16 10 5 21"/>
+              </svg>   
+            <span class="text-xl text-left m-4 ml-0 sidebar-item flex-grow" id="describe-images-label" data-id="describe-images-label">Describe images</span>
                <div class="relative">
                    <input type="checkbox" id="toggle-describe-images" class="sr-only peer">
                    <div class="block bg-gray-400 w-12 h-7 rounded-full transition peer-checked:bg-blue-700"></div>
                    <div class="dot absolute left-1 top-1 bg-white w-5 h-5 rounded-full transition transform peer-checked:translate-x-5"></div>
                </div>
            </label>
-       </div>     
-       <div class="flex justify-between items-left border-t border-gray-300">
+       </div>
+    </div>     
+       <div id="eli5-container" class="flex justify-between items-left border-t border-gray-300">
            <label for="toggle-eli5" class="flex items-center cursor-pointer mb-4 md:mb-0 w-full" id="toggle-eli5-mode-button" aria-pressed="false" aria-labelledby="eli5-label">
-               <span class="text-xl text-left m-4 ml-0 sidebar-item flex-grow" id="eli5-label" data-id="eli5-label">Explain to me</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-600 mr-1">
+                <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+              </svg>  
+            <span class="text-xl text-left m-4 ml-0 sidebar-item flex-grow" id="eli5-label" data-id="eli5-label">Explain to me</span>
                <div class="relative">
                    <input type="checkbox" id="toggle-eli5" class="sr-only peer">
                    <div class="block bg-gray-400 w-12 h-7 rounded-full transition peer-checked:bg-blue-700"></div>
@@ -83,7 +117,7 @@
 </button>
 
 <!-- New floating play bar -->
-<div class="fixed bottom-20 right-20 bg-gray-100 rounded-lg shadow-lg py-2 px-6 flex items-center space-x-6 border border-gray-200 hidden" id="play-bar">
+<div id="play-bar" class="fixed bottom-20 right-20 bg-gray-100 rounded-lg shadow-lg py-2 px-6 flex items-center space-x-6 border border-gray-200 hidden z-50">
     <!-- Settings Panel (hidden by default) -->
     <div class="opacity-0 h-0 pointer-events-none absolute bottom-full right-0 bg-[#083149] rounded-lg mb-2 w-32" id="read-aloud-settings">
         <ul class="flex flex-col items-stretch p-1">
@@ -130,93 +164,15 @@
     </button>
 </div>
 
-<!-- Floating play bar -->
- <!--
-<div class="fixed bottom-20 right-20 bg-black text-white p-1 rounded-lg shadow-md hidden" id="play-bar">
-    <div class="flex-col pointer-events-auto">
-        <div class="opacity-0 h-0 pointer-events-none" id="read-aloud-settings">
-            <div class="flex justify-center border-b border-gray-200 dark:border-gray-400 text-white-500 text-base"
-                data-id="text-read-aloud-speed">Speed</div>
-            <ul class="flex flex-col items-center justify-around h-52 py-2">
-                <li class="w-full text-center">
-                    <button type="button"
-                        class="text-gray-300 rounded text-sm py-2 w-full hover:bg-white hover:text-black read-aloud-change-speed speed-0-5">0.5x</button>
-                </li>
-                <li class="w-full text-center">
-                    <button type="button"
-                        class="rounded text-sm py-2 w-full bg-white text-black hover:bg-white hover:text-black read-aloud-change-speed speed-1">1x</button>
-                </li>
-                <li class="w-full text-center">
-                    <button type="button"
-                        class="text-gray-300 rounded text-sm py-2 w-full hover:bg-white hover:text-black read-aloud-change-speed speed-1-5">1.5x</button>
-                </li>
-                <li class="w-full text-center">
-                    <button type="button"
-                        class="text-gray-300 rounded text-sm py-2 w-full hover:bg-white hover:text-black read-aloud-change-speed speed-2">2x</button>
-                </li>
-            </ul>
-        </div>
-        <div aria-expanded="false"
-            class="flex relative items-center w-[200px] h-[45px] bg-surface-primary p-2 rounded-lg cursor-pointer bg-black">
-            <div class="absolute top-0 left-0 w-full h-full"></div>
-            <button type="button" id="play-pause-button"
-                class="flex items-center justify-center disabled:text-gray-40 focus-visible:outline-offset-0 rounded-s w-[24px] h-[24px] hover:bg-btn-secondary-base--hover p-2 relative"
-                aria-label="Play audio of page text">
-                <svg xmlns="http://www.w3.org/2000/svg" width="11" viewBox="0 0 11 14" fill="white"
-                    id="read-aloud-play-icon">
-                    <path fill="white"
-                        d="M10.174 7.844a1 1 0 0 0 0-1.688L2.037.978A1 1 0 0 0 .5 1.822v10.356a1 1 0 0 0 1.537.844l8.137-5.178Z">
-                    </path>
-                </svg>
-                <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 10 12" fill="white"
-                    id="read-aloud-pause-icon" class="hidden">
-                    <rect width="3" height="11" y=".5" fill="white" rx="1.5"></rect>
-                    <rect width="3" height="11" x="7" y=".5" fill="white" rx="1.5"></rect>
-                </svg>
-            </button>
-            <div class="flex relative gap-2 items-center ml-auto">
-                <span class="text-sm font-semibold text-gray-700 bg-gray-200 px-2 py-1 rounded" data-id="audio-speed-1x"
-                    id="read-aloud-speed">1x</span>
-                <button type="button"
-                    class="flex items-center justify-center disabled:text-gray-40 focus-visible:outline-offset-0 rounded-s w-[24px] h-[24px] hover:bg-btn-secondary-base--hover"
-                    aria-label="Go to previous audio" id="audio-previous">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M11 19L2 12L11 5V19Z" fill="currentColor" />
-                        <path d="M22 19L13 12L22 5V19Z" fill="currentColor" />
-                    </svg>
-                </button>
-                <button type="button"
-                    class="flex items-center justify-center disabled:text-gray-40 focus-visible:outline-offset-0 rounded-s w-[24px] h-[24px] hover:bg-btn-secondary-base--hover undefined"
-                    aria-label="Go to next audio" id="audio-next">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M13 5L22 12L13 19V5Z" fill="currentColor" />
-                        <path d="M2 5L11 12L2 19V5Z" fill="currentColor" />
-                    </svg>
-                </button>
-                <button type="button" id="play-bar-settings-toggle"
-                    class="flex items-center justify-center disabled:text-gray-40 focus-visible:outline-offset-0 rounded-s w-[24px] h-[24px] hover:bg-btn-secondary-base--hover"
-                    aria-label="Open read aloud audio settings panel">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"
-                        fill="currentColor">
-                        <path
-                            d="M12 8.5C10.07 8.5 8.5 10.07 8.5 12C8.5 13.93 10.07 15.5 12 15.5C13.93 15.5 15.5 13.93 15.5 12C15.5 10.07 13.93 8.5 12 8.5ZM12 14C10.9 14 10 13.1 10 12C10 10.9 10.9 10 12 10C13.1 10 14 10.9 14 12C14 13.1 13.1 14 12 14ZM19.43 12.98C19.5 12.66 19.5 12.34 19.5 12C19.5 11.66 19.5 11.34 19.43 11.02L21.54 9.39C21.74 9.24 21.79 8.95 21.66 8.71L19.66 5.29C19.53 5.05 19.24 4.96 19 5.05L16.56 6.05C16.04 5.65 15.5 5.31 14.91 5.04L14.5 2.5C14.46 2.22 14.23 2 13.95 2H10.05C9.77 2 9.54 2.22 9.5 2.5L9.09 5.04C8.5 5.31 7.96 5.65 7.44 6.05L5 5.05C4.76 4.96 4.47 5.05 4.34 5.29L2.34 8.71C2.21 8.95 2.26 9.24 2.46 9.39L4.57 11.02C4.5 11.34 4.5 11.66 4.5 12C4.5 12.34 4.5 12.66 4.57 12.98L2.46 14.61C2.26 14.76 2.21 15.05 2.34 15.29L4.34 18.71C4.47 18.95 4.76 19.04 5 18.95L7.44 17.95C7.96 18.35 8.5 18.69 9.09 18.96L9.5 21.5C9.54 21.78 9.77 22 10.05 22H13.95C14.23 22 14.46 21.78 14.5 21.5L14.91 18.96C15.5 18.69 16.04 18.35 16.56 17.95L19 18.95C19.24 19.04 19.53 18.95 19.66 18.71L21.66 15.29C21.79 15.05 21.74 14.76 21.54 14.61L19.43 12.98ZM12 16C9.79 16 8 14.21 8 12C8 9.79 9.79 8 12 8C14.21 8 16 9.79 16 12C16 14.21 14.21 16 12 16Z" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
--->
-
 <!-- Pop-up toast -->
-<div id="toast" class="fixed bottom-20 right-5 bg-green-200 text-white px-4 py-2 rounded-md shadow-lg hidden"
+<div id="toast" class="fixed bottom-20 right-5 bg-green-200 text-white px-4 py-2 rounded-md shadow-lg hidden z-50"
     role="alert">
     <p>Well done</p>
 </div>
 
 <!-- The Content Index menu bar -->
 <footer class="fixed bottom-0 left-0 right-0 bg-white shadow-lg py-3 border-t border-gray-300 z-50">
-    <div class="flex items-center px-5">
+    <div class="flex items-center px-5 relative z-50">
         <!-- Left button (hamburger menu) - outside container -->
         <button id="nav-popup" aria-controls="navPopup" aria-expanded="false" aria-label="Content Index Menu"
             class="nav__toggle px-4 py-2 bg-white text-gray-800 rounded-lg shadow-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-50 aria-expanded:bg-blue-700 aria-expanded:text-white"
@@ -231,7 +187,7 @@
                 <button id="back-button" aria-label="Previous page" class="text-2xl no-underline text-gray-600 p-1"
                     type="button"><i class="fas fa-arrow-left"></i>
                 </button>
-                <span id="page-section-id" class="align-text-bottom no-underline text-gray-600 p-1 text-2xl">Page Number</span>
+                <span id="page-section-id" class="align-text-bottom no-underline text-gray-600 p-1 text-2xl"></span>
                 <button id="forward-button" aria-label="Next page" class="text-2xl no-underline text-gray-600 p-1"
                     type="button"><i class="fas fa-arrow-right"></i>
                 </button>
