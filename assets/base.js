@@ -1,5 +1,106 @@
 const PLACEHOLDER_TITLE = "Accessible Digital Textbook";
+let currentPageContent = null;
+let cachedInterface = null;
+let cachedNavigation = null;
+
+// Store the current page state before leaving
+window.addEventListener('beforeunload', () => {
+  cacheInterfaceElements();
+
+  // Save interface state
+  const sidebar = document.getElementById('sidebar');
+  const navPopup = document.getElementById('navPopup');
+  
+  const interfaceState = {
+    sidebarOpen: !sidebar.classList.contains('translate-x-full'),
+    navOpen: !navPopup.classList.contains('-translate-x-full'),
+    scrollPosition: window.scrollY,
+    navScrollPosition: document.querySelector('.nav__list')?.scrollTop || 0
+  };
+  
+  sessionStorage.setItem('interfaceState', JSON.stringify(interfaceState));
+});
+
+// Add this function to cache the interface elements
+function cacheInterfaceElements() {
+  const sidebar = document.getElementById('sidebar');
+  const navPopup = document.getElementById('navPopup');
+  
+  if (sidebar) {
+    cachedInterface = sidebar.outerHTML;
+  }
+  if (navPopup) {
+    cachedNavigation = navPopup.outerHTML;
+  }
+}
+
+// Add this function to restore cached elements
+function restoreInterfaceElements() {
+  if (cachedInterface) {
+    const interfaceContainer = document.getElementById('interface-container');
+    if (interfaceContainer) {
+      interfaceContainer.innerHTML = cachedInterface;
+    }
+  }
+  if (cachedNavigation) {
+    const navContainer = document.getElementById('nav-container');
+    if (navContainer) {
+      navContainer.innerHTML = cachedNavigation;
+    }
+  }
+}
+
 document.addEventListener("DOMContentLoaded", function () {
+  // Immediately restore interface elements before anything else
+  const navPopup = document.getElementById("navPopup");
+  const sidebar = document.getElementById("sidebar");
+  
+  // Remove hidden class immediately if they exist
+  if (navPopup) navPopup.classList.remove("hidden");
+  if (sidebar) sidebar.classList.remove("hidden");
+
+  //Hide main content
+  const mainContent = document.body;
+  if (mainContent) {
+    mainContent.classList.add('hidden');
+    mainContent.classList.add('z-30');
+  }
+  // Restore interface state immediately
+  const savedState = sessionStorage.getItem('interfaceState');
+  if (savedState) {
+    const state = JSON.parse(savedState);
+    
+    // Restore sidebar state
+    const sidebar = document.getElementById('sidebar');
+    if (sidebar && state.sidebarOpen) {
+      sidebar.classList.remove('translate-x-full');
+      const mainTag = document.querySelector('main');
+      if (mainTag) {
+        mainTag.classList.add("lg:ml-32");
+        mainTag.classList.remove("lg:mx-auto");
+      }
+    }
+    
+    // Restore nav state
+    const navPopup = document.getElementById('navPopup');
+    if (navPopup && state.navOpen) {
+      navPopup.classList.remove('-translate-x-full');
+      navPopup.classList.add('left-2');
+    }
+    
+    // Restore scroll positions after a slight delay
+    setTimeout(() => {
+      window.scrollTo(0, state.scrollPosition);
+      const navList = document.querySelector('.nav__list');
+      if (navList) {
+        navList.scrollTop = state.navScrollPosition;
+      }
+    }, 100);
+  }
+
+  // Add navigation event listeners
+  document.addEventListener('click', handleNavigation);
+
   // Set the language on page load to currentLanguage cookie or the html lang attribute.
   let languageCookie = getCookie("currentLanguage");
   if (!languageCookie) {
@@ -74,7 +175,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }) */
   }
 
-
   // Fetch interface.html and nav.html, and activity.js concurrently
   Promise.all([
     fetch("assets/interface.html").then((response) => response.text()),
@@ -83,9 +183,26 @@ document.addEventListener("DOMContentLoaded", function () {
     fetch("assets/config.html").then((response) => response.text()),
   ])
     .then(async ([interfaceHTML, navHTML, activityJS, configHTML]) => {
-      // Inject fetched HTML into respective containers
-      document.getElementById("interface-container").innerHTML = interfaceHTML;
-      document.getElementById("nav-container").innerHTML = navHTML;
+      // If we have cached elements, use them instead of fetching
+      if (cachedInterface && cachedNavigation) {
+        restoreInterfaceElements();
+        // Remove hidden class immediately
+        const navPopup = document.getElementById("navPopup");
+        const sidebar = document.getElementById("sidebar");
+        if (navPopup) navPopup.classList.remove("hidden");
+        if (sidebar) sidebar.classList.remove("hidden");
+      } else {
+        // First time load - inject fetched HTML
+        document.getElementById("interface-container").innerHTML = interfaceHTML;
+        document.getElementById("nav-container").innerHTML = navHTML;
+        // Remove hidden class immediately
+        const navPopup = document.getElementById("navPopup");
+        const sidebar = document.getElementById("sidebar");
+        if (navPopup) navPopup.classList.remove("hidden");
+        if (sidebar) sidebar.classList.remove("hidden");
+        // Cache the elements for next time
+        cacheInterfaceElements();
+      }
       const parser = new DOMParser();
       const configDoc = parser.parseFromString(configHTML, "text/html");
       const newTitle = configDoc.querySelector("title").textContent;
@@ -108,6 +225,8 @@ document.addEventListener("DOMContentLoaded", function () {
       script.type = "text/javascript";
       script.text = activityJS;
       document.body.appendChild(script);
+
+      await fetchTranslations();
 
       // Iterate over the available languages added in the html meta tag to populate the language dropdown
       const dropdown = document.getElementById("language-dropdown");
@@ -495,11 +614,16 @@ document.addEventListener("DOMContentLoaded", function () {
     })
     .catch((error) => {
       console.error("Error loading HTML:", error);
+      // Show content even if loading fails
+      const mainContent = document.querySelector('[role="main"]');
+      if (mainContent) {
+        mainContent.classList.remove('opacity-0', 'invisible');
+        mainContent.classList.add('opacity-100', 'visible');
+      }
     });
 });
 
 // Handle keyboard events for navigation
-// Updated handleKeyboardShortcuts function with better input detection
 function handleKeyboardShortcuts(event) {
   console.log('handleKeyboardShortcuts called with key:', event.key);
   
@@ -532,10 +656,15 @@ function handleKeyboardShortcuts(event) {
   
   console.log('Current modes - readAloud:', readAloudMode, 'easyRead:', easyReadMode, 'eli5:', eli5Mode);
 
-  // Handle navigation keys
+  // Handle navigation keys with null checks
   if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
     console.log(`${event.key} pressed - handling navigation`);
     event.preventDefault();
+
+    // Check if navigation is possible before proceeding
+    const navItems = document.querySelectorAll(".nav__list-link");
+    if (!navItems.length) return;
+
     if (event.key === "ArrowRight") {
       nextPage();
     } else {
@@ -587,6 +716,36 @@ function checkCurrentActivityCompletion(isCorrect){
   }
 }
 
+// Handle navigation clicks to enable smooth transitions
+function handleNavigation(event) {
+  // Only handle internal navigation
+  if (event.target.matches('.nav__list-link') || 
+      event.target.id === 'back-button' || 
+      event.target.id === 'forward-button') {
+    
+    event.preventDefault();
+    const targetHref = event.target.href || event.target.getAttribute('data-href');
+    
+    // Cache current interface state
+    cacheInterfaceElements();
+
+    // Check if main content exists before trying to access it
+    const mainContent = document.querySelector('[role="main"]');
+    if (mainContent) {
+      // Save current page content
+      currentPageContent = mainContent.innerHTML;
+      
+      // Add transition class
+      mainContent.classList.add('opacity-0');
+    }
+    
+    // After a brief delay to allow the fade out
+    setTimeout(() => {
+      window.location.href = targetHref;
+    }, 150);
+  }
+}
+
 // Function to load fonts dynamically
 function loadAtkinsonFont() {
   // Create and load the preconnect links
@@ -629,6 +788,7 @@ function isToggleButton(element) {
   console.log('isToggleButton check for element:', element.id, 'Result:', isToggle);
   return isToggle;
 }
+
 let translations = {};
 let audioFiles = {};
 let currentAudio = null;
@@ -761,54 +921,66 @@ function switchLanguage() {
 
 async function fetchTranslations() {
   try {
-    // This loads the static interface translation file
     const interface_response = await fetch(
       `assets/interface_translations.json`
     );
     const interface_data = await interface_response.json();
     const response = await fetch(`translations_${currentLanguage}.json`);
     const data = await response.json();
+    
     if (interface_data[currentLanguage]) {
       translations = {
         ...data.texts,
         ...interface_data[currentLanguage],
       };
-      // Iterate over the language dropdown and populate the correct name of each language
       const dropdown = document.getElementById("language-dropdown");
-      const options = Array.from(dropdown.options); // Convert HTMLCollection to Array
+      const options = Array.from(dropdown.options);
 
       options.forEach((option) => {
-        // Change the text of each option
         option.textContent = interface_data[option.value]["language-name"];
       });
     } else {
-      translations = data.texts; // Fallback if the language is not found in interface_data
+      translations = data.texts;
     }
     audioFiles = data.audioFiles;
-    applyTranslations();
-    gatherAudioElements(); // Ensure audio elements are gathered after translations are applied
+    
+    // Apply translations before showing content
+    await applyTranslations();
+    gatherAudioElements();
+    
+    // Show content after translations are applied using Tailwind classes
+    const mainContent = document.querySelector('[role="main"]');
+    if (mainContent) {
+      mainContent.classList.remove('opacity-0', 'invisible');
+      mainContent.classList.add('opacity-100', 'visible', 'transition-opacity', 'duration-300', 'ease-in-out');
+    }
+    
   } catch (error) {
     console.error("Error loading translations:", error);
+    // Show content even if translations fail
+    const mainContent = document.querySelector('[role="main"]');
+    if (mainContent) {
+      mainContent.classList.remove('opacity-0', 'invisible');
+      mainContent.classList.add('opacity-100', 'visible');
+    }
   } finally {
-    // Update the MathJax typesetting after translations are applied.
     MathJax.typeset();
   }
 }
 
 function applyTranslations() {
+
   unhighlightAllElements();
 
   for (const [key, value] of Object.entries(translations)) {
-    // Skip elements with data-id starting with sectioneli5
     if (key.startsWith("sectioneli5")) continue;
 
     let translationKey = key;
 
-    // Check if Easy-Read mode is enabled and if an easy-read version exists
     if (easyReadMode) {
       const easyReadKey = `easyread-${key}`;
       if (translations.hasOwnProperty(easyReadKey)) {
-        translationKey = easyReadKey; // Use easy-read key if available
+        translationKey = easyReadKey;
       }
     }
 
@@ -816,25 +988,25 @@ function applyTranslations() {
     elements.forEach((element) => {
       if (element) {
         if (element.tagName === "IMG") {
-          element.setAttribute("alt", translations[translationKey]); // Set the alt text for images
+          element.setAttribute("alt", translations[translationKey]);
         } else {
-          element.textContent = translations[translationKey]; // Set the text content for other elements
+          element.textContent = translations[translationKey];
         }
       }
     });
+
     const placeholderElements = document.querySelectorAll(
       `[data-placeholder-id="${key}"]`
     );
     placeholderElements.forEach((element) => {
       if (element) {
         if (element.tagName === "INPUT" || element.tagName === "TEXTAREA") {
-          element.setAttribute("placeholder", translations[translationKey]); // Set the placeholder text for input elements
+          element.setAttribute("placeholder", translations[translationKey]);
         }
       }
     });
   }
 
-  // Update eli5 content if eli5 mode is active
   if (eli5Mode) {
     const mainSection = document.querySelector(
       'section[data-id^="sectioneli5"]'
@@ -855,9 +1027,11 @@ function applyTranslations() {
     currentIndex = 0;
     playAudioSequentially();
   }
-  // Gather the audio elements again based on the current mode (easy-read or normal)
   gatherAudioElements();
-}
+  if (document.body.classList.contains('hidden')) {
+    document.body.classList.remove('hidden');
+  }
+} 
 
 function translateText(textToTranslate, variables = {}) {
   var newText = translations[textToTranslate];
@@ -1466,22 +1640,28 @@ function toggleNav() {
 }
 
 // Next and previous pages
+// Update previousPage and nextPage similarly
 function previousPage() {
   const currentHref = window.location.href.split("/").pop() || "index.html";
   const navItems = document.querySelectorAll(".nav__list-link");
   const navList = document.querySelector(".nav__list");
-
-  // // Save current scroll position before navigation
-  // if (navList) {
-  //   const scrollPosition = navList.scrollTop;
-  //   setCookie("navScrollPosition", scrollPosition, 7, basePath);
-  // }
+  const mainContent = document.querySelector('[role="main"]');
   
   for (let i = 0; i < navItems.length; i++) {
     if (navItems[i].getAttribute("href") === currentHref && i > 0) {
       const scrollPosition = navList?.scrollTop || 0;
       setCookie("navScrollPosition", scrollPosition, 7, basePath);
-      window.location.href = navItems[i - 1].getAttribute("href");
+      
+      // Cache current interface state
+      cacheInterfaceElements();
+      
+      if (mainContent) {
+        mainContent.classList.add('opacity-0');
+      }
+
+      setTimeout(() => {
+        window.location.href = navItems[i - 1].getAttribute("href");
+      }, 150);
       break;
     }
   }
@@ -1491,17 +1671,27 @@ function nextPage() {
   const currentHref = window.location.href.split("/").pop() || "index.html";
   const navItems = document.querySelectorAll(".nav__list-link");
   const navList = document.querySelector(".nav__list");
+  const mainContent = document.querySelector('[role="main"]');
 
   for (let i = 0; i < navItems.length; i++) {
     if (navItems[i].getAttribute("href") === currentHref && i < navItems.length - 1) {
       const scrollPosition = navList?.scrollTop || 0;
       setCookie("navScrollPosition", scrollPosition, 7, basePath);
-      window.location.href = navItems[i + 1].getAttribute("href");
+      
+      // Cache current interface state
+      cacheInterfaceElements();
+      
+      if (mainContent) {
+        mainContent.classList.add('opacity-0');
+      }
+
+      setTimeout(() => {
+        window.location.href = navItems[i + 1].getAttribute("href");
+      }, 150);
       break;
     }
   }
 }
-
 // Easy-Read Mode Functionality
 
 // Function to toggle Easy-Read mode
