@@ -14,83 +14,64 @@
        <!-- The main interface components -->
   <!-- DO NOT EDIT Contains the bottom bar, next back buttons, submit button, right sidebar, ai language, eli5 and tts toggles -->
   <div id="interface-container" class="relative z-50"></div>
-  <!-- DO NOT EDIT Contains the left nav bar, html page list -->
-  <div id="nav-container" class="relative z-50"></div>
-    <main class="container content mx-auto bg-white mt-auto max-w-5xl p-5 rounded-lg border-gray-200 border lg:px-16 md:px-12 sm:px-6 sm:py-6 md:py-10 mb-5 border-t-8 border-t-blue-700" id="content">
 
-        <section data-id="sectioneli5-18-0" data-section-type="activity_multiple_choice" role="activity">
-            <h1 class="text-4xl text-center font-bold mb-6" data-id="text-18-0">¿Cuáles son las relaciones?</h1>
-            <p class="mb-8 text-lg text-center">
-                <i class="fas fa-info-circle text-blue-700"></i> 
-                <span data-id="text-18-1">Señala la imagen más adecuada para ilustrar la información del recuadro «Biomas del mundo».</span>
-            </p>
+<div id="nav-container" class="relative z-50"></div>
 
-            <!-- No selection error message -->
-            <div id="no-selection-error-message" class="hidden mb-4 p-4 bg-red-100 text-red-700 rounded-lg">
-                Please select an option before submitting.
+<main id="content" class="container content mx-auto bg-white mt-auto max-w-5xl p-5 rounded-lg border-gray-200 border lg:px-16 md:px-12 sm:px-6 sm:py-6 md:py-10 mb-5 border-t-8 border-t-blue-700" role="main">
+  <section data-section-type="activity_multiple_choice" role="activity">
+    <h1 class="text-4xl text-center font-bold mb-6">¿Cuáles son las relaciones?</h1>
+    
+    <p class="mb-4">Señala la imagen más adecuada para ilustrar la información del recuadro «Biomas del mundo».</p>
 
-            </div>
+    <div id="no-selection-error-message" class="hidden mb-4 p-4 bg-red-100 text-red-700 rounded-lg">
+      Please select an option before submitting.
+    </div>
 
-            <div class="questions grid grid-cols-1 md:grid-cols-1 gap-8 mb-4" role="group" aria-labelledby="question-label">
-                <!-- Option A -->
-                <div class="activity-option border p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-200" data-activity-item="item-1">
-                    <div class="flex flex-col">
-                        <img src="images/18_img-18-2.png" 
-                             alt="Diagrama que muestra la condensación y la dirección de los vientos cálidos, resultando en bosques húmedos y lluvia de un lado de la montaña, mientras que el otro lado es seco con vegetación de zonas áridas." 
-                             class="w-full h-auto rounded mb-4" 
-                             data-id="img-18-2"
-                             aria-label="Diagrama que muestra la condensación y la dirección de los vientos cálidos, resultando en bosques húmedos y lluvia de un lado de la montaña, mientras que el otro lado es seco con vegetación de zonas áridas."/>
-                        <div class="flex items-center justify-between mt-2 px-2">
-                            <span class="px-4 py-2 rounded-full font-medium bg-gray-200 hover:bg-gray-300 text-gray-800 cursor-pointer transition-colors duration-200" 
-                                  data-id="text-18-2">A</span>
-                        </div>
-                    </div>
-                </div>
+    <div class="bg-green-100 p-6 mb-4 rounded w-full mx-auto">
+      <h2 class="font-bold mb-2">Biomas del mundo</h2>
+      <p>El clima y el relieve tienen gran importancia en la formación de los biomas.</p>
+      <p>Por ejemplo, algunas cadenas montañosas son como enormes paredones interpuestos en el recorrido de los vientos húmedos provenientes del océano.</p>
+      <p>Al chocar contra la montaña, estos vientos descargan su humedad en la ladera enfrentada al mar, mientras que la otra ladera es árida.</p>
+      <p>Asimismo, la altura es un factor determinante: en las montañas, los biomas se distribuyen en pisos, según la altura.</p>
+    </div>
 
-                <!-- Option B -->
-                <div class="activity-option border p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-200" data-activity-item="item-2">
-                    <div class="flex flex-col">
-                        <img src="images/18_img-18-1.png" 
-                             alt="Ilustración de un paisaje montañoso mostrando la cima, ladera, pie y valle." 
-                             class="w-full h-auto rounded mb-4" 
-                             data-id="img-18-1"
-                             aria-label="Ilustración de un paisaje montañoso mostrando la cima, ladera, pie y valle."/>
-                        <div class="flex items-center justify-between mt-2 px-2">
-                            <span class="px-4 py-2 rounded-full font-medium bg-gray-200 hover:bg-gray-300 text-gray-800 cursor-pointer transition-colors duration-200" 
-                                  data-id="text-18-10">B</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="questions grid grid-cols-1 md:grid-cols-1 gap-8 mb-4" role="group" aria-labelledby="question-label">
+      <div class="activity-option border p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-200">
+        <label class="flex items-center space-x-3 cursor-pointer">
+          <input type="radio" name="answer" value="A" data-activity-item="item-1" class="hidden peer">
+          <div class="w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center">
+            <span class="option-letter text-gray-500">A</span>
+          </div>
+          <div class="flex-1">
+            <img src="images/18_img-18-2.png" alt="Diagrama que muestra la condensación y la dirección de los vientos cálidos, resultando en bosques húmedos y lluvia de un lado de la montaña, mientras que el otro lado es seco con vegetación de zonas áridas." class="w-full h-auto rounded mb-4 ml-2">
+          </div>
+          <div class="feedback-container hidden ml-2">
+            <span class="feedback-icon w-5 h-5 rounded-full flex items-center justify-center text-sm"></span>
+            <span class="feedback-text text-sm font-medium ml-1"></span>
+          </div>
+        </label>
+      </div>
 
-            <div class="bg-green-100 p-6 mb-4 rounded w-full mx-auto">
-                <p class="font-bold text-lg text-left mb-8" data-id="text-13-16" tabindex="0">Biomas del mundo</p>
-                <p class="mb-2 " data-id="text-13-17" tabindex="0">El clima y el relieve tienen gran
-                    importancia en la
-                    formación de los biomas.</p>
-                <p class="mb-2 " data-id="text-13-18" tabindex="0">Por ejemplo, algunas cadenas montañosas
-                    son como enormes
-                    paredones interpuestos en el recorrido de los vientos húmedos provenientes del océano.</p>
-                <p class="mb-2 " data-id="text-13-19" tabindex="0">Al chocar contra la montaña, estos
-                    vientos descargan su
-                    humedad en la ladera enfrentada al mar, mientras que la otra ladera es árida.</p>
-                <p class="mb-2 " data-id="text-13-20" tabindex="0">Asimismo, la altura es un factor
-                    determinante: en las
-                    montañas, los biomas se distribuyen en pisos, según la altura.</p>
-            </div>
+      <div class="activity-option border p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-200">
+        <label class="flex items-center space-x-3 cursor-pointer">
+          <input type="radio" name="answer" value="B" data-activity-item="item-2" class="hidden peer">
+          <div class="w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center">
+            <span class="option-letter text-gray-500">B</span>
+          </div>
+          <div class="flex-1">
+            <img src="images/18_img-18-1.png" alt="Ilustración de un paisaje montañoso mostrando la cima, ladera, pie y valle." class="w-full h-auto rounded mb-4 ml-2">
+          </div>
+          <div class="feedback-container hidden ml-2">
+            <span class="feedback-icon w-5 h-5 rounded-full flex items-center justify-center text-sm"></span>
+            <span class="feedback-text text-sm font-medium ml-1"></span>
+          </div>
+        </label>
+      </div>
+    </div>
 
-            <!-- Reset Button
-            <div class="mt-8 flex justify-center">
-                <button id="reset-button" 
-                        class="px-6 py-2 bg-blue-500 text-white rounded-full font-medium hover:bg-blue-600 transition-colors duration-200 hidden">
-                    Reset
-                </button>
-            </div> -->
-
-            <!-- Toast Message -->
-            <div id="toast" class="hidden mt-4 p-4 rounded-lg text-center"></div>
-        </section>
-    </main>
+    <div id="toast" class="hidden mt-4 p-4 rounded-lg text-center"></div>
+  </section>
+</main>
 
     <script src="assets/base.js"></script>
     <script>
