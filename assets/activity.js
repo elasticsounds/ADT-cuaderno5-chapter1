@@ -147,21 +147,36 @@ function prepareMultipleChoiceActivity(section) {
 // TRUE FALSE ACTIVITY
 let selectedButton = null;
 
+// Also update prepareTrueFalseActivity with debug logging:
 function prepareTrueFalseActivity(section) {
-  // Select all radio inputs within the section
-  const buttons = section.querySelectorAll("input[type='radio']");
+  console.log("=== Preparing True/False Activity ===");
   
-  // Add event listeners to each radio button
-  buttons.forEach((button) => {
+  // Initialize audio at start
+  initializeAudioElements();
+  
+  const buttons = section.querySelectorAll("input[type='radio']");
+  console.log("Found radio buttons:", buttons.length);
+  
+  buttons.forEach((button, index) => {
+    console.log(`Button ${index + 1}:`, {
+      value: button.value,
+      dataActivityItem: button.getAttribute("data-activity-item"),
+      name: button.name
+    });
+    
     button.addEventListener("click", () => {
-      // Set the clicked button as the selectedButton
-      selectedButton = button;
+      // Play drop sound when button is clicked
+      playActivitySound('drop');
       
-      // Optional: Visually indicate the selection by toggling classes
-      //buttons.forEach(btn => btn.parentElement.classList.remove("selected"));
-      //button.parentElement.classList.add("selected");
+      console.log("Button clicked:", {
+        value: button.value,
+        dataActivityItem: button.getAttribute("data-activity-item")
+      });
+      selectedButton = button;
     });
   });
+  
+  console.log("=== Activity Preparation Complete ===");
 }
 
 /*
@@ -177,54 +192,79 @@ function prepareTrueFalseActivity(section) {
 */
 
 function checkTrueFalse() {
-  // Uncomment to add a no selection error message when the user hits submit.
-  // const noSelectionMessage = document.getElementById(
-  //   "no-selection-error-message"
-  // );
 
-  // if (!selectedButton) {
-  //   noSelectionMessage.classList.remove("hidden");
-  //   return;
-  // }
-
-    // Show error if no selection is made
-    if (!selectedButton) {
-      return;
-    } 
+  // Clear previous feedback
+  document.querySelectorAll(".feedback").forEach(el => el.remove());
+  
+  // Reset all validation marks
+  document.querySelectorAll(".validation-mark").forEach(mark => {
+    mark.classList.add('hidden');
+    mark.textContent = '';
+  });
+  
+  // Get all selected radio buttons
+  const allQuestions = [1, 2, 3, 4, 5];
+  let allCorrect = true;
+  
+  allQuestions.forEach(questionNum => {
+    const selectedButton = document.querySelector(`input[name="question${questionNum}"]:checked`);
     
-
-  const dataActivityItem = selectedButton.getAttribute("data-activity-item");
-  const isCorrect = correctAnswers[dataActivityItem];
-
-  // If the activity includes a correction input.
-  const correctionInput = document.getElementById("correction-input");
-
-  //Show correction input if the correct answer in false.
-  if (correctionInput) {
-    if (
-      isCorrect &&
-      selectedButton.getAttribute("data-activity-item") === "item-2"
-    ) {
-      correctionInput.classList.remove("hidden");
+    if (!selectedButton) {
+      console.log(`Question ${questionNum}: No selection made`);
+      allCorrect = false;
+      return;
     }
-  }
 
-  provideFeedback(selectedButton, isCorrect, correctAnswers[dataActivityItem]);
+    const dataActivityItem = selectedButton.getAttribute("data-activity-item");
+    const selectedValue = selectedButton.value;
+    const expectedAnswer = correctAnswers[dataActivityItem];
+    const isCorrect = expectedAnswer === selectedValue;
+    
+    if (!isCorrect) {
+      allCorrect = false;
+    }
 
-  if (isCorrect) {
-    selectedButton.classList.add("bg-green-200");
-    selectedButton.classList.add("text-black");
+    // Find the validation mark span for this button
+    const validationMark = selectedButton.parentElement.querySelector(".validation-mark");
+    if (validationMark) {
+      validationMark.classList.remove('hidden');
+      if (isCorrect) {
+        validationMark.textContent = '✓';
+        validationMark.classList.add('text-green-600', 'text-lg', 'font-bold', 'bg-white', 'rounded-full', 'w-6', 'h-6', 'flex', 'items-center', 'justify-center');
+      } else {
+        validationMark.textContent = '✗';
+        validationMark.classList.add('text-red-600', 'text-lg', 'font-bold', 'bg-white', 'rounded-full', 'w-6', 'h-6', 'flex', 'items-center', 'justify-center');
+      }
+    }
+
+    // Update button styling
+    const buttonDiv = selectedButton.parentElement.querySelector('div');
+    if (buttonDiv) {
+      buttonDiv.classList.remove('bg-gray-200', 'bg-green-500', 'bg-red-500');
+      if (isCorrect) {
+        buttonDiv.classList.remove('peer-checked:bg-blue-500');
+        buttonDiv.classList.add('bg-green-500');
+      } else {
+        buttonDiv.classList.remove('peer-checked:bg-blue-500');
+        buttonDiv.classList.add('bg-red-500');
+      }
+    }
+  });
+
+  // Play appropriate sound
+  if (allCorrect) {
+    playActivitySound('success');
   } else {
-    selectedButton.classList.add("bg-red-200");
-    selectedButton.classList.add("text-black");
+    playActivitySound('error');
   }
 
   updateSubmitButtonAndToast(
-    isCorrect,
+    allCorrect,
     "Next Activity",
     ActivityTypes.TRUE_FALSE
   );
 }
+
 
 // function selectInteractiveElement(option) {
 //   // Deselect all radio buttons in the same group
@@ -278,43 +318,56 @@ function checkTrueFalse() {
 
 function selectInteractiveElement(option) {
   console.log("=== Selecting option ===");
-  console.log("Option selected:", option);
-  console.log("Option data-activity-item:", option.getAttribute("data-activity-item"));
   
-  // Find the parent group of the clicked option
+  // Get activity item from either label or input
+  const activityItem = getActivityItem(option);
+  console.log("Option selected:", option);
+  console.log("Activity item found:", activityItem);
+  
+  // Find the parent group
   const radioGroup = option.closest('[role="group"]');
   if (!radioGroup) {
     console.log("No radio group found");
     return;
   }
 
-  // Deselect all options in the group
+  // Reset all options
   radioGroup.querySelectorAll(".activity-option").forEach((opt) => {
     console.log("Resetting option:", opt);
-    // Reset appearance
-    opt.classList.remove('ring-2', 'ring-blue-500');
-    const label = opt.querySelector("span");
-    if (label) {
-      label.classList.remove('bg-blue-500', 'text-white');
-      label.classList.add('bg-gray-200', 'text-gray-800');
-    }
     
-    // Remove any previous feedback
-    const feedback = opt.querySelector(".feedback");
-    if (feedback) feedback.remove();
+    // Reset letter circle styling
+    const letterCircle = opt.querySelector('.option-letter').parentElement;
+    letterCircle.className = 'w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center';
+    
+    // Reset the letter color
+    const letter = opt.querySelector('.option-letter');
+    letter.className = 'option-letter text-gray-500';
+    
+    // Reset option container
+    opt.classList.remove('bg-green-50', 'bg-red-50');
+    
+    // Hide feedback
+    const feedback = opt.querySelector('.feedback-container');
+    if (feedback) {
+      feedback.classList.add('hidden');
+    }
   });
 
   // Select the clicked option
-  option.classList.add('ring-2', 'ring-blue-500');
-  const label = option.querySelector("span");
-  if (label) {
-    label.classList.remove('bg-gray-200', 'text-gray-800');
-    label.classList.add('bg-blue-500', 'text-white');
+  const input = option.querySelector('input[type="radio"]');
+  if (input) {
+    input.checked = true;
   }
 
-  // Set selection state
+  // Style the letter circle as selected
+  const letterCircle = option.querySelector('.option-letter').parentElement;
+  letterCircle.className = 'w-8 h-8 rounded-full border-2 border-blue-500 bg-blue-500 flex items-center justify-center';
+  
+  // Change the letter color to white
+  const letter = option.querySelector('.option-letter');
+  letter.className = 'option-letter text-white';
+
   selectedOption = option;
-  console.log("Selection complete. Current selectedOption:", selectedOption);
 }
 
 function validateInputs(activityType) {
@@ -467,85 +520,74 @@ function provideFeedback(element, isCorrect, _correctAnswer, activityType) {
 function checkMultipleChoice() {
   console.log("=== Starting validation ===");
   
-  // Check if an option is selected
   if (!selectedOption) {
     console.log("No option selected");
-    const noSelectionMessage = document.getElementById("no-selection-error-message");
-    if (noSelectionMessage) {
-      noSelectionMessage.classList.remove("hidden");
-    }
     return;
   }
   
-  console.log("Selected option:", selectedOption);
-  console.log("Selected option dataset:", selectedOption.dataset);
-  
-  // Get the data-activity-item value
-  const dataActivityItem = selectedOption.getAttribute("data-activity-item");
-  console.log("data-activity-item value:", dataActivityItem);
-  
-  // Log the correctAnswers object
-  console.log("correctAnswers object:", correctAnswers);
-  
-  // Check if the answer is correct
+  const input = selectedOption.querySelector('input[type="radio"]');
+  const dataActivityItem = getActivityItem(selectedOption);
   const isCorrect = correctAnswers[dataActivityItem];
-  console.log("Is correct?", isCorrect);
-
-  // Remove any existing feedback first
-  document.querySelectorAll(".feedback").forEach(el => {
-    console.log("Removing existing feedback:", el);
-    el.remove();
-  });
-
-  // Create feedback container
-  const feedbackContainer = document.createElement("div");
-  feedbackContainer.className = `feedback flex items-center justify-center mt-4 ${
-    isCorrect ? 'text-green-600' : 'text-red-600'
-  }`;
-
-  // Create feedback icon
-  const icon = document.createElement("span");
-  icon.className = `
-    flex items-center justify-center
-    w-8 h-8 rounded-full
-    ${isCorrect ? 'bg-green-100' : 'bg-red-100'}
-  `;
-  icon.textContent = isCorrect ? '✓' : '✗';
-
-  // Create feedback message
-  const message = document.createElement("span");
-  message.className = "ml-2 font-medium";
-  message.textContent = isCorrect ? "¡Correcto!" : "Incorrect, try again";
-
-  // Assemble and append feedback
-  feedbackContainer.appendChild(icon);
-  feedbackContainer.appendChild(message);
-  selectedOption.appendChild(feedbackContainer);
-
-  // Update option styling based on correctness
-  selectedOption.classList.add(
-    isCorrect ? 'bg-green-50' : 'bg-red-50',
-    'transition-colors',
-    'duration-200'
-  );
-
-  console.log("Updating submit button and toast with isCorrect:", isCorrect);
   
-  // Update submit button and toast
+  // Style the selected option
+  const letterCircle = selectedOption.querySelector('.option-letter').parentElement;
+  letterCircle.className = `w-8 h-8 rounded-full border-2 flex items-center justify-center ${
+    isCorrect 
+      ? 'border-green-500 bg-green-500 text-white' 
+      : 'border-red-500 bg-red-500 text-white'
+  }`;
+  
+  // Show feedback
+  const feedbackContainer = selectedOption.querySelector('.feedback-container');
+  const feedbackIcon = feedbackContainer.querySelector('.feedback-icon');
+  const feedbackText = feedbackContainer.querySelector('.feedback-text');
+  
+  feedbackContainer.classList.remove('hidden');
+  
+  if (isCorrect) {
+    selectedOption.classList.add('bg-green-50');
+    feedbackIcon.className = 'feedback-icon w-5 h-5 rounded-full flex items-center justify-center text-sm bg-green-100 text-green-700';
+    feedbackIcon.textContent = '✓';
+    feedbackText.className = 'feedback-text text-sm font-medium text-green-700';
+    feedbackText.textContent = '¡Correcto!';
+    playActivitySound('success');
+  } else {
+    selectedOption.classList.add('bg-red-50');
+    feedbackIcon.className = 'feedback-icon w-5 h-5 rounded-full flex items-center justify-center text-sm bg-red-100 text-red-700';
+    feedbackIcon.textContent = '✗';
+    feedbackText.className = 'feedback-text text-sm font-medium text-red-700';
+    feedbackText.textContent = 'Incorrect';
+    playActivitySound('error');
+  }
+
   updateSubmitButtonAndToast(
     isCorrect,
     translateText("next-activity"),
     ActivityTypes.MULTIPLE_CHOICE
   );
+}
 
-  // Play appropriate sound
-  if (isCorrect) {
-    playActivitySound('success');
-  } else {
-    playActivitySound('error');
+function getActivityItem(element) {
+  // First check the element itself
+  let activityItem = element.getAttribute('data-activity-item');
+  
+  if (!activityItem) {
+    // If element is a label, check its input
+    const input = element.querySelector('input[type="radio"]');
+    if (input) {
+      activityItem = input.getAttribute('data-activity-item');
+    }
+    
+    // If element is an input, check its parent label
+    if (element.tagName === 'INPUT') {
+      const label = element.closest('.activity-option');
+      if (label) {
+        activityItem = label.getAttribute('data-activity-item') || activityItem;
+      }
+    }
   }
   
-  console.log("=== Validation complete ===");
+  return activityItem;
 }
 
 
@@ -789,41 +831,55 @@ function updateSubmitButtonAndToast(
   }
 }
 
+// Update retryActivity to play reset sound
 function retryActivity() {
+  console.log("=== Retrying Activity ===");
+  
+  // Play reset sound
+  playActivitySound('reset');
+  
   // Remove all feedback messages
   const allFeedbacks = document.querySelectorAll(".feedback");
-  allFeedbacks.forEach((feedback) => feedback.remove());
+  allFeedbacks.forEach((feedback) => {
+    console.log("Removing feedback:", feedback);
+    feedback.remove();
+  });
 
   // Remove toast message
   const toast = document.getElementById("toast");
   if (toast) {
+    console.log("Removing toast");
     toast.remove();
   }
 
-  // Remove cross marks from incorrect options
-  const allMarks = document.querySelectorAll(".mark");
-  allMarks.forEach((mark) => mark.remove());
-
-  // Reset background color and enable clicking again
-  const allLabels = document.querySelectorAll(".activity-option span");
-  allLabels.forEach((label) => {
-    label.classList.remove("bg-green-600", "bg-red-200", "text-black");
-    label.classList.add("bg-gray-200", "hover:bg-gray-300");
+  // Remove styling from all radio buttons
+  const allRadioButtons = document.querySelectorAll("input[type='radio']");
+  allRadioButtons.forEach((button) => {
+    console.log("Resetting radio button:", button);
+    button.classList.remove("bg-green-200", "bg-red-200", "text-black");
   });
 
-  // Reset button text and remove event listener
+  // Reset selected button
+  selectedButton = null;
+  console.log("Reset selectedButton to null");
+
+  // Reset button text and event listeners
   const submitButton = document.getElementById("submit-button");
-
   if (submitButton) {
+    console.log("Resetting submit button");
     submitButton.textContent = translateText("submit-text");
-    submitButton.setAttribute("aria-label", translateText("submit-text")); // Add an aria-label for screen readers
+    submitButton.setAttribute("aria-label", translateText("submit-text"));
 
-    // Remove any lingering event listeners
+    // Remove event listeners
     submitButton.removeEventListener("click", retryHandler);
     submitButton.removeEventListener("click", validateHandler);
 
+    // Add back the validation handler
     submitButton.addEventListener("click", validateHandler);
+    console.log("Restored validation handler");
   }
+
+  console.log("=== Retry Setup Complete ===");
 }
 
 // SORTING ACTIVITY
@@ -1154,6 +1210,7 @@ function removeWord(listItem) {
 
 function checkSorting() {
   const feedbackElement = document.getElementById("feedback");
+  const toast = document.getElementById("toast");
   let correctCount = 0;
   let incorrectCount = 0;
 
@@ -1274,21 +1331,36 @@ function checkSorting() {
     });
   });
 
-  // Rest of the validation logic remains the same...
   const totalPlacedWords = document.querySelectorAll('.placed-word').length;
   const totalWords = Object.keys(correctAnswers).length;
   const allWordsPlaced = totalPlacedWords === totalWords;
   const allCorrect = correctCount === totalWords;
 
+  // Handle incomplete placement case
   if (!allWordsPlaced) {
     const message = `Please place all words in categories before submitting. (${totalPlacedWords}/${totalWords} words placed)`;
+    
+    // Update both feedback element and toast
     feedbackElement.textContent = message;
     feedbackElement.classList.remove("text-green-500");
     feedbackElement.classList.add("text-red-500");
+    
+    if (toast) {
+      toast.textContent = message;
+      toast.classList.remove("hidden", "bg-green-200", "text-green-700");
+      toast.classList.add("bg-red-200", "text-red-700");
+      
+      // Hide toast after 3 seconds
+      setTimeout(() => {
+        toast.classList.add("hidden");
+      }, 3000);
+    }
+    
     activityAudio.error.play().catch(err => console.log('Audio play failed:', err));
     return;
   }
 
+  // Play appropriate sound and construct feedback message
   if (allCorrect) {
     activityAudio.success.play().catch(err => console.log('Audio play failed:', err));
   } else {
@@ -1296,9 +1368,26 @@ function checkSorting() {
   }
 
   const feedbackMessage = `You have ${correctCount} correct answers and ${incorrectCount} incorrect answers.${allCorrect ? ' Great job!' : ' Try again!'}`;
+  
+  // Update both feedback element and toast with the result
   feedbackElement.textContent = feedbackMessage;
   feedbackElement.classList.remove("text-red-500", "text-green-500");
   feedbackElement.classList.add(allCorrect ? "text-green-500" : "text-red-500");
+
+  if (toast) {
+    toast.textContent = feedbackMessage;
+    toast.classList.remove("hidden");
+    toast.classList.remove("bg-red-200", "text-red-700", "bg-green-200", "text-green-700");
+    toast.classList.add(
+      allCorrect ? "bg-green-200" : "bg-red-200",
+      allCorrect ? "text-green-700" : "text-red-700"
+    );
+    
+    // Hide toast after 3 seconds
+    setTimeout(() => {
+      toast.classList.add("hidden");
+    }, 3000);
+  }
 
   updateSubmitButtonAndToast(
     allCorrect,
